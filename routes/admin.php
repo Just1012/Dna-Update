@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DaySettingController;
 use App\Http\Controllers\Dashboard\DurationController;
+use App\Http\Controllers\Dashboard\ImageSettingController;
 use App\Http\Controllers\Dashboard\ItemController;
 use App\Http\Controllers\Dashboard\MealController;
 use App\Http\Controllers\Dashboard\MenuController;
@@ -184,6 +185,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
         });
 
+
+
+        Route::prefix('image')->group(function () {
+            Route::get('/imageSetting/edit', [ImageSettingController::class, 'editImageSetting'])->name('editImageSetting');
+            Route::post('/imageSetting/update', [ImageSettingController::class, 'updateImageSetting'])->name('updateImageSetting');
+        });
         Route::prefix('order')->group(function () {
             Route::get('/index', [OrderController::class, 'index'])->name('order.index');
             Route::get('/dataTable', [OrderController::class, 'getOrder'])->name('order.dataTable');

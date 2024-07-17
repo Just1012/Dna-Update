@@ -295,7 +295,7 @@
             let inputPhone = document.querySelector('#phone');
             let phoneDiv = document.querySelector('.phone_inputs');
             inputPhone.addEventListener('focusin', () => {
-                phoneDiv.style.border = '1px solid #EA6A12';
+                phoneDiv.style.border = '1px solid #295E4E';
             });
             inputPhone.addEventListener('focusout', () => {
                 phoneDiv.style.border = '1px solid #33333378';

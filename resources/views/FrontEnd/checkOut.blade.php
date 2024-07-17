@@ -93,7 +93,7 @@
 
                         <div class="item align-items-center mt-3">
                             <div class="icon">
-                                <i style="font-size: 30px;color:#EA6A12;" class="fa-regular fa-clock"></i>
+                                <i style="font-size: 30px;color:#295E4E;" class="fa-regular fa-clock"></i>
                             </div>
                             <div class="info d-flex justify-content-between align-items-center w-100">
                                 <h5 class="name">{{ $duration->title_en }}</h5>
@@ -175,7 +175,7 @@
                                         </div>
                                         <input type="submit" value="Login" class="mb-4">
                                         <p class="text-center any_account log w-100">
-                                            {{ trans('messages.don’t_have_an_account') }} <span style="cursor:pointer;color: #EA6A12;"
+                                            {{ trans('messages.don’t_have_an_account') }} <span style="cursor:pointer;color: #295E4E;"
                                                 onclick="toggleForm('signup')">{{ trans('messages.sign_up') }}</span>
                                         </p>
                                     </div>
@@ -225,7 +225,7 @@
                                         </div>
                                         <input type="submit" value="{{ trans('messages.register') }}">
                                         <p class="text-center any_account w-100 mt-4">
-                                            {{ trans('messages.already_have_an_account') }} <span style="cursor:pointer;color: #EA6A12;"
+                                            {{ trans('messages.already_have_an_account') }} <span style="cursor:pointer;color: #295E4E;"
                                                 onclick="toggleForm('signin')">{{ trans('messages.sign_in') }}</span>
                                         </p>
                                     </div>
@@ -333,7 +333,7 @@
                                 {{ trans('messages.you_have_to_sign') }}
                             </label>
                             <span class="btn btn-dark rounded mb-5"
-                                style="width: 80%; background-color: #EA6A12; border:none;" data-bs-toggle="modal"
+                                style="width: 80%; background-color: #295E4E; border:none;" data-bs-toggle="modal"
                                 data-bs-target="#addModals">{{ trans('messages.login_or_register') }}
                             </span>
                         </div>
@@ -618,7 +618,7 @@
             });
 
             inputPhone.addEventListener('focusin', () => {
-                inputPhone.closest('.phone_inputs').style.border = '1px solid #EA6A12';
+                inputPhone.closest('.phone_inputs').style.border = '1px solid #295E4E';
             });
 
             inputPhone.addEventListener('focusout', () => {

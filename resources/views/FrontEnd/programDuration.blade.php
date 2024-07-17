@@ -39,8 +39,8 @@
         }
 
         .custom-tiles .custom-tile.active {
-            background-color: #ea6a12;
-            border-color: #ea6a12;
+            background-color: #295E4E;
+            border-color: #295E4E;
             color: #fff;
         }
 
@@ -74,7 +74,7 @@
 
         .custom-tiles .custom-tile p span {
             font-weight: bold;
-            color: #ea6a12;
+            color: #295E4E;
         }
     </style>
     <div class="program_details">
@@ -210,7 +210,8 @@
                                         @foreach ($program->menu->Menu as $item)
                                             <div class="custom-tile" data-id="{{ $item->Item1->id }}">
                                                 <div class="custom-image">
-                                                    <img src="{{ asset('images/' . $item->Item1->image) }}" alt="Meal Image">
+                                                    <img src="{{ asset('images/' . $item->Item1->image) }}"
+                                                        alt="Meal Image">
                                                 </div>
                                                 <h6>{{ $item->Item1->{'title_' . App::getLocale()} }}</h6>
                                             </div>
@@ -222,13 +223,13 @@
                                 <!-- Multi Selected -->
                                 <div class="btns mt-2">
                                     <button class="prev-stp" type="button">{{ trans('messages.go_back') }}</button>
-                                    <button class="next-stp" type="button">{{ trans('messages.next_step') }}</button>
+                                    <button class="next-stp" type="submit">{{ trans('messages.check_out') }}</button>
                                 </div>
                             </div>
                             <!-- Step 3 end -->
 
                             <!-- Step 4 start -->
-                            <div class="stp step-4">
+                            {{-- <div class="stp step-4">
                                 <img src="{{ asset('front/images/icon-thank-you.svg') }}" alt="" />
                                 <div class="header">
                                     <h1 class="title">{{ trans('messages.thank_you') }}</h1>
@@ -237,7 +238,7 @@
                                     </p>
                                 </div>
                                 <button class="next-stp" type="submit">{{ trans('messages.check_out') }}</button>
-                            </div>
+                            </div> --}}
                             <!-- Step 4 end -->
                         </form>
                     </div>

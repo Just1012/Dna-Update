@@ -6,24 +6,25 @@
     <style>
         .pagination .page-link:focus,
         .pagination .page-link:hover {
-            color: #EA6A12;
+            color: #295E4E;
             background-color: #fff;
-            border-color: #EA6A12;
+            border-color: #295E4E;
             outline: none;
             box-shadow: none;
         }
+
         .products {
-    & .boxes {
-        & .box {
-            & .image {
-                img {
-                  
-                    height: 100%;
+            & .boxes {
+                & .box {
+                    & .image {
+                        img {
+
+                            height: 100%;
+                        }
+                    }
                 }
             }
         }
-    }
-}
     </style>
     <!-- slider -->
     <section class="slider">
@@ -32,19 +33,25 @@
                 @foreach ($data['slider_main'] as $index => $slider)
                     <div class="carousel-item {{ $index == 0 ? 'active' : '' }}" data-bs-interval="10000">
                         <img src="{{ asset('images/' . $slider->image) }}" class="d-block w-100" alt="{{ $slider->title_en }}">
-                        @if( $slider->title_en || $slider->title_ar || $slider->description_en || $slider->description_ar || $slider->link_btn || $slider->link)
-                        <div class="carousel-caption d-none d-md-block">
-                            <h2>{{ App::getLocale() == 'ar' ? $slider->title_ar : $slider->title_en }}</h2>
-                            
-                            <p>{!! App::getLocale() == 'ar' ? $slider->description_ar : $slider->description_en !!}</p>
-                            @if($slider->link_btn || $slider->link)
-                            <a target="_blank" href="{{ $slider->link }}"
-                                style="color: {{ $slider->link_btn_color }}; background-color:{{ $slider->link_btn_bg }}"
-                                class="btn">{{ $slider->link_btn }}</a>
+                        @if (
+                            $slider->title_en ||
+                                $slider->title_ar ||
+                                $slider->description_en ||
+                                $slider->description_ar ||
+                                $slider->link_btn ||
+                                $slider->link)
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2>{{ App::getLocale() == 'ar' ? $slider->title_ar : $slider->title_en }}</h2>
+
+                                <p>{!! App::getLocale() == 'ar' ? $slider->description_ar : $slider->description_en !!}</p>
+                                @if ($slider->link_btn || $slider->link)
+                                    <a target="_blank" href="{{ $slider->link }}"
+                                        style="color: {{ $slider->link_btn_color }}; background-color:{{ $slider->link_btn_bg }}"
+                                        class="btn">{{ $slider->link_btn }}</a>
                                 @endif
-                        </div>
+                            </div>
                         @endif
-                        
+
                     </div>
                 @endforeach
             </div>
@@ -87,9 +94,11 @@
                                                 </div>
                                                 <div class="offer">
                                                     <h2 style="color: #000 !important;" class="mb-2 text-center">
-    {{ App::getLocale() == 'ar' ? $programs->title_ar : $programs->title_en }}
-</h2>
-                                                    <p class="mb-0">{{ Str::limit(App::getLocale() == 'ar' ? $programs->description_ar : $programs->description_en, 100) }}</p>
+                                                        {{ App::getLocale() == 'ar' ? $programs->title_ar : $programs->title_en }}
+                                                    </h2>
+                                                    <p class="mb-0">
+                                                        {{ Str::limit(App::getLocale() == 'ar' ? $programs->description_ar : $programs->description_en, 100) }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </a>
@@ -137,7 +146,7 @@
                             <a href="#" class="d-flex justify-content-center align-items-center">
                                 <span>{{ trans('messages.view_all') }}</span>
                                 <i class="ri-arrow-drop-right-line rounded-circle mx-1"
-                                    style="background-color: #EA6A12; color: #fff; font-size: 25px;"></i>
+                                    style="background-color: #295E4E; color: #fff; font-size: 25px;"></i>
                             </a>
                         </div>
                         <div class="content_sub d-flex justify-content-start g-2 flex-wrap" id="subCategoriesContent">
@@ -148,8 +157,8 @@
             </div>
         </div>
     </section>
-    
- 
+
+
 
     <!-- Products Section -->
     <section class="products small">

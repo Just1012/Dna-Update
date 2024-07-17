@@ -3,7 +3,11 @@
         <div class="container">
             <div class="content">
                 <a href="{{ route('front.index') }}" class="logo">
-                    <img src="{{ asset('web/assets/images/logo-light.png') }}" alt="">
+                    @php
+                        $images = App\Models\ImageSetting::first();
+                    @endphp
+
+                    <img src="{{ asset('images/' . $images->main_logo) }}" alt="">
                 </a>
                 <div class="links">
                     <ul class="m-0 p-0 d-flex justify-content-center align-items-center g-2">
@@ -74,7 +78,7 @@
                                     </div>
                                     <div class="personal_info">
                                         <h6 class="m-0">{{ auth()->user()->name }}</h6>
-                                        <p class="m-0 mt-1">{{__('messages.WelcomeInDNA')}}</p>
+                                        <p class="m-0 mt-1">{{ __('messages.WelcomeInDNA') }}</p>
                                     </div>
                                 </div>
                                 <div class="dropdown_personal">
@@ -82,7 +86,7 @@
                                         <li><a
                                                 href="{{ route('front.profile', ['id' => auth()->user()->id]) }}">Profile</a>
                                         </li>
-                                        <li><a href="#">{{__('messages.PrivacySetting')}}</a></li>
+                                        <li><a href="#">{{ __('messages.PrivacySetting') }}</a></li>
                                         <hr class="m-0">
                                         <li>
                                             <a class="dropdown-item" href="auth-logout-basic.html"
@@ -90,7 +94,8 @@
                                                 onclick="event.preventDefault();
                                       document.getElementById('logout-form').submit();"><i
                                                     class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
-                                                    class="align-middle" data-key="t-logout">{{__('messages.Logout')}}</span></a>
+                                                    class="align-middle"
+                                                    data-key="t-logout">{{ __('messages.Logout') }}</span></a>
                                             <form id="logout-form" action="{{ route('front.logout') }}" method="POST"
                                                 class="d-none">
                                                 @csrf
@@ -105,8 +110,8 @@
                                 <div class="info">
 
                                     <div class="personal_info">
-                                        <h6 class="m-0"><a class="btn" style="background-color:#EA6A12; color:#fff;"
-                                                href="{{ route('front.login') }}">{{__('messages.sign')}}</a></h6>
+                                        <h6 class="m-0"><a class="btn" style="background-color:#295E4E; color:#fff;"
+                                                href="{{ route('front.login') }}">{{ __('messages.sign') }}</a></h6>
 
                                     </div>
                                 </div>

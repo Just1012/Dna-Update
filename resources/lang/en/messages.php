@@ -1,7 +1,7 @@
 <?php
 return [
     'home_page' => 'Home Page',
-    'programs' => 'Programs',
+    'programs' => 'All Programs',
     'view_all' => 'View All',
     'menu_category' => 'Menu Category',
     'sub_category' => 'Sub Category',
@@ -13,7 +13,7 @@ return [
     'PrivacySetting'=>'Privacy Setting',
     'sign'=>'sign in / up',
     'Logout'=>'Logout',
-    'WelcomeInDNA'=>'Welcome In DNA',
+    'WelcomeInDNA'=>'Welcome to DNA, your path to a healthier lifestyle',
 
     'sign_in' => 'Sign In',
     'stay_connected' => 'Sign in to stay connected.',

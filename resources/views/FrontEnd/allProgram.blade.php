@@ -44,7 +44,11 @@
     </style>
 
     <div class="wrapper">
-        <img src="./images/bg.png" alt="">
+        @php
+            $images = App\Models\ImageSetting::first();
+        @endphp
+
+        <img style="height: 300px !important; object-fit:cover;" src="{{ asset('images/' . $images->all_program_image) }}" alt="">
         <div class="text">
             <h1>{{ trans('messages.programs') }}</h1>
         </div>
@@ -62,7 +66,8 @@
                             <img src="{{ asset('images/' . $program->image) }}" alt="">
                         </div>
                         <div class="offer">
-                            <h2 class="mb-2 text-center">{{ App::getLocale() == 'ar' ? $program->title_ar : $program->title_en }}</h2>
+                            <h2 class="mb-2 text-center">
+                                {{ App::getLocale() == 'ar' ? $program->title_ar : $program->title_en }}</h2>
                             <p class="mb-0">
                                 {!! Str::limit(App::getLocale() == 'ar' ? $program->description_ar : $program->description_en, 100) !!}
                             </p>

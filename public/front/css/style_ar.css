@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 body {
-    background-color: #fcf8ee;
+    background-color: #E4E4E6;
     font-family: "Cairo", sans-serif;
 }
 ul {
@@ -18,7 +18,7 @@ a {
     text-decoration: none;
 }
 ::selection {
-    background-color: #ea6a12;
+    background-color: #295E4E;
     color: #fff;
 }
 input[type="number"]::-webkit-inner-spin-button,
@@ -59,7 +59,7 @@ nav {
                     i {
                         color: #989a95;
                         &.active {
-                            color: #ea6a12;
+                            color: #295E4E;
                         }
                     }
                     .dropdown {
@@ -108,7 +108,7 @@ nav {
                             }
                             p {
                                 font-weight: 500;
-                                color: #ea6a12;
+                                color: #295E4E;
                             }
                         }
                     }
@@ -130,7 +130,7 @@ nav {
                                     color: #000;
                                     transition: 0.3s all ease-in-out;
                                     &:hover {
-                                        color: #ea6a12;
+                                        color: #295E4E;
                                     }
                                 }
                             }
@@ -171,7 +171,7 @@ nav {
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border-radius: 10px;
-            border: 1px solid #ef9355;
+            border: 1px solid #295E4E;
 
             h2 {
                 font-weight: 700;
@@ -185,7 +185,7 @@ nav {
             }
 
             .btn {
-                background-color: #ea6a12;
+                background-color: #295E4E;
                 color: #fff;
                 padding: 8px 40px;
 
@@ -240,7 +240,7 @@ nav {
                 .icon {
                     width: 25px;
                     height: 25px;
-                    background-color: #ea6a12;
+                    background-color: #295E4E;
                     color: #fff;
                     border-radius: 50%;
                     display: flex;
@@ -365,7 +365,7 @@ nav {
                         position: absolute;
                         width: 30px;
                         height: 2px;
-                        background-color: #ea6a12;
+                        background-color: #295E4E;
                         left: 50%;
                         bottom: -100%;
                         transform: translate(-50%, -50%);
@@ -378,12 +378,12 @@ nav {
                         width: 40px;
                         height: 40px;
                         border-radius: 50%;
-                        background-color: #ea6a12;
+                        background-color: #295E4E;
                         color: #fff;
                     }
                 }
                 &.active {
-                    background-color: #ea6a12;
+                    background-color: #295E4E;
                     h6 {
                         color: #fff;
                         &::before {
@@ -394,7 +394,7 @@ nav {
                     .icon {
                         i {
                             background-color: #fff;
-                            color: #ea6a12;
+                            color: #295E4E;
                         }
                     }
                 }
@@ -418,7 +418,7 @@ nav {
                     }
                 }
                 i {
-                    background-color: #ea6a12;
+                    background-color: #295E4E;
                     color: #fff;
                     font-size: 25px;
                     width: 30px;
@@ -441,8 +441,8 @@ nav {
                 height: 150px;
                 overflow: auto;
                 .btn {
-                    color: #ea6a12 !important;
-                    border: 1px solid #ea6a12 !important;
+                    color: #295E4E !important;
+                    border: 1px solid #295E4E !important;
                     border-radius: 30px;
                     margin: 0 8px 8px 0;
                     padding: 8px 27px;
@@ -461,7 +461,7 @@ nav {
                         border-radius: inherit;
                         scale: 0;
                         z-index: -1;
-                        background-color: #ea6a12;
+                        background-color: #295E4E;
                         transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
                     }
                     &:hover {
@@ -494,7 +494,7 @@ nav {
                 justify-content: start;
                 align-items: center;
                 gap: 4px;
-                 flex-wrap: nowrap !important; 
+                 flex-wrap: nowrap !important;
             }
         }
     }
@@ -593,7 +593,7 @@ nav {
                 width: 100%;
 
                 span {
-                    color: #ea6a12;
+                    color: #295E4E;
                     font-weight: 500;
                 }
 
@@ -622,14 +622,14 @@ nav {
                     gap: 0;
 
                     span {
-                        color: #ea6a12;
+                        color: #295E4E;
                     }
 
                     svg {
                         color: #fff;
                         width: 16px;
                         height: 16px;
-                        background: #ea6a12;
+                        background: #295E4E;
                         border-radius: 50%;
                         padding: 4px;
                     }
@@ -651,7 +651,7 @@ nav {
             }
 
             &:hover {
-                background-color: #ef9355;
+                background-color: #295E4E;
 
                 span,
                 p,
@@ -718,7 +718,7 @@ nav {
         top: 0;
         right: 0;
         transform: translate(9%, -58%) scale(3);
-        background-color: rgba(234, 106, 18, 0.2);
+        background-color:  rgba(41, 94, 78, 0.2);
     }
     .content {
         display: flex;
@@ -755,9 +755,9 @@ nav {
                         outline: none;
                         border: 1px solid #eee;
                         padding: 0 15px;
-                        caret-color: #ea6a12;
+                        caret-color: #295E4E;
                         &:focus {
-                            border: 1px solid #ea6a12;
+                            border: 1px solid #295E4E;
                         }
                     }
                     &:nth-child(3) {
@@ -776,7 +776,7 @@ nav {
                 }
                 a {
                     text-decoration: none;
-                    color: #ea6a12;
+                    color: #295E4E;
                     font-weight: 500;
                 }
                 input[type="submit"] {
@@ -785,7 +785,7 @@ nav {
                     padding: 8px 40px;
                     border-radius: 10px;
                     border: 0;
-                    background: #ea6a12;
+                    background: #295E4E;
                     color: #fff;
                 }
             }
@@ -810,7 +810,7 @@ nav {
                 font-weight: 500;
                 width: 80%;
                 a {
-                    color: #ea6a12;
+                    color: #295E4E;
                     font-weight: 500;
                     text-decoration: none;
                 }
@@ -869,9 +869,9 @@ nav {
                             outline: none;
                             border: 1px solid #eee;
                             padding: 0 15px;
-                            caret-color: #ea6a12;
+                            caret-color: #295E4E;
                             &:focus {
-                                border: 1px solid #ea6a12;
+                                border: 1px solid #295E4E;
                             }
                         }
                         &:nth-child(3) {
@@ -890,7 +890,7 @@ nav {
                     }
                     a {
                         text-decoration: none;
-                        color: #ea6a12;
+                        color: #295E4E;
                         font-weight: 500;
                     }
                     input[type="submit"] {
@@ -899,7 +899,7 @@ nav {
                         padding: 8px 40px;
                         border-radius: 10px;
                         border: 0;
-                        background: #ea6a12;
+                        background: #295E4E;
                         color: #fff;
                     }
                 }
@@ -924,7 +924,7 @@ nav {
                     font-weight: 500;
                     width: 100%;
                     a {
-                        color: #ea6a12;
+                        color: #295E4E;
                         font-weight: 500;
                         text-decoration: none;
                     }
@@ -944,7 +944,7 @@ nav {
         position: absolute;
         height: 512px;
         width: 512px;
-        background: rgba(234, 106, 18, 0.2);
+        background: #295E4E;
         -webkit-border-radius: 50%;
         border-radius: 50%;
         top: 0;
@@ -988,9 +988,9 @@ nav {
                         outline: none;
                         border: 1px solid #eee;
                         padding: 0 15px;
-                        caret-color: #ea6a12;
+                        caret-color: #295E4E;
                         &:focus {
-                            border: 1px solid #ea6a12;
+                            border: 1px solid #295E4E;
                         }
                     }
                 }
@@ -1000,7 +1000,7 @@ nav {
                     padding: 8px 40px;
                     border-radius: 10px;
                     border: 0;
-                    background: #ea6a12;
+                    background: #295E4E;
                     color: #fff;
                 }
             }
@@ -1088,9 +1088,9 @@ nav {
                             outline: none;
                             border: 1px solid #eee;
                             padding: 0 15px;
-                            caret-color: #ea6a12;
+                            caret-color: #295E4E;
                             &:focus {
-                                border: 1px solid #ea6a12;
+                                border: 1px solid #295E4E;
                             }
                         }
                     }
@@ -1138,9 +1138,9 @@ nav {
                             outline: none;
                             border: 1px solid #eee;
                             padding: 0 15px;
-                            caret-color: #ea6a12;
+                            caret-color: #295E4E;
                             &:focus {
-                                border: 1px solid #ea6a12;
+                                border: 1px solid #295E4E;
                             }
                         }
                     }
@@ -1262,7 +1262,7 @@ nav {
                             justify-content: center;
                             align-items: center;
                             flex-direction: column;
-                            background-color: #ea6a12;
+                            background-color: #295E4E;
                             border-radius: 3px;
                             padding: 7px;
                             p,
@@ -1317,7 +1317,7 @@ nav {
             flex-direction: column;
         }
         .form .form-container .form-sidebar {
-            background-color: #ea6a12;
+            background-color: #295E4E;
             width: 100%;
             padding: 3rem 2rem;
             display: flex;
@@ -1344,7 +1344,7 @@ nav {
             font-weight: 700;
         }
         .form .form-container .form-sidebar .step.active .circle {
-            background-color: #ef9355 !important;
+            background-color: #295E4E !important;
             color: #fff !important;
         }
         .form .form-container .form-sidebar .step .step-content {
@@ -1437,7 +1437,7 @@ nav {
                         p {
                             span {
                                 font-weight: bold;
-                                color: #ea6a12;
+                                color: #295E4E;
                             }
                         }
                     }
@@ -1497,7 +1497,7 @@ nav {
                         margin: auto;
                         i {
                             font-size: 50px;
-                            color: #ea6a12;
+                            color: #295E4E;
                         }
                     }
                     h6,
@@ -1507,7 +1507,7 @@ nav {
                     p {
                         span {
                             font-weight: bold;
-                            color: #ea6a12;
+                            color: #295E4E;
                         }
                     }
                 }
@@ -1909,10 +1909,10 @@ nav {
             text-align: center;
             padding: 10px;
             cursor: pointer;
-            color: #EA6A12;
+            color: #295E4E;
             font-size: 18px;
             &.active{
-              border-bottom: 2px solid #EA6A12;
+              border-bottom: 2px solid #295E4E;
             }
           }
         }
@@ -1934,7 +1934,7 @@ nav {
                   h5{
                     margin: 0;
                     position: relative;
-                    background-color: #EA6A12;
+                    background-color: #295E4E;
                     color: #fff;
                     padding: 15px;
                   }
@@ -1944,7 +1944,7 @@ nav {
                   height: 30px;
                   position: absolute;
                   right: 0;
-                  background-color: #EA6A12;
+                  background-color: #295E4E;
                   display: flex;
                   justify-content: center;
                   align-items: center;
@@ -1974,10 +1974,10 @@ nav {
                     outline: none;
                     border: 1px solid #33333378;
                     padding: 0 15px;
-                    caret-color: #EA6A12;
+                    caret-color: #295E4E;
                     background-color: transparent;
                     &:focus{
-                      border: 1px solid #EA6A12;
+                      border: 1px solid #295E4E;
                     }
                   }
                 }
@@ -2036,7 +2036,7 @@ nav {
                 margin-top: 1rem;
                 border-radius: 5px;
                 color: #fff;
-                background-color: #EA6A12;
+                background-color: #295E4E;
                 cursor: pointer;
               }
             }
