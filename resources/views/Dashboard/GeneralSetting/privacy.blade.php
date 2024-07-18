@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="https://jeremyfagis.github.io/dropify/dist/css/dropify.min.css">
 @endpush
 @section('title')
-    Bid Sponsor Page Setting
+Terms & Conditions
 @endsection
 @section('content')
     <style>
@@ -37,14 +37,14 @@
             <div class="col-md-9 mx-auto">
                 <div class="card ">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Bid Sponsor Page Setting</h4>
+                        <h4 class="card-title mb-0">Terms & Conditions</h4>
                         <div class="card-body ">
                             <div class="listjs-table" id="customerList">
                                 <div class="row g-4 mb-3">
                                     <div class="col-sm-auto">
                                         <div>
                                             <a class="btn btn-success add-btn" id="create-btn"
-                                                href="{{ route('sponsor.index') }}">Back</a>
+                                                href="{{ route('dashboard') }}">Back</a>
                                         </div>
                                     </div>
                                 </div>
@@ -53,17 +53,23 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
-                                        <h4 class="mt-2">Privacy</h4>
+                                        <h4 class="mt-2">Terms & Conditions</h4>
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="titleEnTextarea" class="form-label">Privacy Ar</label>
-                                                <textarea class="form-control" name="privacy_ar" placeholder="Privacy Ar" rows="4" id="myeditorinstance">{{ $privacy->privacy_ar ?? '' }}</textarea>
+                                                <label for="titleEnTextarea" class="form-label">Terms & Conditions Ar</label>
+                                                <textarea class="form-control" name="privacy_ar" placeholder="Terms & Conditions Ar" rows="4" id="myeditorinstance">{{ $privacy->privacy_ar ?? '' }}</textarea>
                                             </div>
                                         </div><!--end col-->
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="titleEnTextarea" class="form-label">Privacy En</label>
-                                                <textarea class="form-control" name="privacy_en" placeholder="Privacy En" rows="4" id="myeditorinstance">{{ $privacy->privacy_en ?? '' }}</textarea>
+                                                <label for="titleEnTextarea" class="form-label">Terms & Conditions En</label>
+                                                <textarea class="form-control" name="privacy_en" placeholder="Terms & Conditions En" rows="4" id="myeditorinstance">{{ $privacy->privacy_en ?? '' }}</textarea>
+                                            </div>
+                                        </div><!--end col-->
+
+                                        <div class="col-lg-12">
+                                            <div class="text-center">
+                                                <button type="submit" class="btn btn-primary">Save</button>
                                             </div>
                                         </div><!--end col-->
                                     </div>

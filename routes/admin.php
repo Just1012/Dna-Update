@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\MealController;
 use App\Http\Controllers\Dashboard\MenuController;
 use App\Http\Controllers\Dashboard\MenuItemController;
 use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\PrivacyController;
 use App\Http\Controllers\Dashboard\ProgramController;
 use App\Http\Controllers\Dashboard\ShippingController;
 use App\Http\Controllers\Dashboard\SliderController;
@@ -191,6 +192,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('/imageSetting/edit', [ImageSettingController::class, 'editImageSetting'])->name('editImageSetting');
             Route::post('/imageSetting/update', [ImageSettingController::class, 'updateImageSetting'])->name('updateImageSetting');
         });
+
+        Route::prefix('terms')->group(function () {
+            Route::get('/editPrivacy/edit', [PrivacyController::class, 'editPrivacy'])->name('editPrivacy');
+            Route::post('/updatePrivacy/update', [PrivacyController::class, 'updatePrivacy'])->name('updatePrivacy');
+        });
+        
         Route::prefix('order')->group(function () {
             Route::get('/index', [OrderController::class, 'index'])->name('order.index');
             Route::get('/dataTable', [OrderController::class, 'getOrder'])->name('order.dataTable');
