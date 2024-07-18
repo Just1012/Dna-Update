@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('privacies', function (Blueprint $table) {
             $table->id();
+            $table->longText('privacy_ar');
+            $table->longText('privacy_en');
             $table->timestamps();
         });
     }
