@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PrivacyController extends Controller
 {
-    public function editBigSponsor()
+    public function editPrivacy()
     {
         $privacy = Privacy::first();
         return view('Dashboard.GeneralSetting.privacy', compact('privacy'));
@@ -19,12 +19,12 @@ class PrivacyController extends Controller
 
     // Method to update the existing row
 
-    public function updateBigSponsor(Request $request)
+    public function updatePrivacy(Request $request)
     {
         // Define validation rules
         $rules = [
-            'privacy_ar' => 'nullable|longtext',
-            'privacy_en' => 'nullable|longtext',
+            'privacy_ar' => 'nullable|string',
+            'privacy_en' => 'nullable|string',
         ];
 
         // Validate the request data
