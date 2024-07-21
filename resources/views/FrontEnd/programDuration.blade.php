@@ -115,13 +115,7 @@
                     <div class="form-container">
                         <!-- Sidebar start -->
                         <div class="form-sidebar">
-                            <div class="step active">
-                                <div class="circle" style="width: 57px;">1</div>
-                                <div class="step-content">
-                                    <span>{{ trans('messages.order_duration') }}</span>
-                                    <b>{{ trans('messages.order_duration') }}</b>
-                                </div>
-                            </div>
+
                             <div class="step">
                                 <div class="circle" style="width: 57px;">2</div>
                                 <div class="step-content">
@@ -148,32 +142,7 @@
                         <form style="max-width:100%;" action="{{ route('front.save.card') }}" method="POST">
                             @csrf
                             <!-- Step 1 start -->
-                            <div class="stp step-1 active">
-                                <div class="header">
-                                    <p class="title">{{ trans('messages.please_select_duration') }}</p>
-                                </div>
-                                <div class="tiles_radio">
-                                    @foreach ($durations as $duration)
-                                        <div class="tile_radio">
-                                            <input type="radio" id="duration{{ $duration['duration_id'] }}"
-                                                name="duration" value="{{ $duration['duration_id'] }}">
-                                            <label for="duration{{ $duration['duration_id'] }}">
-                                                <div class="icon">
-                                                    <i class="fa-regular fa-clock"></i>
-                                                </div>
-                                                @php
-                                                    $name = 'title_' . App::getLocale();
-                                                @endphp
-                                                <h6>{{ $duration->duration->$name }}</h6>
-                                                <p>Price: <span>{{ $duration['price'] }}$</span></p>
-                                            </label>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="btns">
-                                    <button class="next-stp" type="button">{{ trans('messages.next_step') }}</button>
-                                </div>
-                            </div>
+
                             <!-- Step 1 end -->
 
                             <!-- Step 2 start -->

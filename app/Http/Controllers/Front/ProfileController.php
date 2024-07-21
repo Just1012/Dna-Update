@@ -71,10 +71,13 @@ class ProfileController extends Controller
 
         $items = collect(json_decode($order->items_id))->map(function ($itemId) {
             $item = Item::find($itemId);
-            return [
-                'name' => $item->{'title_' . app()->getLocale()},
-                'image' => asset('images/' . $item->image)
-            ];
+            if($item){
+                return [
+                    'name' => $item->{'title_' . app()->getLocale()},
+                    'image' => asset('images/' . $item->image)
+                ];
+            }
+
         });
 
         return response()->json([

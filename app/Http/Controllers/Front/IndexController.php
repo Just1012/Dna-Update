@@ -73,39 +73,19 @@ class IndexController extends Controller
     }
     public function programDetails($id)
     {
-        $lang = App::getLocale();
         $programsDetails = Program::with('meals')->find($id);
 
         if (!$programsDetails) {
             return redirect()->back()->with('error', 'Program not found.');
         }
 
-        $meals = [];
-        $addons = [];
-        $mealIds = [];
+        $durations = Program_Duration::where('program_id', $id)
+        ->with('duration')
+        ->selectRaw('duration_id, SUM(price) as price')
+        ->groupBy('duration_id')
+        ->get();
 
-        foreach ($programsDetails->meals as $meal) {
-            // Check if the meal ID is already processed
-            if (!in_array($meal->id, $mealIds)) {
-                if ($meal->type == 1) {
-                    $meals[] = [
-                        'id' => $meal->id,
-                        'title' => $meal->{'title_' . $lang},
-                        'type' => $meal->type
-                    ];
-                } else {
-                    $addons[] = [
-                        'id' => $meal->id,
-                        'title' => $meal->{'title_' . $lang},
-                        'type' => $meal->type
-                    ];
-                }
-
-                $mealIds[] = $meal->id; // Track processed meal IDs
-            }
-        }
-
-        return view('FrontEnd.programDetails', compact('programsDetails', 'meals', 'addons'));
+        return view('FrontEnd.programDetails', compact('programsDetails','durations'));
     }
     protected $id_order = 0;
     public function storeProgramMeals(Request $request, $id)
@@ -148,7 +128,7 @@ class IndexController extends Controller
         return redirect()->route('front.programDuration', ['id' => $program->id]);
     }
 
-    public function programDuration($id)
+    public function programDuration()
     {
         $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
         // Initialize an array to hold all meals and addons
@@ -156,6 +136,11 @@ class IndexController extends Controller
             return redirect()->back()->with('error', 'No items found in the cart.');
         }
 
+        if(count($cart[1]['meals']) < $cart[1]['program']['min_meals']){
+            Toastr::info('You Must select at least '.$cart[1]['program']['min_meals'].' meals','info');
+            return redirect()->back();
+
+        }
         // Initialize an array to hold all meals and addons
         $allItems = [];
 
@@ -174,43 +159,43 @@ class IndexController extends Controller
 
 
         $lang = app()->getLocale();
-        $program = Program::with('menu.Menu.Item1')->find($id);
+        $program = Program::with('menu.Menu.Item1')->find($cart[1]['program']['id']);
 
         if (!$program) {
             return redirect()->back()->with('error', 'Program not found.');
         }
-        $durations = Program_Duration::where('program_id', $id)
-            ->whereIn('meal_id', $allItems)
-            ->with('duration')
-            ->selectRaw('duration_id, SUM(price) as price')
-            ->groupBy('duration_id')
-            ->get();
+        // $durations = Program_Duration::where('program_id', $id)
+        //     ->whereIn('meal_id', $allItems)
+        //     ->with('duration')
+        //     ->selectRaw('duration_id, SUM(price) as price')
+        //     ->groupBy('duration_id')
+        //     ->get();
 
 
-        if ($durations->isEmpty()) {
-            return redirect()->back()->with('error', 'Program durations not found.');
-        }
+        // if ($durations->isEmpty()) {
+        //     return redirect()->back()->with('error', 'Program durations not found.');
+        // }
 
         // dd($userID);
-        return view('FrontEnd.programDuration', compact('program', 'durations'));
+        return view('FrontEnd.programDuration', compact('program'));
     }
 
     public function save_card(Request $request)
     {
         $cart = Session::get('cart_custom');
         // Get the authenticated user's ID, defaulting to 1 if not authenticated
-        $cart[1]['duration_id'] = $request->duration;
+        // $cart[1]['duration_id'] = $request->duration;
         $cart[1]['dont_like'] = $request->dont_like;
         $cart[1]['allergic'] = $request->allergic;
         $cart[1]['items'] = explode(',', $request->items);
-        $durations = Program_Duration::where('program_id', $cart[1]['program']['id'])
-            ->whereIn('meal_id',  $cart[1]['all_meals'])
-            ->with('duration')
-            ->selectRaw('duration_id, SUM(price) as price')
-            ->where('duration_id', '=', $cart[1]['duration_id'])
-            ->groupBy('duration_id')
-            ->first();
-        $cart[1]['total'] = $durations->price;
+        // $durations = Program_Duration::where('program_id', $cart[1]['program']['id'])
+        //     ->whereIn('meal_id',  $cart[1]['all_meals'])
+        //     ->with('duration')
+        //     ->selectRaw('duration_id, SUM(price) as price')
+        //     ->where('duration_id', '=', $cart[1]['duration_id'])
+        //     ->groupBy('duration_id')
+        //     ->first();
+        // $cart[1]['total'] = $durations->price;
         Session::put('cart_custom', $cart);
 
         return redirect()->route('checkout');
@@ -457,5 +442,115 @@ class IndexController extends Controller
 
         Toastr::success("You Are Registered successfully", 'Success');
         return redirect()->back();
+    }
+
+    public function store_duration(Request $request){
+        Session::forget('cart_custom');
+           // Fetch the program
+           $program2 = Program::find($request->id);
+           $userID = auth()->id() ?? 0; // Assuming you are using authentication and want to use the authenticated user ID
+
+           if (!$program2) {
+               return redirect()->back()->with('error', 'Program not found.');
+           }
+           $lang = App::getLocale();
+
+           $cart_custom = Session::get('cart_custom') ?? []; // Get cart_custrom or default to empty array
+           $programs_items=Program_Duration::where('program_id',$program2->id)
+           ->where('duration_id',$request->duration_id)
+           ->with('meal')
+           ->get();
+
+           $meals = [];
+           $addons = [];
+           $mealIds = [];
+
+           foreach ($programs_items as $program) {
+
+
+
+               if (!in_array($program->meal['id'], $mealIds)) {
+                   if ($program->meal['type'] == 1) {
+                    $meals[] = [
+                           'id' => $program->meal['id'],
+                           'title' => $program->meal['title_' . $lang],
+                           'type' => $program->meal['type'],
+                           'price'=>$program->price
+                       ];
+                   } else {
+                       $addons[] = [
+                           'id' => $program->meal['id'],
+                           'title' => $program->meal['title_' . $lang],
+                           'type' => $program->meal['type'],
+                           'price'=>$program->price
+
+                       ];
+                   }
+
+                   $mealIds[] = $program->meal['id']; // Track processed meal IDs
+               }
+
+           }
+           $this->id_order = 1;
+
+
+           $cart_custom[$this->id_order] = array(
+               'id' => $this->id_order,
+               'user_id' => $userID,
+               'meals' => [],
+               'addons' => [],
+               'duration_id' => $request->duration_id,
+               'program' => $program2,
+               'total' => 0,
+               'dont_like' => null,
+               'allergic' => null,
+               'items' => [],
+               'all_meals' => null
+
+           );
+           Session::put('cart_custom', $cart_custom);
+           return response()->json([
+            'addons'=>$addons,
+              'meals'=>$meals
+           ]);
+    }
+    public function store_items(Request $request){
+        $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
+    //    $cart[1]['program']['min_meals'];
+
+
+        $allItems = [];
+        $cart[1]['meals']=$request->meals;
+        $cart[1]['addons']=$request->addons;
+
+
+        if (isset($cart[1])) {
+            $meals = $request->meals ?? [];
+            $addons = $request->addons ?? [];
+            $allItems = array_merge($allItems, $meals, $addons);
+        }
+
+        $cart[1]['all_meals'] = $allItems;
+
+
+
+
+       $durations = Program_Duration::where('program_id', $cart[1]['program']['id'])
+       ->whereIn('meal_id',  $allItems)
+       ->with('duration')
+       ->selectRaw('duration_id, SUM(price) as price')
+       ->where('duration_id', '=', $cart[1]['duration_id'])
+       ->groupBy('duration_id')
+       ->first();
+         $cart[1]['total'] = $durations->price??0;
+
+        Session::put('cart_custom', $cart);
+
+        return response()->json([
+            'a'=>$cart[1],
+            'aa'=>      $cart[1]['program']['min_meals']
+        ]);
+
+
     }
 }

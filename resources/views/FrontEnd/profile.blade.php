@@ -376,6 +376,8 @@
                             // Items list
                             var itemsList = '';
                             response.items.forEach(function(item, index) {
+
+
                                 itemsList += '<tr>';
                                 itemsList += '<td>' + (index + 1) + '</td>';
                                 itemsList +=
@@ -383,6 +385,7 @@
                                     item.image + '" alt="Image"></td>';
                                 itemsList += '<td>' + item.name + '</td>';
                                 itemsList += '</tr>';
+                                    
                             });
                             $('#items-list').html(itemsList);
 
