@@ -12,7 +12,7 @@ class MenuItem extends Model
     use SoftDeletes;
     protected $guarded = [];
     public function Item1(){
-        return $this->belongsTo(Item::class,'item_id');
+        return $this->belongsTo(Item::class,'item_id')->withTrashed();
     }
     public function Menu(){
         return $this->belongsTo(Menu::class);
