@@ -28,7 +28,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/allProgram', [IndexController::class, 'allProgram'])->name('front.allProgram');
     Route::get('/programDetails/{id}', [IndexController::class, 'programDetails'])->name('front.programDetails');
     Route::post('/storeProgramMeals/{id}', [IndexController::class, 'storeProgramMeals'])->name('front.storeProgramMeals');
-    Route::get('/programDuration/{id}', [IndexController::class, 'programDuration'])->name('front.programDuration');
+    Route::get('/programDuration', [IndexController::class, 'programDuration'])->name('front.programDuration');
 
     Route::post('/save/to/card', [IndexController::class, 'save_card'])->name('front.save.card');
     Route::get('/getDays', [IndexController::class, 'getDays'])->name('days.dataTable');
@@ -57,7 +57,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('front.user.update');
     Route::get('/getOrderData/{id}', [ProfileController::class, 'getOrderData']);
 
+    Route::Post('/programDuration', [IndexController::class, 'store_duration'])->name('front.programDuration_store');
 
+    Route::post('/programDuration/store/items',[IndexController::class, 'store_items'])->name('front.store.items');
 
     // Route::get('/dashboard', function () {
     //     return view('welcome');

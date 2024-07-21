@@ -61,14 +61,13 @@
                     <div class="items">
 
                         <div class="items_meal d-flex justify-content-start align-items-center gap-3 flex-wrap">
-                            @foreach ($cart[1]['meals'] as $meal)
+                            @foreach ($cart[1]['all_meals'] as $meal)
                                 @php
                                     $meal = App\Models\Meal::where('id', $meal)->first();
                                 @endphp
 
                                 <div class="item" style="flex: 0 0 48%">
                                     <div class="image">
-                                        <img src="{{ asset('front/images/dish4.png') }}" alt="">
                                     </div>
                                     <div class="info d-flex justify-content-between align-items-center w-100">
                                         <div class="content">
@@ -118,11 +117,13 @@
 
                         <h5 class="my-3 fw-bold">{{ trans('messages.items_dont_like') }} </h5>
                         <div class="items_notLike d-flex justify-content-start align-items-center gap-3 flex-wrap">
+                            @if (isset($cart[1]['items']))
+
                             @foreach ($cart[1]['items'] as $item)
                                 @php
                                     $item = App\Models\Item::where('id', $item)->first();
                                 @endphp
-
+                             @if ($item)
                                 <div class="item" style="flex: 0 0 30%">
                                     <div class="image" style="max-width: 50px">
                                         <img src="{{ asset('images/' . $item->image) }}" alt="">
@@ -131,7 +132,10 @@
                                         <h5 class="name m-0">{{ $item->{'title_' . App::getLocale()} }}</h5>
                                     </div>
                                 </div>
+                                @endif
                             @endforeach
+                            @endif
+
                         </div>
 
                     </div>
