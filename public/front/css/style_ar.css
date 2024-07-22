@@ -62,7 +62,7 @@ nav {
                             color: #295E4E;
                         }
                     }
-                    .dropdown {
+                    /* .dropdown {
                         position: absolute;
                         right: 0;
                         transform: translateY(105%);
@@ -82,7 +82,7 @@ nav {
                             opacity: 1;
                             transform: translateY(83%);
                         }
-                    }
+                    } */
                 }
                 .profile {
                     height: 70px;

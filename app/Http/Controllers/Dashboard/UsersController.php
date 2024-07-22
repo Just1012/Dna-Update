@@ -11,6 +11,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -188,6 +189,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            // $user = auth()->user()->id;
             $user = User::findOrFail($id);
 
             if ($request->has('name')) {

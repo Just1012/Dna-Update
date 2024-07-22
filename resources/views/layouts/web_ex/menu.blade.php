@@ -307,6 +307,10 @@
                                 <a href="{{ route('editImageSetting') }}" class="nav-link"
                                     data-key="t-nft-landing">Web Image Settings</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('editContactSetting') }}" class="nav-link"
+                                    data-key="t-nft-landing">Contact Settings</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
