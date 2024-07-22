@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\MealController;
 use App\Http\Controllers\Dashboard\MenuController;
 use App\Http\Controllers\Dashboard\MenuItemController;
 use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\PrivacyController;
 use App\Http\Controllers\Dashboard\ProgramController;
 use App\Http\Controllers\Dashboard\ShippingController;
 use App\Http\Controllers\Dashboard\SliderController;
@@ -184,6 +185,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('/getSubTypes/{id}', [ShippingController::class, 'getSubTypes'])->name('shipping.getSubTypes');
             Route::post('/storeShippingTime', [ShippingController::class, 'storeShippingTime'])->name('shipping.storeShippingTime');
 
+        });
+
+        Route::prefix('terms')->group(function () {
+            Route::get('/editPrivacy/edit', [PrivacyController::class, 'editPrivacy'])->name('editPrivacy');
+            Route::post('/updatePrivacy/update', [PrivacyController::class, 'updatePrivacy'])->name('updatePrivacy');
         });
 
         Route::prefix('image')->group(function () {

@@ -304,6 +304,10 @@
                                     data-key="t-nft-landing">Shipping Time</a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('editPrivacy') }}" class="nav-link"
+                                    data-key="t-nft-landing">Terms & Conditions</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('editImageSetting') }}" class="nav-link"
                                     data-key="t-nft-landing">Web Image Settings</a>
                             </li>
