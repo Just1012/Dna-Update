@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AboutPageController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ContactSettingController;
 use App\Http\Controllers\Dashboard\DaySettingController;
@@ -190,6 +191,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::prefix('terms')->group(function () {
             Route::get('/editPrivacy/edit', [PrivacyController::class, 'editPrivacy'])->name('editPrivacy');
             Route::post('/updatePrivacy/update', [PrivacyController::class, 'updatePrivacy'])->name('updatePrivacy');
+        });
+        Route::prefix('about')->group(function () {
+            Route::get('/editAboutPage/edit', [AboutPageController::class, 'editAboutPage'])->name('editAboutPage');
+            Route::post('/updateAboutPage/update', [AboutPageController::class, 'updateAboutPage'])->name('updateAboutPage');
         });
 
         Route::prefix('image')->group(function () {

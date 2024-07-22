@@ -308,6 +308,10 @@
                                     data-key="t-nft-landing">Terms & Conditions</a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('editAboutPage') }}" class="nav-link"
+                                    data-key="t-nft-landing">About Page</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('editImageSetting') }}" class="nav-link"
                                     data-key="t-nft-landing">Web Image Settings</a>
                             </li>

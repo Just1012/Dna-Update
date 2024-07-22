@@ -42,7 +42,7 @@ return [
     'reviews' => 'Reviews',
     'photos' => 'Photos',
     'meals' => 'Meals',
-    'addons' => 'Addons',
+    'addons' => 'Extra',
     'next_step' => 'Next Step',
     'checkout' => 'Checkout',
     'main_course' => 'Main Course',
