@@ -15,7 +15,7 @@
                                 count(session('cart_custom')) > 0 &&
                                 session('cart_custom')[1]['allergic']
                         )
-                            <a href="{{ route('checkout') }}" class="mx-2">
+                            <a href="{{ route('checkout') }}" class="mx-2 cart">
                                 <i style="color:#989a95" class="fa-solid fa-cart-shopping"></i>
                                 <span
                                     class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">
@@ -104,6 +104,11 @@
             margin-left: 170px;
         }
 
+        .cart{
+            left: 80px !important;
+            position: relative;
+        }
+
         nav {
             & .content {
                 & .links {
@@ -123,6 +128,11 @@
     <style>
         .lang-switcher {
             margin-right: 90px;
+        }
+
+        .cart{
+            right: 90px !important;
+            position: relative;
         }
 
         nav {

@@ -6,8 +6,16 @@
     box-sizing: border-box;
 }
 body {
-    background-color: #E4E4E6;
+    background-color: #e4e4e6;
     font-family: "Cairo", sans-serif;
+}
+
+.cairo-custom-body {
+    font-family: "Cairo", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400; /* Example weight value, adjust as needed */
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
 }
 ul {
     list-style: none;

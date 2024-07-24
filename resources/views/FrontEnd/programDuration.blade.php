@@ -2,10 +2,25 @@
 @section('title', App::getLocale() == 'ar' ? $program->title_ar : $program->title_en)
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 @endpush
 @section('content')
     @include('layouts.ex_front.header')
     <style>
+        body {
+            background-color: #e4e4e6;
+            font-family: "Cairo", sans-serif;
+        }
+
+        .cairo-custom-body {
+            font-family: "Cairo", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            /* Example weight value, adjust as needed */
+            font-style: normal;
+            font-variation-settings: "slnt" 0;
+        }
+
         .custom-step-1 {
             display: flex;
             width: 90%;
@@ -76,104 +91,259 @@
             font-weight: bold;
             color: #295E4E;
         }
+
+        .myshadow {
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+        .program_details {
+            padding: 20px 0;
+        }
+
+        .program_details .container {
+            max-width: 1320px;
+            margin: auto;
+        }
+
+        .program_details .glass-effect {
+            background: rgba(41, 94, 78, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(41, 94, 78, 0.8);
+        }
+
+        .program_details .details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .program_details .info {
+            display: flex;
+            align-items: center;
+        }
+
+        .program_details .program-image {
+            max-width: 100px;
+            height: auto;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+
+        .program_details .program-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 10px;
+        }
+
+        .details_2 {
+            width: 83%;
+        }
+
+        @media (max-width: 767px) {
+            .program_details .details {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .program_details .program-image {
+                max-width: 80px;
+                margin-bottom: 10px;
+            }
+
+            .program_details .program-title {
+                font-size: 1.25rem;
+            }
+        }
+
+        .tiles_radio label {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tiles_radio label:hover {
+            background: rgba(41, 94, 78, 0.7);
+            color: #fff;
+        }
+
+        .tiles_radio input[type="radio"] {
+            display: none;
+        }
+
+        .tiles_radio input[type="radio"]:checked+label {
+            background: rgba(41, 94, 78);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .form-check img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .form-check-input.d-none {
+            display: none;
+        }
+
+        .meal-label {
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            border: 2px solid transparent;
+            padding: 10px;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-check-input.d-none:checked+.meal-label {
+            box-shadow: rgba(117, 16, 16, 0.1) 0px 4px 12px;
+            background: rgba(41, 94, 78, 0.6);
+            border: 1px solid rgba(41, 94, 78, 0.8);
+            color: #fff;
+        }
+
+        .meal-image {
+            border-radius: 5px;
+        }
+
+        .order-card {
+            background-color: #fff;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .next-stp {
+            background-color: rgba(41, 94, 78, 0.6);
+            color: #fff;
+            border-color: #295E4E;
+        }
+
+        .next-stp:hover {
+            background-color: #1f473a;
+            border-color: #1f473a;
+            color: #fff;
+
+        }
+
+        .step {
+            width: 100%;
+        }
+
+        /* RTL styles */
+        body[dir="rtl"] .header,
+        body[dir="rtl"] p,
+        body[dir="rtl"] textarea,
+        body[dir="rtl"] h2,
+        body[dir="rtl"] h6 {
+            text-align: right;
+        }
+
+        .required-field::after {
+            content: '*';
+            color: red;
+            margin-left: 5px;
+        }
+
+        .prev-stp .required-star {
+            color: red;
+            margin-left: 5px;
+        }
+
+        #toast-container>.toast-error {
+            background-color: rgba(255, 0, 0, 0.7) !important;
+            color: #fff !important;
+            box-shadow: #fff !important;
+        }
+
+        .toast-error .toast-title {
+            color: #fff !important;
+        }
+
+        .toast-error .toast-message {
+            color: #fff !important;
+        }
+
+        @media (min-width: 1200px) {
+
+            .container,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container-xl {
+                max-width: 1320px;
+            }
+        }
     </style>
-    <div class="program_details">
+
+    <div class="program_details py-4">
         <div class="container">
-            <div class="bg">
-                <div class="details">
-                    <div class="info d-flex justify-content-between align-items-center">
-                        <div class="right">
-                            <div class="image">
-                                <img src="{{ asset('images/' . $program->image) }}" alt="">
-                            </div>
-                            <h3>{{ App::getLocale() == 'ar' ? $program->title_ar : $program->title_en }}</h3>
+            <div class="glass-effect p-4 rounded">
+                <div class="details d-flex justify-content-between align-items-center">
+                    <div class="info d-flex align-items-center">
+                        <div class="me-3">
+                            <img src="{{ asset('images/' . $program->image) }}" alt=""
+                                class="img-fluid program-image">
                         </div>
-                        <div class="left">
-                            <div>
-                                <p class="mb-1 mt-2">142</p>
-                                <small class="mb-1 fw-normal">{{ trans('messages.reviews') }}</small>
-                            </div>
-                            <div>
-                                <p class="mb-1 mt-2">201</p>
-                                <small class="mb-1 fw-normal">{{ trans('messages.photos') }}</small>
-                            </div>
-                            <div>
-                                <p class="mb-1 mt-2">142</p>
-                                <small class="mb-1 fw-normal">{{ trans('messages.reviews') }}</small>
-                            </div>
-                        </div>
+                        <h3 class="program-title">{{ App::getLocale() == 'ar' ? $program->title_ar : $program->title_en }}
+                        </h3>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="order">
+    <div class="order py-4">
         <div class="container">
-            <div class="content d-flex justify-content-start">
-                <div class="form">
-                    <div class="form-container">
-                        <!-- Sidebar start -->
-                        <div class="form-sidebar">
-
-                            <div class="step">
-                                <div class="circle" style="width: 57px;">2</div>
-                                <div class="step-content">
-                                    <span>{{ trans('messages.order_preferences') }}</span>
-                                    <b>{{ trans('messages.order_preferences') }}</b>
-                                </div>
-                            </div>
-                            <div class="step">
-                                <div class="circle">3</div>
-                                <div class="step-content">
-                                    <span>{{ trans('messages.summary') }}</span>
-                                    <b>{{ trans('messages.summary') }}</b>
-                                </div>
-                            </div>
-                            <div class="step">
-                                <div class="circle">4</div>
-                                <div class="step-content">
-                                    <span style="font-size: 10px;">{{ trans('messages.end') }}</span>
-                                    <b>{{ trans('messages.end') }}</b>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Sidebar end -->
-                        <form style="max-width:100%;" action="{{ route('front.save.card') }}" method="POST">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="order-card">
+                        <form action="{{ route('front.save.card') }}" method="POST">
                             @csrf
-                            <!-- Step 1 start -->
-
-                            <!-- Step 1 end -->
-
-                            <!-- Step 2 start -->
-                            <div class="stp step-2">
-                                <div class="header">
-                                    <h2 class="title">{{ trans('messages.items_you_dont_like') }}</h2>
+                            <div class="step step-2">
+                                <p class="text-danger" style="font-size: 14px">
+                                    {{ App::getLocale() == 'ar' ? 'يرجى التأكد من كتابة جميع الملاحظات الغذائية الخاصة بك، بما في ذلك تفضلها التي لا ولديك حساسية عليها. سوف نقوم بمراجعة ملاحظاتك للتأكد من أنها تتناسب مع معايير شركتنا وقائمتنا. إذا تمكنا من الحفاظ على جودة طعامنا العالية دون المكونات التي ذكرتها، فسنقبل اشتراكك. العلم يرجى أنه كلما قل عدد المكونات التي تستبعدها، كلما زاد تنوع خيارات الوجبات' : 'Please make sure to write down all your food notes, including dislikes and any allergies. We will review your preferences to ensure they fit within our company standards and our menu. If we can maintain our high food quality without the ingredients you list, we will accept your subscription. Please note that the fewer ingredients you exclude, the wider the variety of meal options you will receive.' }}
+                                </p>
+                                <div class="header mb-3">
+                                    <h2 class="title required-field">{{ trans('messages.items_you_dont_like') }}</h2>
                                 </div>
-                                <textarea
-                                    style="width: 100%; border: 1px solid #999; height: 300px; resize: none; border-radius: 5px; outline: none; padding: 10px; margin-bottom: 30px;"
-                                    name="dont_like" class="dont_like p-2 mb-3" placeholder="{{ trans('messages.enter_items_you_dont_like') }}"></textarea>
 
-                                <div class="header p-0">
-                                    <h2 class="title">{{ trans('messages.items_that_make_you_allergic') }}</h2>
+                                <textarea name="dont_like" class="form-control mb-3" rows="5"
+                                    placeholder="{{ trans('messages.enter_items_you_dont_like') }}"></textarea>
+
+                                <div class="header mb-3">
+                                    <h2 class="title required-field">{{ trans('messages.items_that_make_you_allergic') }}
+                                    </h2>
                                 </div>
-                                <textarea
-                                    style="width: 100%; border: 1px solid #999; height: 300px; resize: none; border-radius: 5px; outline: none; padding: 10px; margin-bottom: 30px;"
-                                    name="allergic" class="dont_like p-2" placeholder="{{ trans('messages.enter_items_that_make_you_allergic') }}"></textarea>
+                                <textarea name="allergic" class="form-control mb-3" rows="5"
+                                    placeholder="{{ trans('messages.enter_items_that_make_you_allergic') }}"></textarea>
 
-                                <div class="btns mt-2">
-                                    <button class="prev-stp" type="button">{{ trans('messages.go_back') }}</button>
-                                    <button class="next-stp" type="button">{{ trans('messages.next_step') }}</button>
+                                <div class="header mb-3">
+                                    <h2 class="title required-field">{{ trans('messages.note') }}
+                                    </h2>
+                                </div>
+                                <textarea name="notes" class="form-control mb-3" rows="5"
+                                    placeholder="{{ trans('messages.note_place_holder') }}"></textarea>
+
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn next-stp" type="button">{{ trans('messages.next_step') }}</button>
                                 </div>
                             </div>
-                            <!-- Step 2 end -->
 
-                            <!-- Step 3 start -->
-                            <div class="stp step-3">
+                            <div class="step step-3 d-none">
                                 <div class="custom-step-1">
-                                    <div class="custom-header">
-                                        <h1 class="custom-title">{{ trans('messages.items') }}</h1>
-                                        <p>{{ trans('messages.select_items_not_like') }}</p>
+                                    <div class="custom-header mb-4">
+                                        <h2 class="title ">{{ trans('messages.items') }}</h2>
+                                        <p class="text-danger" style="font-size: 14px;">
+                                            {{ trans('messages.select_items_not_like') }}</p>
                                     </div>
                                     <div class="custom-tiles">
                                         @foreach ($program->menu->Menu as $item)
@@ -189,26 +359,12 @@
                                 </div>
                                 <input type="hidden" name="items" id="selected-items" value="">
 
-                                <!-- Multi Selected -->
-                                <div class="btns mt-2">
-                                    <button class="prev-stp" type="button">{{ trans('messages.go_back') }}</button>
-                                    <button class="next-stp" type="submit">{{ trans('messages.check_out') }}</button>
+                                <div class="d-flex justify-content-between mt-4">
+                                    <button class="btn btn-secondary prev-stp"
+                                        type="button">{{ trans('messages.go_back') }}</button>
+                                    <button class="btn next-stp" type="submit">{{ trans('messages.check_out') }}</button>
                                 </div>
                             </div>
-                            <!-- Step 3 end -->
-
-                            <!-- Step 4 start -->
-                            {{-- <div class="stp step-4">
-                                <img src="{{ asset('front/images/icon-thank-you.svg') }}" alt="" />
-                                <div class="header">
-                                    <h1 class="title">{{ trans('messages.thank_you') }}</h1>
-                                    <p class="exp">
-                                        {{ trans('messages.thanks_for_confirming_subscription') }}
-                                    </p>
-                                </div>
-                                <button class="next-stp" type="submit">{{ trans('messages.check_out') }}</button>
-                            </div> --}}
-                            <!-- Step 4 end -->
                         </form>
                     </div>
                 </div>
@@ -217,16 +373,11 @@
     </div>
 @endsection
 @push('js')
-    <!--jquery cdn-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!--select2 cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ asset('web/assets/js/pages/select2.init.js') }}"></script>
 
-    <script src="{{ asset('front/js/bootstrap.bundle.js') }}"></script>
-    <script src="{{ asset('front/js/main.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const tiles = document.querySelectorAll('.custom-tile');
@@ -254,7 +405,7 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const steps = document.querySelectorAll('.stp');
+            const steps = document.querySelectorAll('.step-2, .step-3');
             const nextBtns = document.querySelectorAll('.next-stp');
             const prevBtns = document.querySelectorAll('.prev-stp');
 
@@ -262,7 +413,7 @@
 
             function showStep(stepIndex) {
                 steps.forEach((step, index) => {
-                    step.classList.toggle('active', index === stepIndex);
+                    step.classList.toggle('d-none', index !== stepIndex);
                 });
             }
 
@@ -285,38 +436,6 @@
             });
 
             showStep(currentStep);
-        });
-    </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const accordion = document.getElementById('accordionExample');
-            const accordionItems = accordion.querySelectorAll('.accordion-item');
-
-            accordionItems.forEach(item => {
-                const button = item.querySelector('.accordion-button');
-                const collapse = item.querySelector('.accordion-collapse');
-
-                button.addEventListener('click', () => {
-                    const isOpen = collapse.classList.contains('show');
-
-                    // Close all sections first
-                    accordionItems.forEach(i => {
-                        const btn = i.querySelector('.accordion-button');
-                        const col = i.querySelector('.accordion-collapse');
-                        col.classList.remove('show');
-                        btn.classList.add('collapsed');
-                        btn.setAttribute('aria-expanded', 'false');
-                    });
-
-                    // Toggle the clicked section
-                    if (!isOpen) {
-                        collapse.classList.add('show');
-                        button.classList.remove('collapsed');
-                        button.setAttribute('aria-expanded', 'true');
-                    }
-                });
-            });
         });
     </script>
 @endpush

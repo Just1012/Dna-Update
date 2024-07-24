@@ -80,12 +80,12 @@ class IndexController extends Controller
         }
 
         $durations = Program_Duration::where('program_id', $id)
-        ->with('duration')
-        ->selectRaw('duration_id, SUM(price) as price')
-        ->groupBy('duration_id')
-        ->get();
+            ->with('duration')
+            ->selectRaw('duration_id, SUM(price) as price')
+            ->groupBy('duration_id')
+            ->get();
 
-        return view('FrontEnd.programDetails', compact('programsDetails','durations'));
+        return view('FrontEnd.programDetails', compact('programsDetails', 'durations'));
     }
     protected $id_order = 0;
     public function storeProgramMeals(Request $request, $id)
@@ -136,10 +136,9 @@ class IndexController extends Controller
             return redirect()->back()->with('error', 'No items found in the cart.');
         }
 
-        if(count($cart[1]['meals']) < $cart[1]['program']['min_meals']){
-            Toastr::info('You Must select at least '.$cart[1]['program']['min_meals'].' meals','info');
+        if (count($cart[1]['meals']) < $cart[1]['program']['min_meals']) {
+            Toastr::info('You Must select at least ' . $cart[1]['program']['min_meals'] . ' meals', 'info');
             return redirect()->back();
-
         }
         // Initialize an array to hold all meals and addons
         $allItems = [];
@@ -180,25 +179,71 @@ class IndexController extends Controller
         return view('FrontEnd.programDuration', compact('program'));
     }
 
+    // public function save_card(Request $request)
+    // {
+    //     $cart = Session::get('cart_custom');
+    //     // Get the authenticated user's ID, defaulting to 1 if not authenticated
+    //     // $cart[1]['duration_id'] = $request->duration;
+    //     $cart[1]['dont_like'] = $request->dont_like;
+    //     $cart[1]['allergic'] = $request->allergic;
+    //     $cart[1]['items'] = explode(',', $request->items);
+    //     // $durations = Program_Duration::where('program_id', $cart[1]['program']['id'])
+    //     //     ->whereIn('meal_id',  $cart[1]['all_meals'])
+    //     //     ->with('duration')
+    //     //     ->selectRaw('duration_id, SUM(price) as price')
+    //     //     ->where('duration_id', '=', $cart[1]['duration_id'])
+    //     //     ->groupBy('duration_id')
+    //     //     ->first();
+    //     // $cart[1]['total'] = $durations->price;
+    //     Session::put('cart_custom', $cart);
+
+    //     return redirect()->route('checkout');
+    // }
+
     public function save_card(Request $request)
     {
-        $cart = Session::get('cart_custom');
-        // Get the authenticated user's ID, defaulting to 1 if not authenticated
-        // $cart[1]['duration_id'] = $request->duration;
-        $cart[1]['dont_like'] = $request->dont_like;
-        $cart[1]['allergic'] = $request->allergic;
-        $cart[1]['items'] = explode(',', $request->items);
-        // $durations = Program_Duration::where('program_id', $cart[1]['program']['id'])
-        //     ->whereIn('meal_id',  $cart[1]['all_meals'])
-        //     ->with('duration')
-        //     ->selectRaw('duration_id, SUM(price) as price')
-        //     ->where('duration_id', '=', $cart[1]['duration_id'])
-        //     ->groupBy('duration_id')
-        //     ->first();
-        // $cart[1]['total'] = $durations->price;
-        Session::put('cart_custom', $cart);
+        try {
+            // Validate the request
+            $validatedData = $request->validate([
+                'dont_like' => 'required|string',
+                'allergic' => 'required|string',
+                'notes' => 'required|string',
+                'items' => 'nullable|string', // Assuming items is a comma-separated string
+            ], [
+                'dont_like.required' => 'Please specify what you don\'t like.',
+                'allergic.required' => 'Please specify any allergies.',
+                'notes.required' => 'Please specify any Notes.',
+            ]);
 
-        return redirect()->route('checkout');
+            // Retrieve the cart from the session
+            $cart = Session::get('cart_custom', []);
+
+            // Update the cart with the new data
+            $cart[1]['dont_like'] = $request->dont_like;
+            $cart[1]['allergic'] = $request->allergic;
+            $cart[1]['notes'] = $request->notes;
+            $cart[1]['items'] = explode(',', $request->items);
+
+            // Store the updated cart back in the session
+            Session::put('cart_custom', $cart);
+
+            // Redirect to the checkout page
+            return redirect()->route('checkout');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Flash the validation error messages using Toastr
+            foreach ($e->validator->errors()->all() as $error) {
+                Toastr::error($error, __('Error'));
+            }
+
+            // Redirect back to the previous page with input
+            return redirect()->back()->withInput();
+        } catch (\Exception $e) {
+            // Flash a general error message using Toastr
+            Toastr::error(__('An unexpected error occurred. Please try again.'), __('Error'));
+
+            // Redirect back to the previous page with input
+            return redirect()->back()->withInput();
+        }
     }
     public function checkout()
     {
@@ -286,6 +331,7 @@ class IndexController extends Controller
                 'end_date' => $endDate->format('Y-m-d'),
                 'vulnerability' => $cart[1]['allergic'],
                 'duration_id' => $cart[1]['duration_id'],
+                'notes' => $cart[1]['notes'],
                 'unlike' => $cart[1]['dont_like'],
                 'meals_id' => json_encode($cart[1]['all_meals']),
                 'items_id' => json_encode($cart[1]['items']),
@@ -444,84 +490,85 @@ class IndexController extends Controller
         return redirect()->back();
     }
 
-    public function store_duration(Request $request){
+    public function store_duration(Request $request)
+    {
         Session::forget('cart_custom');
-           // Fetch the program
-           $program2 = Program::find($request->id);
-           $userID = auth()->id() ?? 0; // Assuming you are using authentication and want to use the authenticated user ID
+        // Fetch the program
+        $program2 = Program::find($request->id);
+        $userID = auth()->id() ?? 0; // Assuming you are using authentication and want to use the authenticated user ID
 
-           if (!$program2) {
-               return redirect()->back()->with('error', 'Program not found.');
-           }
-           $lang = App::getLocale();
+        if (!$program2) {
+            return redirect()->back()->with('error', 'Program not found.');
+        }
+        $lang = App::getLocale();
 
-           $cart_custom = Session::get('cart_custom') ?? []; // Get cart_custrom or default to empty array
-           $programs_items=Program_Duration::where('program_id',$program2->id)
-           ->where('duration_id',$request->duration_id)
-           ->with('meal')
-           ->get();
+        $cart_custom = Session::get('cart_custom') ?? []; // Get cart_custrom or default to empty array
+        $programs_items = Program_Duration::where('program_id', $program2->id)
+            ->where('duration_id', $request->duration_id)
+            ->with('meal')
+            ->get();
 
-           $meals = [];
-           $addons = [];
-           $mealIds = [];
+        $meals = [];
+        $addons = [];
+        $mealIds = [];
 
-           foreach ($programs_items as $program) {
+        foreach ($programs_items as $program) {
 
 
 
-               if (!in_array($program->meal['id'], $mealIds)) {
-                   if ($program->meal['type'] == 1) {
+            if (!in_array($program->meal['id'], $mealIds)) {
+                if ($program->meal['type'] == 1) {
                     $meals[] = [
-                           'id' => $program->meal['id'],
-                           'title' => $program->meal['title_' . $lang],
-                           'type' => $program->meal['type'],
-                           'price'=>$program->price
-                       ];
-                   } else {
-                       $addons[] = [
-                           'id' => $program->meal['id'],
-                           'title' => $program->meal['title_' . $lang],
-                           'type' => $program->meal['type'],
-                           'price'=>$program->price
+                        'id' => $program->meal['id'],
+                        'title' => $program->meal['title_' . $lang],
+                        'type' => $program->meal['type'],
+                        'price' => $program->price
+                    ];
+                } else {
+                    $addons[] = [
+                        'id' => $program->meal['id'],
+                        'title' => $program->meal['title_' . $lang],
+                        'type' => $program->meal['type'],
+                        'price' => $program->price
 
-                       ];
-                   }
+                    ];
+                }
 
-                   $mealIds[] = $program->meal['id']; // Track processed meal IDs
-               }
+                $mealIds[] = $program->meal['id']; // Track processed meal IDs
+            }
+        }
+        $this->id_order = 1;
 
-           }
-           $this->id_order = 1;
 
+        $cart_custom[$this->id_order] = array(
+            'id' => $this->id_order,
+            'user_id' => $userID,
+            'meals' => [],
+            'addons' => [],
+            'duration_id' => $request->duration_id,
+            'program' => $program2,
+            'total' => 0,
+            'dont_like' => null,
+            'allergic' => null,
+            'items' => [],
+            'all_meals' => null
 
-           $cart_custom[$this->id_order] = array(
-               'id' => $this->id_order,
-               'user_id' => $userID,
-               'meals' => [],
-               'addons' => [],
-               'duration_id' => $request->duration_id,
-               'program' => $program2,
-               'total' => 0,
-               'dont_like' => null,
-               'allergic' => null,
-               'items' => [],
-               'all_meals' => null
-
-           );
-           Session::put('cart_custom', $cart_custom);
-           return response()->json([
-            'addons'=>$addons,
-              'meals'=>$meals
-           ]);
+        );
+        Session::put('cart_custom', $cart_custom);
+        return response()->json([
+            'addons' => $addons,
+            'meals' => $meals
+        ]);
     }
-    public function store_items(Request $request){
+    public function store_items(Request $request)
+    {
         $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
-    //    $cart[1]['program']['min_meals'];
+        //    $cart[1]['program']['min_meals'];
 
 
         $allItems = [];
-        $cart[1]['meals']=$request->meals;
-        $cart[1]['addons']=$request->addons;
+        $cart[1]['meals'] = $request->meals;
+        $cart[1]['addons'] = $request->addons;
 
 
         if (isset($cart[1])) {
@@ -535,22 +582,20 @@ class IndexController extends Controller
 
 
 
-       $durations = Program_Duration::where('program_id', $cart[1]['program']['id'])
-       ->whereIn('meal_id',  $allItems)
-       ->with('duration')
-       ->selectRaw('duration_id, SUM(price) as price')
-       ->where('duration_id', '=', $cart[1]['duration_id'])
-       ->groupBy('duration_id')
-       ->first();
-         $cart[1]['total'] = $durations->price??0;
+        $durations = Program_Duration::where('program_id', $cart[1]['program']['id'])
+            ->whereIn('meal_id',  $allItems)
+            ->with('duration')
+            ->selectRaw('duration_id, SUM(price) as price')
+            ->where('duration_id', '=', $cart[1]['duration_id'])
+            ->groupBy('duration_id')
+            ->first();
+        $cart[1]['total'] = $durations->price ?? 0;
 
         Session::put('cart_custom', $cart);
 
         return response()->json([
-            'a'=>$cart[1],
-            'aa'=>      $cart[1]['program']['min_meals']
+            'a' => $cart[1],
+            'aa' =>      $cart[1]['program']['min_meals']
         ]);
-
-
     }
 }

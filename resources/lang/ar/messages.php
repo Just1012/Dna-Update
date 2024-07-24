@@ -55,14 +55,22 @@ return [
     'summary' => 'الملخص',
     'end' => 'النهاية',
     'please_select_duration' => 'يرجى اختيار المدة:',
-    'items_you_dont_like' => 'الأشياء التي لا تحبها',
-    'items_that_make_you_allergic' => 'الأشياء التي تسبب لك الحساسية',
-    'enter_items_you_dont_like' => 'أدخل الأشياء التي لا تحبها',
-    'enter_items_that_make_you_allergic' => 'أدخل الأشياء التي تسبب لك الحساسية',
+    'items_you_dont_like' => 'يرجى كتابة اي مكونات لا تفضلها',
+    'items_that_make_you_allergic' => 'يرجى كتابة المكونات التى لديك حساسية عليها',
+    'enter_items_you_dont_like' => 'يرجى كتابة اي مكونات لا تفضلها',
+    'enter_items_that_make_you_allergic' => 'يرجى كتابة المكونات التى لديك حساسية عليها',
     'next_step' => 'الخطوة التالية',
     'go_back' => 'العودة',
-    'items' => 'العناصر',
-    'select_items_not_like' => 'اختر العناصر التي لا تحبها',
+    'items' => 'الوجبات',
+    'select_items_not_like' => 'يرجى تحديد الوجبات التي لا تفضلها ، يرجي العلم انه كلما قل عدد المكونات التي تستبعدها، كلما زاد تنوع خيارات الوجبات
+.
+بالإضافة إلى ذلك، يرجى التأكد من
+ترك وجبات
+بما يكفي
+، حيث أننا لا نكرر الوجبات.
+و
+إذا انخفض عدد الخيارات
+عن الحد المسموح به، فقد يتم إلغاء اشتراكك',
     'thank_you' => 'شكراً لك!',
     'thanks_for_confirming_subscription' => 'شكراً لتأكيد اشتراكك! نأمل أن تستمتع باستخدام منصتنا. إذا كنت بحاجة إلى دعم في أي وقت، فلا تتردد في مراسلتنا عبر البريد الإلكتروني على support@loremgaming.com.',
     'check_out' => 'الدفع',
@@ -72,9 +80,9 @@ return [
     'products_details' => 'تفاصيل المنتجات',
     'main_meal' => 'وجبة رئيسية',
     'sub_meal' => 'وجبة فرعية',
-    'items_you_dont_like' => 'الأشياء التي لا تحبها',
-    'items_that_make_you_allergic' => 'الأشياء التي تسبب لك الحساسية',
-    'items_dont_like' => 'الأشياء التي لا تحبها',
+    'items_you_dont_like' => 'يرجى كتابة اي مكونات لا تفضلها',
+    'items_that_make_you_allergic' => 'يرجى كتابة المكونات التى لديك حساسية عليها',
+    'items_dont_like' => 'يرجى كتابة اي مكونات لا تفضلها',
     'subtotal' => 'الإجمالي الفرعي',
     'you_have_to_sign' => 'يجب عليك تسجيل الدخول',
     'login_now' => 'تسجيل الدخول الآن',
@@ -136,6 +144,9 @@ return [
     'vulnerability' => 'نقطة الضعف',
     'unlike' => 'غير محبب',
     'print' => 'طباعة',
-    'download' => 'تحميل'
+    'download' => 'تحميل',
+    'note' => 'يرجى كتابة اي تفضيلات أو ملاحظات عامة تتعلق بالطعام',
+    'note_place_holder' => 'يرجى كتابة اي تفضيلات أو ملاحظات عامة تتعلق بالطعام',
+    'note_checkout' => 'ملاحظات'
     // Add other translations here
 ];

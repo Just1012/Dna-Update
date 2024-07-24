@@ -16,9 +16,27 @@
     <link rel="stylesheet" href="{{ asset('front/./css/all.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+
     @if (App::getLocale() == 'ar')
         <link rel="stylesheet" href="{{ asset('front/css/style_ar.css') }}" />
         <style>
+            body {
+                background-color: #e4e4e6;
+                font-family: "Cairo", sans-serif;
+            }
+
+            .cairo-custom-body {
+                font-family: "Cairo", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 400;
+                /* Example weight value, adjust as needed */
+                font-style: normal;
+                font-variation-settings: "slnt" 0;
+            }
+
             /*signup Form*/
             .signup {
                 position: relative;
@@ -2071,7 +2089,7 @@
 </head>
 
 <body dir={{ App::getLocale() == 'ar' ? 'rtl' : '' }}>
-  
+
 
     @yield('content')
 
