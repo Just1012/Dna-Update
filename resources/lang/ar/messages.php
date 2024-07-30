@@ -105,7 +105,7 @@ return [
     'select_area' => 'اختر المنطقة',
     'shipping_details' => 'تفاصيل الشحن',
     'shipping_time' => 'وقت الشحن',
-    'select_days' => 'اختر الأيام',
+    'select_days' => 'هل لديك عنوان اخر تفضل التوصيل اليه في ايام محدده ؟',
     'payment_method' => 'طريقة الدفع',
     'cash' => 'نقداً',
     'online' => 'أونلاين',
@@ -147,6 +147,17 @@ return [
     'download' => 'تحميل',
     'note' => 'يرجى كتابة اي تفضيلات أو ملاحظات عامة تتعلق بالطعام',
     'note_place_holder' => 'يرجى كتابة اي تفضيلات أو ملاحظات عامة تتعلق بالطعام',
-    'note_checkout' => 'ملاحظات'
+    'note_checkout' => 'ملاحظات',
+    'address_note' =>'ملاحظات العنوان',
+    'block' => 'قطعة',
+    'street' => 'شارع',
+    'avenue'=> 'جادة',
+    'house'=> 'منزل/عمارة',
+    'floor'=> 'الدور',
+    'apartment'=> 'شقة',
+    'days' => 'الايام',
+    'shippingSetup' => 'اعدادات الشحن',
+    'select_shipping_note' => 'اختر ملحوظات الشحن',
+    'shipping_notes' => 'ملحوظات الشحن',
     // Add other translations here
 ];

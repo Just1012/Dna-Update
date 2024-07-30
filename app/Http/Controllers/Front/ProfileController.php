@@ -45,10 +45,17 @@ class ProfileController extends Controller
                 ->select('area_' . $locale . ' as area')
                 ->first();
 
+            $shipping_notes = DB::table('shipping_notes')
+                ->where('id', $day->Address->shipping_notes)
+                ->select('shipping_note_' . $locale . ' as shippingNote')
+                ->first();
+
             return [
                 'address' => $day->Address->address,
                 'governorate' => $governorateName ? $governorateName->title : '',
                 'area' => $areaName ? $areaName->area : '',
+                'shipping_notes' => $shipping_notes ? $shipping_notes->shippingNote : '',
+                'address_details' => $day->Address->address_details,
                 'days3' => array_filter([
                     $day->Monday == 1 ? 'Monday' : null,
                     $day->Tuesday == 1 ? 'Tuesday' : null,
@@ -71,13 +78,12 @@ class ProfileController extends Controller
 
         $items = collect(json_decode($order->items_id))->map(function ($itemId) {
             $item = Item::find($itemId);
-            if($item){
+            if ($item) {
                 return [
                     'name' => $item->{'title_' . app()->getLocale()},
                     'image' => asset('images/' . $item->image)
                 ];
             }
-
         });
 
         return response()->json([

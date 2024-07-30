@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\OrderController;
 use App\Http\Controllers\Dashboard\PrivacyController;
 use App\Http\Controllers\Dashboard\ProgramController;
 use App\Http\Controllers\Dashboard\ShippingController;
+use App\Http\Controllers\Dashboard\ShippingNoteController;
 use App\Http\Controllers\Dashboard\SliderController;
 use App\Http\Controllers\Dashboard\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -185,7 +186,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
             Route::get('/getSubTypes/{id}', [ShippingController::class, 'getSubTypes'])->name('shipping.getSubTypes');
             Route::post('/storeShippingTime', [ShippingController::class, 'storeShippingTime'])->name('shipping.storeShippingTime');
-
         });
 
         Route::prefix('terms')->group(function () {
@@ -211,6 +211,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('/index', [OrderController::class, 'index'])->name('order.index');
             Route::get('/dataTable', [OrderController::class, 'getOrder'])->name('order.dataTable');
             Route::get('/orderDetails/{id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
+        });
+
+        Route::prefix('shippingNote')->group(function () {
+            Route::get('/index', [ShippingNoteController::class, 'index'])->name('shippingNote.index');
+            Route::get('/dataTable', [ShippingNoteController::class, 'getShippingNote'])->name('shippingNote.dataTable');
+            Route::get('/addShippingNote', [ShippingNoteController::class, 'addShippingNote'])->name('shippingNote.addShippingNote');
+            Route::post('/storeShippingNote', [ShippingNoteController::class, 'storeShippingNote'])->name('shippingNote.store');
+            Route::get('/editShippingNote/{id}', [ShippingNoteController::class, 'editShippingNote'])->name('shippingNote.edit');
+            Route::post('/updateShippingNote/{id}', [ShippingNoteController::class, 'updateShippingNote'])->name('shippingNote.update');
+            Route::get('/updateStatus/{shippingNote}', [ShippingNoteController::class, 'updateStatus'])->name('shippingNote.status');
+            Route::get('/deleteShippingNote/{id}', [ShippingNoteController::class, 'deleteShippingNote'])->name('shippingNote.delete');
         });
     });
 });

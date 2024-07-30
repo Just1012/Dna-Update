@@ -1,5 +1,5 @@
 @extends('layouts.front')
-@section('title', trans('messages.all_programs'))
+@section('title', trans('messages.checkout'))
 @push('css')
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @endpush
@@ -127,21 +127,21 @@
                         <div class="items_notLike d-flex justify-content-start align-items-center gap-3 flex-wrap">
                             @if (isset($cart[1]['items']))
 
-                            @foreach ($cart[1]['items'] as $item)
-                                @php
-                                    $item = App\Models\Item::where('id', $item)->first();
-                                @endphp
-                             @if ($item)
-                                <div class="item" style="flex: 0 0 30%">
-                                    <div class="image" style="max-width: 50px">
-                                        <img src="{{ asset('images/' . $item->image) }}" alt="">
-                                    </div>
-                                    <div class="info d-flex justify-content-between align-items-center w-100">
-                                        <h5 class="name m-0">{{ $item->{'title_' . App::getLocale()} }}</h5>
-                                    </div>
-                                </div>
-                                @endif
-                            @endforeach
+                                @foreach ($cart[1]['items'] as $item)
+                                    @php
+                                        $item = App\Models\Item::where('id', $item)->first();
+                                    @endphp
+                                    @if ($item)
+                                        <div class="item" style="flex: 0 0 30%">
+                                            <div class="image" style="max-width: 50px">
+                                                <img src="{{ asset('images/' . $item->image) }}" alt="">
+                                            </div>
+                                            <div class="info d-flex justify-content-between align-items-center w-100">
+                                                <h5 class="name m-0">{{ $item->{'title_' . App::getLocale()} }}</h5>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
                             @endif
 
                         </div>
@@ -187,7 +187,8 @@
                                         </div>
                                         <input type="submit" value="Login" class="mb-4">
                                         <p class="text-center any_account log w-100">
-                                            {{ trans('messages.don’t_have_an_account') }} <span style="cursor:pointer;color: #295E4E;"
+                                            {{ trans('messages.don’t_have_an_account') }} <span
+                                                style="cursor:pointer;color: #295E4E;"
                                                 onclick="toggleForm('signup')">{{ trans('messages.sign_up') }}</span>
                                         </p>
                                     </div>
@@ -226,18 +227,21 @@
                                                 <input type="password" name="password" id="signup-password" required>
                                             </div>
                                             <div class="input">
-                                                <label for="signup-Cpassword">{{ trans('messages.confirm_password') }}</label>
+                                                <label
+                                                    for="signup-Cpassword">{{ trans('messages.confirm_password') }}</label>
                                                 <input type="password" name="password_confirmation" id="signup-Cpassword"
                                                     required>
                                             </div>
                                         </div>
                                         <div class="check_input">
                                             <input type="checkbox" name="" id="signup-check" required>
-                                            <label for="signup-check" class="m-0">{{ trans('messages.i_agree_with_the_terms_of_use') }}</label>
+                                            <label for="signup-check"
+                                                class="m-0">{{ trans('messages.i_agree_with_the_terms_of_use') }}</label>
                                         </div>
                                         <input type="submit" value="{{ trans('messages.register') }}">
                                         <p class="text-center any_account w-100 mt-4">
-                                            {{ trans('messages.already_have_an_account') }} <span style="cursor:pointer;color: #295E4E;"
+                                            {{ trans('messages.already_have_an_account') }} <span
+                                                style="cursor:pointer;color: #295E4E;"
                                                 onclick="toggleForm('signin')">{{ trans('messages.sign_in') }}</span>
                                         </p>
                                     </div>
@@ -256,7 +260,7 @@
 
                             <div class="info">
                                 <h3>{{ trans('messages.shipping_information') }}</h3>
-                                <div class="input">
+                                <div class="container input">
                                     <h3>{{ trans('messages.start_date') }}</h3>
                                     <input placeholder="DD/MM/YY" class="form-control w-100" name="date" type="text"
                                         id="date" required class="rounded">
@@ -269,7 +273,8 @@
                                             <div class="col-md-6">
                                                 <select onchange="toggleInput(this)" name="governorates[]"
                                                     class="form-control type-select mb-1">
-                                                    <option disabled selected value="">{{ trans('messages.select_governorates') }}</option>
+                                                    <option disabled selected value="">
+                                                        {{ trans('messages.select_governorates') }}</option>
                                                     @foreach ($governorates as $value)
                                                         <option value="{{ $value->governorate_id }}">
                                                             {{ $value->governorate_name_en }} /
@@ -279,17 +284,55 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <select class="form-control subType-select" name="areas[]">
-                                                    <option disabled selected value="">{{ trans('messages.select_area') }}</option>
+                                                    <option disabled selected value="">
+                                                        {{ trans('messages.select_area') }}</option>
                                                 </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <textarea placeholder="{{ trans('messages.block') }}" name="block[]" cols="30" rows="10"
+                                                    class="w-100 mt-2 rounded p-2" style="height: 50px; outline:none; border:1px solid #eee"></textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <textarea placeholder="{{ trans('messages.street') }}" name="street[]" cols="30" rows="10"
+                                                    class="w-100 mt-2 rounded p-2" style="height: 50px; outline:none; border:1px solid #eee"></textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <textarea placeholder="{{ trans('messages.avenue') }}" name="avenue[]" cols="30" rows="10"
+                                                    class="w-100 mt-2 rounded p-2" style="height: 50px; outline:none; border:1px solid #eee"></textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <textarea placeholder="{{ trans('messages.house') }}" name="house[]" cols="30" rows="10"
+                                                    class="w-100 mt-2 rounded p-2" style="height: 50px; outline:none; border:1px solid #eee"></textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <textarea placeholder="{{ trans('messages.floor') }}" name="floor[]" cols="30" rows="10"
+                                                    class="w-100 mt-2 rounded p-2" style="height: 50px; outline:none; border:1px solid #eee"></textarea>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <textarea placeholder="{{ trans('messages.apartment') }}" name="apartment[]" cols="30" rows="10"
+                                                    class="w-100 mt-2 rounded p-2" style="height: 50px; outline:none; border:1px solid #eee"></textarea>
                                             </div>
                                         </div>
 
-                                        <textarea name="address[]" cols="30" rows="10" class="w-100 mt-2 rounded p-2"
-                                            style="height: 50px; outline:none; border:1px solid #eee"></textarea>
+                                        <textarea placeholder="{{ trans('messages.address_note') }}" name="address[]" cols="30" rows="10"
+                                            class="w-100 mt-2 rounded p-2" style="height: 100px; outline:none; border:1px solid #eee"></textarea>
+
+                                        <div class="col-md-12">
+                                            <select name="shipping_notes[]" class="form-control type-select mb-1">
+                                                <option disabled selected value="">
+                                                    {{ trans('messages.select_shipping_note') }}</option>
+                                                @foreach ($shipping_notes as $value)
+                                                    <option value="{{ $value->id }}">
+                                                        {{ App::getLocale() == 'ar' ? $value->shipping_note_ar : $value->shipping_note_en }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
                                         <div class="shipping-details mt-3" style="display: none;">
                                             <h6>{{ trans('messages.shipping_details') }}</h6>
-                                            <p style="margin-top: 5px !important;">{{ trans('messages.shipping_time') }}: <span class="shipping-time"></span>
+                                            <p style="margin-top: 5px !important;">{{ trans('messages.shipping_time') }}:
+                                                <span class="shipping-time"></span>
                                             </p>
                                         </div>
 
@@ -315,7 +358,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" id="add-button" class="btn btn-primary add-button mt-2">{{ trans('messages.add_form') }}</button>
+                                    <button type="button" id="add-button"
+                                        class="btn btn-primary add-button mt-2">{{ trans('messages.add_form') }}</button>
                                 </div>
 
                                 <div class="payment">

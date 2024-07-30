@@ -102,7 +102,8 @@ meals. If the number of options falls below our limit, your subscription may be 
     'select_area' => 'Select Area',
     'shipping_details' => 'Shipping Details',
     'shipping_time' => 'Time',
-    'select_days' => 'Select Days',
+    'select_days' => 'Do you have another address where you prefer deliveries to be made on
+specific days ?',
     'payment_method' => 'Payment Method',
     'cash' => 'Cash',
     'online' => 'Online',
@@ -144,7 +145,17 @@ meals. If the number of options falls below our limit, your subscription may be 
     'download' => 'Download',
     'note' => 'Please list any general food preferences or notes',
     'note_place_holder' => 'Please list any general food preferences or notes',
-    'note_checkout' => 'Notes'
-
+    'note_checkout' => 'Notes',
+    'address_note' => ' Address Note',
+    'block' => 'Block',
+    'street' => 'Street',
+    'avenue' => 'Avenue',
+    'house' => 'House/Building',
+    'floor' => 'Floor',
+    'apartment' => 'Apartment',
+    'days' => 'Days',
+    'shippingSetup' => 'Shipping Setup',
+    'select_shipping_note' => 'Select Shipping Note',
+    'shipping_notes' => 'Shipping Notes',
     // Add other translations here
 ];

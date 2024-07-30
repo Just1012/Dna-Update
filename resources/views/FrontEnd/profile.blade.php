@@ -329,12 +329,20 @@
                                 addressDetails +=
                                     '<p class="text-muted mb-1">{{ App::getLocale() == 'ar' ? 'المحافظة' : 'Governorate' }} : ' + detail
                                     .governorate + '</p>';
+
                                 addressDetails += '<p class="text-muted mb-1">{{ App::getLocale() == 'ar' ? 'المدينة' : 'Area' }} : ' +
                                     detail.area + '</p>';
-                                addressDetails +=
-                                    '<h6 class="text-muted text-uppercase fw-semibold">{{ trans('messages.address') }}</h6>';
-                                addressDetails += '<p class="text-muted mb-1">' + detail
-                                    .address + '</p>';
+
+                                addressDetails += '<p class="text-muted mb-1">{{ trans('messages.address') }} : ' +
+                                    detail.address_details + '</p>';
+
+                                addressDetails += '<p class="text-muted mb-1">{{ trans('messages.address_note') }} : ' +
+                                    detail.address + '</p>';
+
+                                addressDetails += '<p class="text-muted mb-1">{{ trans('messages.shipping_notes') }} : ' +
+                                    detail.shipping_notes + '</p>';
+
+
 
 
                                 if (Array.isArray(detail.days3)) {
@@ -385,7 +393,7 @@
                                     item.image + '" alt="Image"></td>';
                                 itemsList += '<td>' + item.name + '</td>';
                                 itemsList += '</tr>';
-                                    
+
                             });
                             $('#items-list').html(itemsList);
 

@@ -282,14 +282,14 @@
                 </li>
                 {{-- End users Page  --}}
 
-                {{-- Start users Page  --}}
+                {{-- Start Shipping Page  --}}
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#settings" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="settings">
-                        <i class='bx bx-cog'></i><span data-key="t-landing">{{ __('Settings') }}
+                    <a class="nav-link menu-link" href="#shipping" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="shipping">
+                        <i class='bx bxs-truck' ></i><span data-key="t-landing">{{ __('messages.shippingSetup') }}
                         </span>
                     </a>
-                    <div class="collapse menu-dropdown" id="settings">
+                    <div class="collapse menu-dropdown" id="shipping">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('daySetting.index') }}" class="nav-link"
@@ -303,6 +303,25 @@
                                 <a href="{{ route('shipping.time') }}" class="nav-link"
                                     data-key="t-nft-landing">Shipping Time</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('shippingNote.index') }}" class="nav-link"
+                                    data-key="t-nft-landing">Shipping Notes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {{-- End Shipping Page  --}}
+
+                {{-- Start Setting Page  --}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#settings" data-bs-toggle="collapse" role="button"
+                        aria-expanded="false" aria-controls="settings">
+                        <i class='bx bx-cog'></i><span data-key="t-landing">{{ __('Settings') }}
+                        </span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="settings">
+                        <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('editPrivacy') }}" class="nav-link"
                                     data-key="t-nft-landing">Terms & Conditions</a>
@@ -322,7 +341,7 @@
                         </ul>
                     </div>
                 </li>
-                {{-- End users Page  --}}
+                {{-- End Setting Page  --}}
 
 
             </ul>

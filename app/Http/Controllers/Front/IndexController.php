@@ -19,6 +19,7 @@ use App\Models\Program_Duration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Models\ShippingNote;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -249,8 +250,6 @@ class IndexController extends Controller
     {
         $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
 
-
-
         // dd($cart);
         $days = DaySetting::where('status', 0)->get();
 
@@ -281,9 +280,10 @@ class IndexController extends Controller
             ->groupBy('governorates.id', 'governorates.title_en', 'governorates.title_ar')
             ->get();
 
+            $shipping_notes = ShippingNote::where('status',1)->get();
 
         // $governorates = DB::table('governorates')->where('status', 1)->get();
-        return view('FrontEnd.checkOut', compact('cart', 'days', 'minDate', 'daysOff', 'governorates'));
+        return view('FrontEnd.checkOut', compact('cart', 'days', 'minDate', 'daysOff', 'governorates','shipping_notes'));
     }
 
     public function getSubTypes($id)
@@ -339,12 +339,15 @@ class IndexController extends Controller
             ]);
 
             foreach ($request->address as $key => $address) {
-                // Create the address record
+                $address_details = $request->block[$key] . '-' . $request->street[$key] . '-' . $request->avenue[$key] . '-' . $request->house[$key] . '-' . $request->house[$key] . '-' . $request->apartment[$key];
+                // dd($address_details);
                 $newAddress = Address::create([
                     'governorate_id' => $request->governorates[$key],
                     'area_id' => $request->areas[$key],
                     'address' => $address,
+                    'address_details' => $address_details,
                     'user_id' => $order->user_id,
+                    'shipping_notes' => $request->shipping_notes[$key],
                 ]);
 
                 $order_days = new orderDayes();
