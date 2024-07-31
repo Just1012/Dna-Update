@@ -106,6 +106,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('/datatable/{id}', [MenuItemController::class, 'getMenuItems'])->name('menu.getItems');
             Route::get('/getItem/{id}', [MenuItemController::class, 'getItem'])->name('menuItem.getItem');
             Route::post('/storeItem', [MenuItemController::class, 'storeItem'])->name('menuItem.storeItem');
+            Route::get('/create/items/for/menu/{id}', [MenuItemController::class, 'create_items_for_menu'])->name('create.items.for.menu');
 
             Route::get('/archiveItem/{id}', [MenuItemController::class, 'archiveItem'])->name('menuItem.archive');
 

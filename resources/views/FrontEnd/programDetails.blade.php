@@ -214,10 +214,10 @@
                     <h4 class="title">{{ trans('messages.please_select_duration') }}</h4>
                 </div>
                 <div class="row tiles_radio">
-                    @foreach ($durations as $duration)
+                    @foreach ($durations as $key=>$duration)
                         <div class="col-md-3 col-6 my-2">
                             <div>
-                                <input type="radio" onchange="changeDuration(this)"
+                                <input type="radio" {{$key==0?'checked':''}} onchange="changeDuration(this)"
                                     id="duration{{ $duration['duration_id'] ?? 0 }}" name="duration"
                                     value="{{ $duration['duration_id'] ?? 0 }}">
                                 <label for="duration{{ $duration['duration_id'] ?? 0 }}"
@@ -269,9 +269,10 @@
                                 <div class="btns" id="button_submit">
                                     <button class="btn" disabled
                                         style=" box-shadow: rgba(117, 16, 16, 0.1) 0px 4px 12px;
-    background: rgba(41, 94, 78, 0.6);
-    border: 1px solid rgba(41, 94, 78, 0.8);
-    color: #fff;">{{ trans('messages.next_step') }}</button>
+                                        background: rgba(41, 94, 78, 0.6);
+                                        border: 1px solid rgba(41, 94, 78, 0.8);
+                                        color: #fff;">{{ trans('messages.next_step') }}
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -303,6 +304,14 @@
     <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script>
+           $(document).ready(function(){
+        // On document ready, get the selected duration radio button
+        var selectedDuration = document.querySelector('input[name="duration"]:checked');
+        if (selectedDuration) {
+            // If there's a selected duration, trigger the changeDuration function
+            changeDuration(selectedDuration);
+        }
+    });
         function changeDuration(element) {
             var id = {{ $programsDetails->id }};
             var durationId = element.value;
@@ -331,7 +340,6 @@
                     $('#loading').hide();
                     $('#my_card').show();
                     // Handle errors here
-                    console.log(xhr.responseText);
                 }
             });
         }
@@ -340,28 +348,34 @@
             // Clear existing content
             $('#meals-container').empty();
             $('#addons-container').empty();
+            var min= {{$programsDetails->min_meals}};
 
             // Populate meals
-            data.meals.forEach(function(meal) {
+         // Populate meals
+            data.meals.forEach(function(meal, index) {
                 $('#meals-container').append(`
-            <div class="col-md-3 col-6 mb-4">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input d-none" name="meals[]" id="meal${meal.id}" value="${meal.id}">
-                    <label class="form-check-label meal-label" for="meal${meal.id}">
-                        <h6>${meal.title}</h6>
-                        <p>${meal.price}$</p>
-                    </label>
-                </div>
-            </div>
-        `);
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input d-none" name="meals[]" id="meal${meal.id}" value="${meal.id}" ${index < min ? 'checked' : ''}>
+                            <label class="form-check-label meal-label" for="meal${meal.id}">
+                                <h6>${meal.title}</h6>
+                                <p>${meal.price}$</p>
+                            </label>
+                        </div>
+                    </div>
+                `);
+                if(index <1){
+
+                $('#programForm').submit();
+                }
             });
 
             // Populate addons
-            data.addons.forEach(function(addon) {
+            data.addons.forEach(function(addon ,index) {
                 $('#addons-container').append(`
             <div class="col-md-3 col-6 mb-4">
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input d-none" name="addons[]" id="addon${addon.id}" value="${addon.id}">
+                    <input type="checkbox" class="form-check-input d-none" name="addons[]" id="addon${addon.id}" value="${addon.id}" ${index < 2 ? 'checked' : ''}>
                     <label class="form-check-label meal-label" for="addon${addon.id}">
                         <h6>${addon.title}</h6>
                         <p>${addon.price}$</p>
@@ -369,6 +383,10 @@
                 </div>
             </div>
         `);
+        if(index <1){
+
+            $('#programForm').submit();
+            }
             });
 
             // Bind change event to checkboxes
@@ -381,13 +399,13 @@
         $(document).ready(function() {
             $('#programForm').on('submit', function(e) {
                 e.preventDefault();
+
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
                         // Handle the response here
-                        console.log(response);
                         if (response.a && Array.isArray(response.a.meals)) {
                             let mealCount = response.a.meals.length;
                             if (Array.isArray(response.a.addons)) {

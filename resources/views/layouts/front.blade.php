@@ -2090,7 +2090,7 @@
 
 <body dir={{ App::getLocale() == 'ar' ? 'rtl' : '' }}>
 
-
+    @include('layouts.ex_front.slider')
     @yield('content')
 
 

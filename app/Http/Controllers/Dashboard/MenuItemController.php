@@ -16,8 +16,7 @@ class MenuItemController extends Controller
 {
     public function index(Menu $menu){
 
-        $category = Category::where('num_of_parents', 1)->get();
-        return view('Dashboard.Menu.items',compact('menu','category'));
+        return view('Dashboard.Menu.items',compact('menu'));
     }
 
     public function getItem($id)
@@ -43,8 +42,17 @@ class MenuItemController extends Controller
     public function storeItem(MenuItemRequest $menuItemRequest)
     {
         try {
-            $requestData = $menuItemRequest->except('category_id');
-            MenuItem::create($requestData);
+            $items = $menuItemRequest->input('items');
+            $menuItems = [];
+
+            foreach ($items as $item) {
+                $menuItems[] = [
+                    'menu_id' => $menuItemRequest->menu_id,
+                    'item_id' => $item,
+                ];
+            }
+
+            MenuItem::insert($menuItems); // Using insert for batch insertion
 
             Toastr::success(__('Item Created Successfully'), __('Success'));
 
@@ -54,6 +62,13 @@ class MenuItemController extends Controller
             Toastr::error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
+    }
+
+    public function create_items_for_menu($id){
+        $menu=Menu::find($id);
+        $category = Category::where('num_of_parents', 1)->get();
+
+        return view('Dashboard.Menu.addItemToMenu',compact('menu','category'));
     }
 
     public function archiveItem(MenuItem $id)

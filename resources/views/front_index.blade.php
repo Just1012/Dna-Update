@@ -275,10 +275,10 @@
             let loadingMessage = document.getElementById('loadingMessage');
 
             if (!loadingMessage) {
-                loadingMessage = document.createElement('p');
-                loadingMessage.id = 'loadingMessage';
-                loadingMessage.innerText = '{{ trans('messages.loading_items') }}';
-                itemsContent.appendChild(loadingMessage);
+                // loadingMessage = document.createElement('p');
+                // loadingMessage.id = 'loadingMessage';
+                // loadingMessage.innerText = '{{ trans('messages.loading_items') }}';
+                // itemsContent.appendChild(loadingMessage);
             }
 
             const url = `/get-items/${categoryId}/${subCategoryId}?page=${page}`;

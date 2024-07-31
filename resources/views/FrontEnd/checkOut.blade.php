@@ -265,8 +265,23 @@
                                     <input placeholder="DD/MM/YY" class="form-control w-100" name="date" type="text"
                                         id="date" required class="rounded">
                                 </div>
+                                <div class="col-md-12">
+                                    <h3  class="mt-4 mb-0">Do you have more than one address?</h3>
 
-                                <div class="container mt-5">
+                                    <div class="inputs_radio d-flex gap-5">
+                                        <div class="input d-flex justify-content-start gap-1 align-items-center">
+                                            <input type="radio" id="anotherAddressYes" name="anotherAddress" value="yes">
+                                            <label for="anotherAddressYes">Yes</label>
+                                        </div>
+                                        <div class="input d-flex justify-content-start gap-1 align-items-center">
+                                            <input type="radio" id="anotherAddressNo"  name="anotherAddress" value="no">
+                                            <label for="anotherAddressNo">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="container mt-5" id="continer_shipping" style="display: none;">
                                     <div id="template" class="repeater-block">
                                         <h3 class="mt-4 mb-0">{{ trans('messages.address') }}</h3>
                                         <div class="row">
@@ -318,7 +333,7 @@
                                             class="w-100 mt-2 rounded p-2" style="height: 100px; outline:none; border:1px solid #eee"></textarea>
 
                                         <div class="col-md-12">
-                                            <select name="shipping_notes[]" class="form-control type-select mb-1">
+                                            <select name="shipping_notes[]" class="form-control type-select1 mb-1">
                                                 <option disabled selected value="">
                                                     {{ trans('messages.select_shipping_note') }}</option>
                                                 @foreach ($shipping_notes as $value)
@@ -329,6 +344,7 @@
                                             </select>
                                         </div>
 
+
                                         <div class="shipping-details mt-3" style="display: none;">
                                             <h6>{{ trans('messages.shipping_details') }}</h6>
                                             <p style="margin-top: 5px !important;">{{ trans('messages.shipping_time') }}:
@@ -336,8 +352,7 @@
                                             </p>
                                         </div>
 
-
-                                        <div class="input_checkBoxs">
+                                        <div class="input_checkBoxs" id="days_off_radio" style="display: none;">
                                             <h3 class="mt-4 mb-0">{{ trans('messages.select_days') }}</h3>
                                             <div style="column-gap: 34px;" class="input_checkboxs1 d-flex flex-wrap">
                                                 @foreach ($days as $key => $day)
@@ -351,16 +366,19 @@
                                             </div>
                                         </div>
 
+
                                         <div class="row">
                                             <div class="col-12">
-                                                <button type="button"
+                                                <button type="button"  style="display: none;" id="btn-remove"
                                                     class="btn btn-danger remove-button mt-2">{{ trans('messages.remove') }}</button>
                                             </div>
                                         </div>
+
                                     </div>
-                                    <button type="button" id="add-button"
+                                    <button type="button" id="add-button" style="display: none;"
                                         class="btn btn-primary add-button mt-2">{{ trans('messages.add_form') }}</button>
                                 </div>
+
 
                                 <div class="payment">
                                     <h3 class="mt-4 mb-0">{{ trans('messages.payment_method') }}</h3>
@@ -406,6 +424,34 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+      $(document).ready(function() {
+            // Function to check the selected radio button
+            function checkRadioValue() {
+                var checkedValue = $('input[name="anotherAddress"]:checked').val();
+                var btnRemove = $('#btn-remove');
+                var btnAdd = $('#add-button');
+                var daysOffRadio = $('#days_off_radio');
+                var continer_shipping=$('#continer_shipping');
+
+                if (checkedValue == 'yes') {
+            btnRemove.show();
+            btnAdd.show();
+            daysOffRadio.show();
+            continer_shipping.show();
+        } else {
+            btnRemove.hide();
+            btnAdd.hide();
+            daysOffRadio.hide();
+            continer_shipping.show();
+
+        }
+            }
+
+            // Event listener for changes on radio buttons
+            $('input[name="anotherAddress"]').change(function() {
+                checkRadioValue(); // Call the function to check the selected value
+            });
+        });
         document.addEventListener('DOMContentLoaded', function() {
             const daysOff = @json($daysOff);
             const addButton = document.getElementById('add-button');

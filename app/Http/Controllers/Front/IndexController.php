@@ -353,6 +353,7 @@ class IndexController extends Controller
                 $order_days = new orderDayes();
                 $order_days->order_id = $order->id;
                 $order_days->address_id = $newAddress->id;
+                if($request->anotherAddress=='yes'){
 
                 if ($order_days) {
                     foreach ($request->days[$key] as $day) {
@@ -374,6 +375,20 @@ class IndexController extends Controller
                     }
                     $order_days->save();
                 }
+                }else{
+                    $order_days->Monday = 1;
+                    $order_days->Tuesday = 1;
+                    $order_days->Wednesday = 1;
+                    $order_days->Thursday = 1;
+                    $order_days->Sunday = 1;
+                    $order_days->Saturday = 1;
+                    $order_days->Friday = 1;
+
+                    $order_days->save();
+
+
+                }
+
             }
 
             DB::commit();

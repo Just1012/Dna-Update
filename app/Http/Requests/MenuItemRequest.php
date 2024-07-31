@@ -24,16 +24,17 @@ class MenuItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'menu_id' => 'required', // Add any other validation rules for menu_id
-            'item_id' => [
+            'menu_id' => 'required|exists:menus,id', // Ensure menu_id exists in the menus table
+            'items' => 'required|array',
+            'items.*' => [
                 'required',
-                Rule::unique('menu_items')->where(function ($query) {
-                    return $query->where('menu_id', $this->input('menu_id'));
+                Rule::unique('menu_items', 'item_id')->where(function ($query) {
+                    return $query->where('menu_id', request()->input('menu_id'));
                 }),
             ],
-            // Add any other validation rules for item_id
         ];
     }
+
 
     public function messages()
     {

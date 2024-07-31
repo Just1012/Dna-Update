@@ -20,6 +20,30 @@
         .dropify-wrapper .dropify-preview .dropify-render .dropify-infos .dropify-infos-inner .dropify-infos-message {
             font-size: 16px;
         }
+        #loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.4em;
+}
+
+.loading-text {
+    margin-top: 10px;
+    color: white;
+    font-size: 1.2rem;
+}
     </style>
     <section class="Profile" id="Profile">
         <div class="container">
@@ -143,6 +167,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <div id="loading-spinner" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="loading-text">Please wait...</div>
+                        </div>
                         <div class="col-lg-12">
                             <div class="card-body p-4">
                                 <div class="row g-3">
@@ -305,14 +335,15 @@
             $(document).ready(function() {
                 $('.icon').on('click', function() {
                     var orderId = $(this).data('order-id');
+                    $('#loading-spinner').show();
+
 
                     // Make AJAX request to get order details
                     $.ajax({
                         url: '/getOrderData/' + orderId,
                         method: 'GET',
                         success: function(response) {
-                            console.log(response
-                                .address_details); // Log the response to check its structure
+                            $('#loading-spinner').hide();
 
                             // Populate modal fields with response data
                             $('#invoice-no').text(response.id);
