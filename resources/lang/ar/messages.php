@@ -41,7 +41,7 @@ return [
     'reviews' => 'تقييمات',
     'photos' => 'صور',
     'meals' => 'وجبات',
-    'addons' => 'إضافات',
+    'addons' => 'وجبات خفيفة',
     'next_step' => 'الخطوة التالية',
     'checkout' => 'الدفع',
     'main_course' => 'الدورة الرئيسية',
