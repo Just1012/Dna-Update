@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ItemRequest;
+use App\Http\Requests\ItemUpdateRequest;
 use App\Models\Item;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -73,7 +74,7 @@ class ItemController extends Controller
         return view('Dashboard.Items.editItem', compact('id', 'category'));
     }
 
-    public function updateItem(ItemRequest $itemRequest, $id)
+    public function updateItem(ItemUpdateRequest $itemRequest, $id)
     {
         try {
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use Illuminate\Support\Facades\App;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -104,7 +105,7 @@ class CategoryController extends Controller
         return view('Dashboard.Category.editCategory', compact('id'));
     }
 
-    public function updateCategory(CategoryRequest $categoryRequest, $id)
+    public function updateCategory(CategoryUpdateRequest $categoryRequest, $id)
     {
         try {
 
