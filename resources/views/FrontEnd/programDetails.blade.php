@@ -2,6 +2,9 @@
 @section('title', App::getLocale() == 'ar' ? $programsDetails->title_ar : $programsDetails->title_en)
 @push('css')
     <style>
+
+
+
         body {
     background-color: #e4e4e6;
     font-family: "Cairo", sans-serif;
@@ -357,16 +360,26 @@
                 console.log(meal);
 
                 $('#meals-container').append(`
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input d-none" name="meals[]" id="meal${meal.id}" value="${meal.id}" ${index < min ? 'checked' : ''}>
-                            <label class="form-check-label meal-label" for="meal${meal.id}">
-                                <h6>${meal.title}</h6>
-                                <p>${meal.price} {{$symble}}</p>
-<p>${meal.calories} <img src="{{ asset('web/calories.png') }}" style="width:20px; height:20px; margin-left:5px;"></p>
+
+                   <div class="col-md-3 col-6 mb-4">
+                        <div class="" style="">
+                        <div class="header text-center text-dark" style="background:#fff;box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;">
+                        <p>${meal.calories} <img src="{{ asset('web/calories.png') }}" style="width:20px; height:20px; ">
+                        </p>
+                        </div>
+                        <div class="mx-auto col-12">
+                          <div class="" style="">
+                                <input type="checkbox" class="form-check-input d-none" name="meals[]" id="meal${meal.id}" value="${meal.id}" ${index < min ? 'checked' : ''}>
+                                <label class="form-check-label meal-label" for="meal${meal.id}">
+                                    <h6>${meal.title}</h6>
+                                    <p>${meal.price} {{$symble}}</p>
                                 </label>
+                            </div>
                         </div>
                     </div>
+                    </div>
+
+
                 `);
                 if(index <1){
 
@@ -377,17 +390,24 @@
             // Populate addons
             data.addons.forEach(function(addon ,index) {
                 $('#addons-container').append(`
-            <div class="col-md-3 col-6 mb-4">
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input d-none" name="addons[]" id="addon${addon.id}" value="${addon.id}" ${index < 2 ? 'checked' : ''}>
-                    <label class="form-check-label meal-label" for="addon${addon.id}">
-                        <h6>${addon.title}</h6>
-                        <p>${addon.price} {{$symble}}</p>
-                        <p>${addon.calories} <img src="{{ asset('web/calories.png') }}" style="width:20px; height:20px; margin-left:5px;"></p>
+                    <div class="col-md-3 col-6 mb-4">
+                        <div class="" style="">
+                        <div class="header text-center text-dark" style="background:#fff;box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;">
+                        <p>${addon.calories} <img src="{{ asset('web/calories.png') }}" style="width:20px; height:20px; ">
+                        </p>
+                        </div>
+                        <div class="mx-auto col-12">
+                          <div class="" style="">
+                                <input type="checkbox" class="form-check-input d-none" name="addons[]" id="addon${addon.id}" value="${addon.id}" ${index < 2 ? 'checked' : ''}>
+                            <label class="form-check-label meal-label" for="addon${addon.id}">
+                                <h6>${addon.title}</h6>
+                                <p>${addon.price} {{$symble}}</p>
 
-                    </label>
-                </div>
-            </div>
+                            </label>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
         `);
         if(index <1){
 

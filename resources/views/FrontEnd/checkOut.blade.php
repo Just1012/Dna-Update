@@ -131,7 +131,7 @@
                         <h5 class="mt-3 fw-bold">{{ trans('messages.note_checkout') }}</h5>
                         <div class="item">
                             <div class="info d-flex justify-content-between align-items-center w-100">
-                                <p class="name m-0">{{ $cart[1]['notes'] }}</p>
+                                <p class="name m-0">{{ $cart[1]['notes']??'' }}</p>
                             </div>
                         </div>
                         <hr class="m-0" />
