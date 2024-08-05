@@ -46,6 +46,10 @@
 }
     </style>
     <section class="Profile" id="Profile">
+        @php
+            $symble=\App\Utils\helper::currency();
+
+        @endphp
         <div class="container">
             <div class="content d-flex justify-content-between align-items-start flex-wrap">
                 <div class="userInfo">
@@ -196,15 +200,15 @@
                                     </div>
                                     <div class="col-lg-2 col-6">
                                         <p class="text-muted mb-2 text-uppercase fw-semibold">{{ trans('messages.subtotal_amount') }}</p>
-                                        <h5 class="fs-14 mb-0">$<span id="total-amount"></span></h5>
+                                        <h5 class="fs-14 mb-0"> <span id="total-amount"></span> {{$symble}}</h5>
                                     </div>
                                     <div class="col-lg-2 col-6">
                                         <p class="text-muted mb-2 text-uppercase fw-semibold">{{ trans('messages.total_amount') }}</p>
-                                        <h5 class="fs-14 mb-0">$<span id="total-final"></span></h5>
+                                        <h5 class="fs-14 mb-0"><span id="total-final"></span> {{$symble}}</h5>
                                     </div>
                                     <div class="col-lg-2 col-6">
                                         <p class="text-muted mb-2 text-uppercase fw-semibold">{{ trans('messages.total_discount') }}</p>
-                                        <h5 class="fs-14 mb-0">$<span id="total-discount"></span></h5>
+                                        <h5 class="fs-14 mb-0"> <span id="total-discount"></span> {{$symble}}</h5>
                                     </div>
                                 </div>
                                 <div class="container">

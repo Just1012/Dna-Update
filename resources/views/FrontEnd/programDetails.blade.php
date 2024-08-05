@@ -237,6 +237,7 @@
     </div>
     @php
         $card = session('cart_custom', '0');
+        $symble=\App\Utils\helper::currency();
     @endphp
     <div class="container my-4">
         <div class="col-12">
@@ -286,10 +287,10 @@
 
                         <h5>{{ trans('messages.order_summary') }}</h5>
                         <div>
-                            <p>{{ trans('messages.main_course') }}: <span id="main_course">0</span></p>
-                            <p>{{ trans('messages.extra') }}: <span id="extra">0</span></p>
+                            <p>{{ trans('messages.meals') }}: <span id="main_course">0</span></p>
+                            <p>{{ trans('messages.addons') }}: <span id="extra">0</span></p>
                             <hr>
-                            <p>{{ trans('messages.total') }}: <span id="total">0</span> $</p>
+                            <p>{{ trans('messages.total') }}: <span id="total">0</span> {{$symble}}</p>
                         </div>
                     </div>
                 </div>
@@ -353,14 +354,17 @@
             // Populate meals
          // Populate meals
             data.meals.forEach(function(meal, index) {
+                console.log(meal);
+
                 $('#meals-container').append(`
                     <div class="col-md-3 col-6 mb-4">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input d-none" name="meals[]" id="meal${meal.id}" value="${meal.id}" ${index < min ? 'checked' : ''}>
                             <label class="form-check-label meal-label" for="meal${meal.id}">
                                 <h6>${meal.title}</h6>
-                                <p>${meal.price}$</p>
-                            </label>
+                                <p>${meal.price} {{$symble}}</p>
+<p>${meal.calories} <img src="{{ asset('web/calories.png') }}" style="width:20px; height:20px; margin-left:5px;"></p>
+                                </label>
                         </div>
                     </div>
                 `);
@@ -378,7 +382,9 @@
                     <input type="checkbox" class="form-check-input d-none" name="addons[]" id="addon${addon.id}" value="${addon.id}" ${index < 2 ? 'checked' : ''}>
                     <label class="form-check-label meal-label" for="addon${addon.id}">
                         <h6>${addon.title}</h6>
-                        <p>${addon.price}$</p>
+                        <p>${addon.price} {{$symble}}</p>
+                        <p>${addon.calories} <img src="{{ asset('web/calories.png') }}" style="width:20px; height:20px; margin-left:5px;"></p>
+
                     </label>
                 </div>
             </div>

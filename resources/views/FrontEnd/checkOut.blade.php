@@ -98,6 +98,8 @@
 
                         @php
                             $duration = App\Models\Duration::where('id', $cart[1]['duration_id'])->first();
+                            $symble=\App\Utils\helper::currency();
+
                         @endphp
                         <hr class="m-0" />
 
@@ -107,7 +109,7 @@
                             </div>
                             <div class="info d-flex justify-content-between align-items-center w-100">
                                 <h5 class="name">{{ $duration->title_en }}</h5>
-                                <h5 class="price">{{ $cart[1]['total'] }}</h5>
+                                <h5 class="price">{{ $cart[1]['total'] }} {{$symble}}</h5>
                             </div>
                         </div>
                         <hr class="m-0" />
@@ -163,20 +165,20 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-12">
-                                    <h3 class="name d-inline-block">{{ trans('messages.subtotal') }}:</h3>
-                                    <h4 class="subtotal d-inline-block" id="subtotal">{{ $cart[1]['total'] }}</h4>
+                                    <h5 class="name d-inline-block">{{ trans('messages.subtotal') }}:</h5>
+                                    <h6 class="subtotal d-inline-block" id="subtotal">{{ $cart[1]['total'] }} {{$symble}}</h6>
                                 </div>
                                 <div class="col-12">
-                                    <h3 class="name d-inline-block">code:</h3>
-                                    <h4 class="subtotal d-inline-block" id="code">{{ session('applied_coupon_custom.code', '') }}</h4>
+                                    <h5 class="name d-inline-block">code:</h5>
+                                    <h6 class="subtotal d-inline-block" id="code">{{ session('applied_coupon_custom.code', '') }} </h6>
                                 </div>
                                 <div class="col-12">
-                                    <h3 class="name d-inline-block">Discount:</h3>
-                                    <h4 class="subtotal d-inline-block" id="total">  {{session('applied_coupon_custom.discountAmount','0' ) }}</h4>
+                                    <h5 class="name d-inline-block">Discount:</h5>
+                                    <h6 class="subtotal d-inline-block" id="total">  {{session('applied_coupon_custom.discountAmount','0' ) }} {{$symble}}</h6>
                                 </div>
                                 <div class="col-12">
-                                    <h3 class="name d-inline-block">{{ trans('messages.total') }}:</h3>
-                                    <h4 class="subtotal d-inline-block" id="total">  {{session('applied_coupon_custom.finaltotla',$cart[1]['total'] ) }}</h4>
+                                    <h5 class="name d-inline-block">{{ trans('messages.total') }}:</h5>
+                                    <h6 class="subtotal d-inline-block" id="total">  {{session('applied_coupon_custom.finaltotla',$cart[1]['total'] ) }} {{$symble}}</h6>
                                 </div>
                             </div>
                         </div>

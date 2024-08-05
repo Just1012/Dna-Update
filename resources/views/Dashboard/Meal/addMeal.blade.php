@@ -55,6 +55,25 @@
                                             </div>
                                         </div><!--end col-->
 
+
+
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="firstNameinput" class="form-label">Calories Ar</label>
+                                                <input type="text" class="form-control" name="calories_ar"
+                                                    placeholder="Calories Ar" id="firstNameinput">
+                                            </div>
+                                        </div><!--end col-->
+
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="firstNameinput" class="form-label">Calories En</label>
+                                                <input type="text" class="form-control" name="calories_en"
+                                                    placeholder="Calories En" id="firstNameinput">
+                                            </div>
+                                        </div><!--end col-->
+
+
                                         <div class="col-lg-12">
                                             <div class="text-center">
                                                 <button type="submit" class="btn btn-primary">Save</button>

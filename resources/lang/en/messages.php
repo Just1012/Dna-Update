@@ -137,7 +137,7 @@ specific days ?',
     'total_amount' => 'Total Amount',
     'subtotal_amount' => 'Subtotal Amount',
     'total_discount'=>'Discount',
-
+    'order_summary'=>'Order Summary',
     'meals_selected' => 'Meals Selected',
     'meal_name' => 'Meal Name',
     'type' => 'Type',

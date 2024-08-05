@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Coupons;
 use App\Models\Program;
+use App\Models\Currency;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
+use App\Http\Requests\CurrencyRequest;
 
 class CouponsController extends Controller
 {
@@ -62,7 +65,9 @@ class CouponsController extends Controller
            $data->limit_per_user=$dataval['LIMIT_PER_USER'];
            $data->programs_ids = json_encode($request->programs); // Convert array to JSON string
            $data->save();
-           return redirect()->back()->with('message', 'Successfully Created Coupons');
+           Toastr::success(__('Successfully Created Coupons'), __('Success'));
+
+           return redirect()->back();
            try {
         } catch (\Throwable $th) {
              return redirect()->back()->with('error', 'Sorry please try again');
@@ -135,15 +140,40 @@ class CouponsController extends Controller
             $data->programs_ids = json_encode($request->programs); // Convert array to JSON string
 
             $data->update();
-            return redirect()->back()->with('message', 'Successfully Updated Coupons');
+            Toastr::success(__('Successfully Updated Coupons'), __('Success'));
+
+            return redirect()->back();
            }else{
-            return redirect()->back()->with('error', 'Sorry don\'t allow for your company');
+            Toastr::error(__('Sorry please try again'), __('Error'));
+
+            return redirect()->back();
            }
 
 
         } catch (\Throwable $th) {
-             return redirect()->back()->with('error', 'Sorry please try again');
+            Toastr::error(__('Sorry please try again'), __('Error'));
+
+             return redirect()->back();
         }
 
+    }
+
+
+    public function Currency_index(){
+        $data=Currency::first();
+        return view('Dashboard.currancy',compact('data'));
+    }
+    public function Currency_store(CurrencyRequest $request)
+    {
+        $data = $request->only(['name', 'symble_ar', 'symble_en']);
+
+        // Assuming 'name' is the unique identifier for the currency
+        Currency::updateOrCreate(
+            ['name' => $data['name']],
+            $data
+        );
+
+        Toastr::success(__('Successfully'), __('Success'));
+        return redirect()->back();
     }
 }

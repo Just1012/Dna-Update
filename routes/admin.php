@@ -225,6 +225,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
                 Route::put('/status', [CouponsController::class, 'status'])->name('Coupons.status');
                 Route::put('/update/{id}', [CouponsController::class, 'update'])->name('Coupons.update');
             });
+            Route::prefix('Currency')->group(function(){
+                Route::get('/index', [CouponsController::class, 'Currency_index'])->name('Currency.index');
+                Route::post('/store', [CouponsController::class, 'Currency_store'])->name('Currency.store');
+
+            });
 
 
         Route::prefix('shippingNote')->group(function () {

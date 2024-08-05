@@ -328,6 +328,10 @@
                     <div class="collapse menu-dropdown" id="settings">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
+                                <a href="{{ route('Currency.index') }}" class="nav-link"
+                                    data-key="t-nft-landing">Currency</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('editPrivacy') }}" class="nav-link"
                                     data-key="t-nft-landing">Terms & Conditions</a>
                             </li>

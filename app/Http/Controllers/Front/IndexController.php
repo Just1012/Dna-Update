@@ -459,7 +459,7 @@ class IndexController extends Controller
     private function calculateEndDate($startDate, $durationInWeeks, $daysOff)
     {
         // $startDate = $startDate->addDays(3); // Add 3 days to account for the initial closure period
-        $daysToAdd = $durationInWeeks * 7; // Convert weeks to days
+        $daysToAdd = $durationInWeeks * 6; // Convert weeks to days
         $endDate = $startDate->copy();
 
         while ($daysToAdd > 1) {
@@ -593,6 +593,8 @@ class IndexController extends Controller
                     $meals[] = [
                         'id' => $program->meal['id'],
                         'title' => $program->meal['title_' . $lang],
+                        'calories' => $program->meal['calories_' . $lang],
+
                         'type' => $program->meal['type'],
                         'price' => $program->price
                     ];
@@ -600,6 +602,7 @@ class IndexController extends Controller
                     $addons[] = [
                         'id' => $program->meal['id'],
                         'title' => $program->meal['title_' . $lang],
+                        'calories' => $program->meal['calories_' . $lang],
                         'type' => $program->meal['type'],
                         'price' => $program->price
 

@@ -348,7 +348,6 @@
                     itemDiv.innerHTML = `
                     <div style="padding-right:40px !important;" class="content">
                         <h6 class="mb-1 mt-3 heading-title fw-bolder"> ${currentLocale == 'ar' ? item.title_ar : item.title_en}</h6>
-                        <p class="mt-2 mb-0">${item.calories} Calories</p>
                     </div>
                     <div class="image">
                         <img src="/images/${item.image}" alt="${item.title_en}">

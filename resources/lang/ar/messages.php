@@ -132,6 +132,8 @@ return [
     'new_password' => 'كلمة المرور الجديدة',
     'confirm_password' => 'تأكيد كلمة المرور',
     'edit' => 'تعديل',
+    'order_summary'=>'ملخص الطلب',
+
     'order_details' => 'تفاصيل الطلب',
     'order_created_date' => 'تاريخ إنشاء الطلب',
     'payment_status' => 'حالة الدفع',
