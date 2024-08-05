@@ -19,6 +19,7 @@ use App\Models\Program_Duration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Models\Coupons;
 use App\Models\ShippingNote;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -315,7 +316,17 @@ class IndexController extends Controller
     {
         DB::beginTransaction();
 
-        try {
+            $applied_coupon_custom=  session::get('applied_coupon_custom');
+            if(isset($applied_coupon_custom)){
+
+
+            if ($applied_coupon_custom['code']) {
+                $value =  $this->increaseCoupons($applied_coupon_custom['code']);
+                if ($value == false) {
+                    return redirect()->back();
+                }
+            }
+        }
             $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
             $startDateString = $request->input('date'); // Get the date from the request
             $daysOff = DaySetting::where('status', 1)->pluck('name'); // Get days off from the database
@@ -336,6 +347,9 @@ class IndexController extends Controller
                 'meals_id' => json_encode($cart[1]['all_meals']),
                 'items_id' => json_encode($cart[1]['items']),
                 'payment_method' => 'cash',
+                'final_total' => $applied_coupon_custom['finaltotla']??$cart[1]['total'],
+                'coupone_code'=> $applied_coupon_custom['code']??null,
+                'coupont_decount'=>$applied_coupon_custom['discountAmount']??null
             ]);
 
             foreach ($request->address as $key => $address) {
@@ -393,12 +407,52 @@ class IndexController extends Controller
 
             DB::commit();
             Session::forget('cart_custom');
+
+            Session::forget('applied_coupon_custom');
             Toastr::success(__('scuccess'), __('success'));
             return redirect()->route('front.index');
-        } catch (\Exception $e) {
+            try {
+            } catch (\Exception $e) {
             DB::rollBack();
             Toastr::error(__('An error occurred. Please try again.'), __('Error'));
             return redirect()->back()->withInput();
+        }
+    }
+
+
+    private function increaseCoupons($code)
+    {
+
+        try {
+            DB::beginTransaction();
+
+            $coupon = Coupons::
+                where('code', '=', $code)
+                ->whereColumn('limit_per_user', '>', 'user_get')
+                ->lockForUpdate()
+                ->first();
+
+            if ($coupon) {
+                // Update the user_get field
+                $coupon->user_get += 1;
+                $coupon->save();
+
+                DB::commit();
+                return true;
+            } else {
+                $this->action_coupone();
+
+                // Coupon does not exist
+                DB::rollBack();
+                Toastr::error('invalid coupon', 'Error');
+
+                return false;
+            }
+        } catch (\Throwable $th) {
+            $this->action_coupone();
+            DB::rollBack();
+            Toastr::error('invalid coupon', 'Error');
+            return false;
         }
     }
 
@@ -615,5 +669,154 @@ class IndexController extends Controller
             'a' => $cart[1],
             'aa' =>      $cart[1]['program']['min_meals']
         ]);
+    }
+
+
+
+
+    public function apply_copon(Request $request)
+    {
+
+
+            $get_total_price=$this->get_total_price();
+            $total=$get_total_price['total'];
+            $cart_custrom = Session::get('cart_custom');
+
+
+            $check = DB::table('coupons')
+            ->where('code', $request->couponCode)
+            ->where('status', '1')
+            ->where('end_date', '>=', date('Y-m-d'))
+            ->where('minimum_order', '<=', $total)
+            ->whereColumn('limit_per_user', '>', 'user_get')
+            ->where(function ($query) use ($cart_custrom) {
+                $programId = $cart_custrom[1]['program']['id'];
+                $query->whereRaw('JSON_CONTAINS(programs_ids, \'["' . $programId . '"]\')')
+                      ->orWhereNull('programs_ids');
+            })
+            ->first();
+
+            if ($check) {
+
+              $this->action_coupone($check->code,$check->discount,$check->discount_type,$check->maximum_discount);
+
+                return response()->json(['message' => 'valid coupon']);
+            } else {
+                $this->action_coupone();
+
+                return response()->json(['message' => 'invalid coupon']);
+            }
+            try {     } catch (\Throwable $th) {
+
+            return response()->json(['message' => 'invalid coupon']);
+
+        }
+    }
+    public  function get_total_price()
+    {
+        $cart_custrom = Session::get('cart_custom');
+        $totalAllOrders = 0;
+
+            // Check if the order belongs to the user
+                // Sum up the total for this order
+                $orderTotal = $cart_custrom[1]['total'];
+                $cart_custrom[1]['finaltotal'] = $orderTotal;
+                Session::put('cart_custrom', $cart_custrom);
+
+                // Add the order total to the overall total
+
+
+
+        $data = ['total' => $orderTotal,'finaltotal'=>$orderTotal];
+
+        return $data;
+    }
+
+
+
+
+
+
+    public function action_coupone($code = null, $discount = null, $discount_type = null, $maximum_discount = null)
+    {
+        try {
+
+
+            $data = $this->get_total_price();
+            session::forget('applied_coupon_custom');
+
+            if ($code == null && $discount == null && $discount_type == null) {
+                session(['applied_coupon_custom' => [
+                    'total' => intval($data['total']),
+                    'code' => null,
+                    'discountAmount' => 0,
+                    'finaltotla' => $data['finaltotal'],
+
+                ]]);
+                return true;
+            } else {
+
+                if ($discount_type == 1) {
+                    $result = $this->calcdiscount($data['finaltotal'], $discount, $maximum_discount);
+
+                    session(['applied_coupon_custom' => [
+                        'total' => $data['total'],
+                        'code' => $code,
+                        'discountAmount' =>$result['discountAmount'],
+                        'finaltotla' => $result['finaltotal'],
+                    ]]);
+
+                    return true;
+                } else {
+                    $finaltotal = $data['finaltotal'] - $discount;
+                    session(['applied_coupon_custom' => [
+                        'total' => $data['total'],
+                        'code' => $code,
+                        'discountAmount' => $discount,
+                        'finaltotla' => $finaltotal,
+
+                    ]]);
+                    return true;
+                }
+            }
+        } catch (\Throwable $th) {
+            session(['applied_coupon_custom' => [
+                'total' => $data['total'],
+                'code' => null,
+                'discountAmount' => 0,
+                'finaltotla' => $data['finaltotla'],
+
+            ]]);
+            return true;
+        }
+    }
+
+    public function calcdiscount($total, $discount, $maximum_discount)
+    {
+
+        $price_check = $total - ($total * ($discount / 100));
+        $price_discount = $total - $price_check;
+
+        if ($price_discount < $maximum_discount) {
+            $finaltotal = $price_check;
+
+            $discountAmount = $this->foramt_num($price_discount);
+        } else {
+
+            $finaltotal =  $total - $maximum_discount;
+
+            $discountAmount = $this->foramt_num($maximum_discount);
+
+        }
+
+        $result = ['finaltotal' => $finaltotal, 'discountAmount' => $discountAmount];
+        return $result;
+    }
+    public function foramt_num($data)
+    {
+
+        $result = round($data, 2);
+        $result = number_format($result, 2, '.', '');
+        return $result;
     }
 }

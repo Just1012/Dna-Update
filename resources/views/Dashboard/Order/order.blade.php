@@ -58,7 +58,10 @@
                                     <tr>
                                         <th>#SSL</th>
                                         <th>User Name</th>
-                                        <th>Price</th>
+                                        <th>Subtotal</th>
+                                        <th>Coupon</th>
+                                        <th>Discount</th>
+                                        <th>Total</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
                                         <th>Actions</th>
@@ -95,6 +98,18 @@
 
                 {
                     'data': 'total'
+                },
+                {
+                    'data': 'coupone_code',
+                    defaultContent: 'not found' // This will set the value to null if not found
+                },
+                {
+                    'data': 'coupont_decount',
+                    defaultContent: 'not found' // This will set the value to null if not found
+                },
+
+                {
+                    'data': 'final_total'
                 },
 
                 {

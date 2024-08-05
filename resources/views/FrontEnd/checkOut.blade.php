@@ -6,6 +6,15 @@
 @section('content')
     @include('layouts.ex_front.header')
     <style>
+        .flash {
+            animation: flash 0.9s ease-in-out infinite;
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.5;  }
+            100% { opacity: 1; }
+        }
         #date {
             width: 250px;
             padding: 10px;
@@ -53,10 +62,12 @@
             box-shadow: 0 0 0 0 transparent !important;
         }
     </style>
+
     <div class="checkout">
         <div class="container">
             <div class="content d-flex align-items-start flex-wrap">
                 <div class="details">
+
                     <h5 class="mb-3 fw-bold">{{ trans('messages.products_details') }}</h5>
                     <div class="items">
 
@@ -149,8 +160,38 @@
                     </div>
                     <hr class="m-0">
                     <div class="total d-flex justify-content-between align-items-center w-100 mt-4">
-                        <h3 class="name">{{ trans('messages.subtotal') }}</h3>
-                        <h3 class="subtotal">{{ $cart[1]['total'] }}</h3>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3 class="name d-inline-block">{{ trans('messages.subtotal') }}:</h3>
+                                    <h4 class="subtotal d-inline-block" id="subtotal">{{ $cart[1]['total'] }}</h4>
+                                </div>
+                                <div class="col-12">
+                                    <h3 class="name d-inline-block">code:</h3>
+                                    <h4 class="subtotal d-inline-block" id="code">{{ session('applied_coupon_custom.code', '') }}</h4>
+                                </div>
+                                <div class="col-12">
+                                    <h3 class="name d-inline-block">Discount:</h3>
+                                    <h4 class="subtotal d-inline-block" id="total">  {{session('applied_coupon_custom.discountAmount','0' ) }}</h4>
+                                </div>
+                                <div class="col-12">
+                                    <h3 class="name d-inline-block">{{ trans('messages.total') }}:</h3>
+                                    <h4 class="subtotal d-inline-block" id="total">  {{session('applied_coupon_custom.finaltotla',$cart[1]['total'] ) }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="m-0">
+
+                    <div class=" my-3 flash"id="promoText" style="background: transparent">
+                        <div class="text-start ">
+                            <h6  >Have a <span class="fw-semibold">promo</span> code ?</h6>
+                        </div>
+                        <div class="hstack mx-n3">
+                            <input class="form-control" id="couponCode" type="text" name="couponCode" placeholder="Enter coupon code"  aria-label="Add Promo Code here...">
+                            <button type="button" class="btn btn-secondary w-xs my-1 " id="applyCoupon">Apply</button>
+                        </div>
                     </div>
                 </div>
 
@@ -254,6 +295,7 @@
                 <!-- /.modal -->
 
                 @auth
+
                     <div class="form">
                         <form action="{{ route('front.storeOrder') }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -397,7 +439,10 @@
                                 <input type="submit" value="{{ trans('messages.pay') }}" class="submit rounded mb-5">
                             </div>
                         </form>
+
+
                     </div>
+
                 @endauth
 
                 @guest
@@ -424,6 +469,51 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+        $(document).ready(function() {
+        $('#applyCoupon').on('click', function() {
+
+            var couponCode = $('#couponCode').val();
+            $.ajax({
+                url: '{{ route("apply.coupon") }}',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                data: {
+                    couponCode: couponCode
+                },
+                success: function(response) {
+                    console.log(response);
+
+                    // Handle the response if needed
+                    if(response.message=='valid coupon'){
+                        setTimeout(function() {
+                            location.reload(); // Reload the page after 5 seconds
+                        }, 1000); // 5000 milliseconds = 5 seconds
+                       // location.reload(); // Use location.reload() instead of window.reload()
+
+
+
+
+                toastr.success('Valid coupon', 'Success!!');
+                    }else{
+                        toastr.error('Invalid coupon', 'Error!!');
+                        setTimeout(function() {
+                            location.reload(); // Reload the page after 5 seconds
+                        }, 1000); // 5000 milliseconds = 5 seconds
+                    }
+
+
+
+                    // Refresh the page after a successful response
+                    console.log(response);
+                },
+                error: function(error) {
+                    console.error('Error applying coupon:', error);
+                }
+            });
+        });
+    });
       $(document).ready(function() {
             // Function to check the selected radio button
             function checkRadioValue() {
@@ -694,6 +784,43 @@
         });
     </script>
     <script>
+           document.addEventListener('DOMContentLoaded', function() {
+            var promoText = document.getElementById('promoText');
+            var couponCode = $('#couponCode');
+            function applyFlash() {
+                promoText.classList.remove('flash');
+                void promoText.offsetWidth; // trigger reflow
+                promoText.classList.add('flash');
+            }
+
+            applyFlash(); // Apply flash effect on document ready
+
+            // Check if the input element has focus
+            var hasFocus = $('#couponCode').is(':focus');
+            if (hasFocus) {
+                promoText.classList.remove('flash');
+            } else {
+                applyFlash();
+            }
+
+            // Add focus event to input
+            $('#couponCode').focus(function() {
+                promoText.classList.remove('flash');
+            });
+
+            // Add click event to the document
+            $(document).click(function(event) {
+                // Check if the click was inside the couponCode input field
+                if (!$(event.target).is('#couponCode') && (!couponCode.val() || couponCode.val().trim() === '')) {
+                    applyFlash();
+                }
+            });
+
+            // Add click event to apply button
+            $('#applyCoupon').click(function() {
+                applyFlash();
+            });
+        });
         function toggleForm(form) {
             const signinForm = document.getElementById('signinForm');
             const signupForm = document.getElementById('signupForm');

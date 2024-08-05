@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\Dashboard\AboutPageController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\ContactSettingController;
@@ -213,6 +214,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('/dataTable', [OrderController::class, 'getOrder'])->name('order.dataTable');
             Route::get('/orderDetails/{id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
         });
+
+
+
+            ///////////seller ready product
+            Route::prefix('/Coupons')->group(function () {
+                Route::get('/index', [CouponsController::class, 'index'])->name('Coupons.index');
+                Route::get('/datatable', [CouponsController::class, 'datatable'])->name('Coupons.datatable');
+                Route::post('/store', [CouponsController::class, 'store'])->name('Coupons.store');
+                Route::put('/status', [CouponsController::class, 'status'])->name('Coupons.status');
+                Route::put('/update/{id}', [CouponsController::class, 'update'])->name('Coupons.update');
+            });
+
 
         Route::prefix('shippingNote')->group(function () {
             Route::get('/index', [ShippingNoteController::class, 'index'])->name('shippingNote.index');

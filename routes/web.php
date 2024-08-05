@@ -48,6 +48,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('/front/register/checkout', [IndexController::class, 'register'])->name('front.checkout.register.store');
     Route::get('/area/{id}', [IndexController::class, 'getSubTypes'])->name('front.area')->middleware('auth');
     Route::get('/shipping/{governorate_id}/{area_id}', [IndexController::class, 'getShippingDetails'])->name('front.shipping')->middleware('auth');
+    Route::post('/apply-coupon', [IndexController::class, 'apply_copon'])->name('apply.coupon')->middleware('auth');
 
 
 

@@ -195,8 +195,16 @@
                                         <h5 class="fs-14 mb-0" id="program-name"></h5>
                                     </div>
                                     <div class="col-lg-2 col-6">
-                                        <p class="text-muted mb-2 text-uppercase fw-semibold">{{ trans('messages.total_amount') }}</p>
+                                        <p class="text-muted mb-2 text-uppercase fw-semibold">{{ trans('messages.subtotal_amount') }}</p>
                                         <h5 class="fs-14 mb-0">$<span id="total-amount"></span></h5>
+                                    </div>
+                                    <div class="col-lg-2 col-6">
+                                        <p class="text-muted mb-2 text-uppercase fw-semibold">{{ trans('messages.total_amount') }}</p>
+                                        <h5 class="fs-14 mb-0">$<span id="total-final"></span></h5>
+                                    </div>
+                                    <div class="col-lg-2 col-6">
+                                        <p class="text-muted mb-2 text-uppercase fw-semibold">{{ trans('messages.total_discount') }}</p>
+                                        <h5 class="fs-14 mb-0">$<span id="total-discount"></span></h5>
                                     </div>
                                 </div>
                                 <div class="container">
@@ -352,6 +360,8 @@
                             $('#payment-status').text(response.payment_status);
                             $('#program-name').text(response.program_name);
                             $('#total-amount').text(response.total_amount);
+                            $('#total-final').text(response.final_total);
+                            $('#total-discount').text(response.discount);
 
                             // Address details
                             var addressDetails = '';

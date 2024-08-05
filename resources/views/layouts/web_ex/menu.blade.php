@@ -311,6 +311,11 @@
                         </ul>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('Coupons.index') }}">
+                        <i class='bx bxs-coupon'></i><span data-key="t-widgets">Coupons</span>
+                    </a>
+                </li>
                 {{-- End Shipping Page  --}}
 
                 {{-- Start Setting Page  --}}

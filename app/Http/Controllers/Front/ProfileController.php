@@ -93,6 +93,10 @@ class ProfileController extends Controller
             'payment_status' => $order->payment_method,
             'program_name' => $order->program->{'title_' . app()->getLocale()},
             'total_amount' => $order->total,
+            'final_total' => $order->final_total,
+            'discount'=>$order->coupont_decount??0,
+
+
             'address_details' => $addressDetails,
             'meals' => $meals,
             'items' => $items,

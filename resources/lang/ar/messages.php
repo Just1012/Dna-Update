@@ -137,6 +137,9 @@ return [
     'payment_status' => 'حالة الدفع',
     'program_name' => 'اسم البرنامج',
     'total_amount' => 'المبلغ الإجمالي',
+    'subtotal_amount' => 'المجموع الفرعى',
+    'total_discount'=>'الخصم',
+
     'meals_selected' => 'الوجبات المختارة',
     'meal_name' => 'اسم الوجبة',
     'type' => 'النوع',
