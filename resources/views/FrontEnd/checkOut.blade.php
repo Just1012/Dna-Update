@@ -62,7 +62,6 @@
             box-shadow: 0 0 0 0 transparent !important;
         }
     </style>
-
     <div class="checkout">
         <div class="container">
             <div class="content d-flex align-items-start flex-wrap">

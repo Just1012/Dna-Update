@@ -75,6 +75,8 @@ class IndexController extends Controller
     }
     public function programDetails($id)
     {
+        Session::forget('cart_custom');
+
         $programsDetails = Program::with('meals')->find($id);
 
         if (!$programsDetails) {
@@ -92,6 +94,7 @@ class IndexController extends Controller
     protected $id_order = 0;
     public function storeProgramMeals(Request $request, $id)
     {
+        Session::forget('cart_custom');
         // Fetch the program
         $program = Program::find($id);
         $userID = auth()->id() ?? 0; // Assuming you are using authentication and want to use the authenticated user ID
@@ -134,7 +137,7 @@ class IndexController extends Controller
     {
         $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
         // Initialize an array to hold all meals and addons
-        if (empty($cart)) {
+        if (empty($cart[1])) {
             return redirect()->back()->with('error', 'No items found in the cart.');
         }
 
@@ -250,7 +253,10 @@ class IndexController extends Controller
     public function checkout()
     {
         $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
+        if(!$cart){
+            return redirect()->back();
 
+        }
         // dd($cart);
         $days = DaySetting::where('status', 0)->get();
 
@@ -314,6 +320,47 @@ class IndexController extends Controller
 
     public function storeOrder(Request $request)
     {
+        try {
+            $validatedData = $request->validate([
+                'address' => 'required|array',
+                'address.*' => 'required',
+                'payment_method' => 'required|in:Cash,Online',
+                'block' => 'required|array',
+                'block.*' => 'required',
+                'street' => 'required|array',
+                'street.*' => 'required',
+                'avenue' => 'required|array',
+                'avenue.*' => 'required',
+                'house' => 'required|array',
+                'house.*' => 'required',
+                'floor' => 'required|array',
+                'floor.*' => 'required',
+                'apartment' => 'required|array',
+                'apartment.*' => 'required',
+                'shipping_notes' => 'required|array',
+                'shipping_notes.*' => 'required'
+            ], [
+                'address.required' => 'Please enter address',
+                'address.*.required' => 'Each address field is required',
+                'payment_method.required' => 'Please select a payment method',
+                'payment_method.in' => 'The selected payment method is invalid',
+                'block.required' => 'Please enter block',
+                'block.*.required' => 'Each block field is required',
+                'street.required' => 'Please enter street',
+                'street.*.required' => 'Each street field is required',
+                'avenue.required' => 'Please enter avenue',
+                'avenue.*.required' => 'Each avenue field is required',
+                'house.required' => 'Please enter house',
+                'house.*.required' => 'Each house field is required',
+                'floor.required' => 'Please enter floor',
+                'floor.*.required' => 'Each floor field is required',
+                'apartment.required' => 'Please enter apartment',
+                'apartment.*.required' => 'Each apartment field is required',
+                'shipping_notes.required' => 'Please enter shipping notes',
+                'shipping_notes.*.required' => 'Each shipping note field is required',
+            ]);
+
+
         DB::beginTransaction();
 
             $applied_coupon_custom=  session::get('applied_coupon_custom');
@@ -411,8 +458,19 @@ class IndexController extends Controller
             Session::forget('applied_coupon_custom');
             Toastr::success(__('scuccess'), __('success'));
             return redirect()->route('front.index');
-            try {
-            } catch (\Exception $e) {
+
+            }
+            catch (\Illuminate\Validation\ValidationException $e) {
+                // Flash the validation error messages using Toastr
+                foreach ($e->validator->errors()->all() as $error) {
+                    Toastr::error($error, __('Error'));
+                }
+
+                // Redirect back to the previous page with input
+                return redirect()->back()->withInput();
+            }
+
+            catch (\Exception $e) {
             DB::rollBack();
             Toastr::error(__('An error occurred. Please try again.'), __('Error'));
             return redirect()->back()->withInput();
@@ -680,7 +738,7 @@ class IndexController extends Controller
     public function apply_copon(Request $request)
     {
 
-
+        try {
             $get_total_price=$this->get_total_price();
             $total=$get_total_price['total'];
             $cart_custrom = Session::get('cart_custom');
@@ -709,7 +767,7 @@ class IndexController extends Controller
 
                 return response()->json(['message' => 'invalid coupon']);
             }
-            try {     } catch (\Throwable $th) {
+            } catch (\Throwable $th) {
 
             return response()->json(['message' => 'invalid coupon']);
 
