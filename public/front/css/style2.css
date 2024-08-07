@@ -702,7 +702,6 @@ nav {
 
 @media (max-width: 767px) {
     .products {
-        margin: auto;
         &.small {
             .boxes {
                 .box {
@@ -713,7 +712,7 @@ nav {
                     }
 
                     .image {
-                        right: -10%;
+                        right: -20%;
                     }
                 }
             }
