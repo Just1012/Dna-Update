@@ -150,7 +150,7 @@
                                     style="background-color: #295E4E; color: #fff; font-size: 25px;"></i>
                             </a>
                         </div>
-                        <div class="content_sub d-flex justify-content-start g-2 flex-wrap" id="subCategoriesContent">
+                        <div class="content_sub1 d-flex justify-content-start g-2 flex-wrap" id="subCategoriesContent">
                             <!-- Dynamic content will be injected here -->
                         </div>
                     </div>
