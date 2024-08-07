@@ -17,7 +17,6 @@
             & .box {
                 & .image {
                     img {
-
                         height: 100%;
                     }
                 }
