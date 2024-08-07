@@ -1467,7 +1467,614 @@
         </style>
     @else
         <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" />
-     
+        <style>
+            @media (max-width: 767px) {
+                .program_details {
+                    & .container {
+                        .bg {
+                            width: 358px !important;
+                        }
+                    }
+                }
+            }
+
+            @media (max-width: 767px) {
+                .order {
+                    & .content {
+                        .next-stp {
+                            margin-top: auto;
+                            margin-bottom: 2rem;
+                            margin-left: 0;
+                            border: none;
+                            padding: 1rem 2rem;
+                            border-radius: 7px;
+                            background-color: var(--Marine-blue);
+                            color: white;
+                            cursor: pointer;
+                        }
+
+                        & .form {
+                            .form-container {
+                                width: 358px !important;
+                            }
+                        }
+
+                        .form .form-container .form-sidebar {
+                            background-color: #295E4E;
+                            width: auto;
+                            padding: 3rem 2rem;
+                            display: flex;
+                            flex-direction: row;
+                            gap: 2rem;
+                            border-radius: 0;
+                            background-position: right;
+                            border-radius: 7px !important;
+
+                            .step .circle {
+                                width: 40px !important;
+                            }
+                        }
+                    }
+
+                    .tiles_radio {
+                        display: flex;
+                        justify-content: start;
+                        align-items: normal !important;
+                        flex-direction: column;
+                    }
+                }
+            }
+
+            @media (max-width: 767px) {
+                .order {
+                    & .content {
+                        & .step-1 {
+                            .tiles {
+                                display: flex;
+                                justify-content: start;
+                                align-items: center;
+                                gap: 4px;
+                                flex-wrap: nowrap !important;
+
+                                .tile {
+                                    label {
+                                        .image {
+                                            width: 140px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+
+
+
+                .modal-body {
+                    #signupForm {
+                        .container {
+                            margin: 20px auto;
+                        }
+                    }
+                }
+            }
+                @media(max-width: 767px) {
+                    .categories_cart {
+                        & .content {
+                            & .categories {
+                                .menus {
+                                    width: 630px;
+                                    overflow: auto;
+
+                                    &::-webkit-scrollbar {
+                                        width: 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @media(max-width:991px) {
+                    .checkout {
+                        .content {
+                            gap: 20px;
+
+                            .details {
+                                flex: 0 0 100%;
+
+                                .items {
+                                    .item {
+                                        flex: 0 0 100% !important;
+                                    }
+                                }
+                            }
+
+                            .form {
+                                margin-top: 30px;
+                            }
+                        }
+                    }
+
+
+                }
+
+                .login {
+                    position: relative;
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 512px;
+                        height: 512px;
+                        border-radius: 50%;
+                        top: 0;
+                        right: 0;
+                        transform: translate(9%, -58%) scale(3);
+                        background-color: #295E4E;
+                    }
+
+                    .content {
+                        display: flex;
+                        justify-content: start;
+                        height: 100vh;
+                        align-items: center;
+                        padding-left: 50px;
+
+                        .login_form {
+                            flex: 0 0 40%;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+
+                            .heading {
+                                max-width: 80%;
+
+                                p {
+                                    color: #989a95;
+                                    font-weight: 500;
+                                }
+                            }
+
+                            form {
+                                max-width: 80%;
+                                width: 100%;
+
+                                .inputs {
+                                    display: flex;
+                                    justify-content: start;
+                                    flex-direction: column;
+                                    margin-bottom: 20px;
+
+                                    label {
+                                        margin-bottom: 5px;
+                                        font-size: 16px;
+                                        font-weight: 600;
+                                        color: #989a95;
+                                    }
+
+                                    input {
+                                        height: 40px;
+                                        border-radius: 10px;
+                                        outline: none;
+                                        border: 1px solid #eee;
+                                        padding: 0 15px;
+                                        caret-color: #295E4E;
+
+                                        &:focus {
+                                            border: 1px solid #295E4E;
+                                        }
+                                    }
+
+                                    &:nth-of-type(2) {
+                                        flex-direction: column;
+                                        align-items: start;
+
+                                        input {
+                                            width: 100%;
+                                        }
+                                    }
+
+                                    &:nth-of-type(3) {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                        flex-direction: row;
+
+                                        .check_input {
+                                            display: flex;
+                                            align-items: center;
+                                            flex-direction: row-reverse;
+                                            gap: 5px;
+
+                                            label {
+                                                margin: 0;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                a {
+                                    text-decoration: none;
+                                    color: #295E4E;
+                                    font-weight: 500;
+                                }
+
+                                input[type="submit"] {
+                                    display: block;
+                                    margin: auto;
+                                    padding: 8px 40px;
+                                    border-radius: 10px;
+                                    border: 0;
+                                    background: #295E4E;
+                                    color: #fff;
+                                }
+                            }
+
+                            .my-3 {
+                                color: #989a95;
+                                font-weight: 500;
+                                width: 80%;
+                            }
+
+                            .list-group {
+                                width: 80%;
+
+                                ul {
+                                    list-style: none;
+                                    padding: 0;
+                                    margin: 0;
+                                    gap: 25px;
+                                    margin: 20px 0;
+                                }
+                            }
+
+                            .any_account {
+                                margin: 0;
+                                color: #989a95;
+                                font-weight: 500;
+                                width: 80%;
+
+                                a {
+                                    color: #295E4E;
+                                    font-weight: 500;
+                                    text-decoration: none;
+                                }
+                            }
+                        }
+
+                        .image {
+                            max-width: 35%;
+                            position: absolute;
+                            right: 18%;
+                            bottom: 5%;
+
+                            img {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+
+                .phone_inputs {
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    margin-bottom: 15px;
+                    gap: 10px;
+                    border: 1px solid #3333335e;
+                    width: 90%;
+                    border-radius: 10px;
+
+                    .input {
+                        margin-right: 25px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex: 1;
+
+                        label {
+                            margin-bottom: 5px;
+                            font-size: 16px;
+                            font-weight: 600;
+                            color: #989a95;
+                            display: none;
+                        }
+
+                        input {
+                            height: 40px;
+                            border-radius: 10px;
+                            outline: none;
+                            padding: 0 15px;
+                            padding-left: 0;
+                            border: 0;
+                            caret-color: #295E4E;
+                            width: 100%;
+                            background: transparent;
+                        }
+
+                        .code {
+                            display: flex;
+                            justify-content: start;
+                            align-items: center;
+                            color: #000;
+                            gap: 7px;
+                            padding: 0.8em;
+                            border-radius: 10px;
+
+                            img {
+                                width: 25px;
+                                object-fit: cover;
+                            }
+                        }
+                    }
+                }
+
+                @media (max-width:767px) {
+                    .phone_inputs {
+                        width: 100%;
+                    }
+                }
+
+                @media (max-width:991px) {
+                    .phone_inputs {
+                        width: 100%;
+                    }
+                }
+
+                @media (max-width: 991px) {
+                    .login {
+                        position: relative;
+
+                        &::before {
+                            display: none;
+                        }
+
+                        .content {
+                            display: flex;
+                            justify-content: space-between;
+                            height: 100vh;
+                            align-items: center;
+                            padding: 0 50px;
+
+                            .login_form {
+                                flex: 0 0 100%;
+
+                                .heading {
+                                    max-width: 100%;
+
+                                    p {
+                                        color: #989a95;
+                                        font-weight: 500;
+                                    }
+                                }
+
+                                form {
+                                    max-width: 100%;
+                                    width: 100%;
+
+                                    .inputs {
+                                        display: flex;
+                                        justify-content: start;
+                                        flex-direction: column;
+                                        margin-bottom: 20px;
+
+                                        label {
+                                            margin-bottom: 5px;
+                                            font-size: 16px;
+                                            font-weight: 600;
+                                            color: #989a95;
+                                        }
+
+                                        input {
+                                            height: 40px;
+                                            border-radius: 10px;
+                                            outline: none;
+                                            border: 1px solid #eee;
+                                            padding: 0 15px;
+                                            caret-color: #295E4E;
+
+                                            &:focus {
+                                                border: 1px solid #295E4E;
+                                            }
+                                        }
+
+                                        &:nth-child(3) {
+                                            flex-direction: row;
+                                            align-items: center;
+                                            justify-content: space-between;
+
+                                            .check_input {
+                                                display: flex;
+                                                justify-content: center;
+                                                align-items: center;
+
+                                                label {
+                                                    margin: 0;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    a {
+                                        text-decoration: none;
+                                        color: #295E4E;
+                                        font-weight: 500;
+                                    }
+
+                                    input[type="submit"] {
+                                        display: block;
+                                        margin: auto;
+                                        padding: 8px 40px;
+                                        border-radius: 10px;
+                                        border: 0;
+                                        background: #295E4E;
+                                        color: #fff;
+                                    }
+                                }
+
+                                .my-3 {
+                                    color: #989a95;
+                                    font-weight: 500;
+                                    width: 100%;
+                                }
+
+                                .list-group {
+                                    width: 100%;
+
+                                    ul {
+                                        list-style: none;
+                                        padding: 0;
+                                        margin: 0;
+                                        gap: 25px;
+                                        margin: 20px 0;
+                                    }
+                                }
+
+                                .any_account {
+                                    margin: 0;
+                                    color: #989a95;
+                                    font-weight: 500;
+                                    width: 100%;
+
+                                    a {
+                                        color: #295E4E;
+                                        font-weight: 500;
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
+
+                            .image {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+
+                form {
+                    max-width: 80%;
+                    margin-top: 25px;
+                    width: 100%;
+
+                    .name_inputs,
+                    .password_inputs {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 15px;
+
+                        .input {
+                            margin-right: 0px !important;
+                            width: 100%;
+
+                            input {
+                                height: 40px;
+                                border-radius: 10px;
+                                outline: none;
+                                border: 1px solid #3333335e;
+                                padding: 0 15px;
+                                caret-color: #295E4E;
+                                background-color: transparent;
+
+                                &:focus {
+                                    border: 1px solid #295E4E;
+                                }
+                            }
+                        }
+
+                    }
+
+                    .check_input {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 3px;
+
+                        label {
+                            color: #989a95;
+                            font-weight: 500;
+                        }
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: #295E4E;
+                        font-weight: 500;
+                    }
+
+                    input[type="submit"] {
+                        display: block;
+                        margin: auto;
+                        padding: 8px 40px;
+                        border-radius: 10px;
+                        border: 0;
+                        background: #295E4E;
+                        color: #fff;
+                        margin-top: 30px;
+                    }
+
+                    label {
+                        margin-bottom: 5px;
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: #989a95;
+                    }
+
+                    .label_phone {
+                        margin-left: -16px;
+                    }
+
+                    .margin {
+                        margin-left: -17px;
+                        width: 102%;
+                    }
+
+                    .inputs {
+                        display: flex;
+                        justify-content: start;
+                        flex-direction: column;
+                        margin-bottom: 20px;
+
+                        input {
+                            height: 40px;
+                            border-radius: 10px;
+                            outline: none;
+                            border: 1px solid #3333335e;
+                            padding: 0 15px;
+                            caret-color: #295E4E;
+                            background-color: transparent;
+
+                            &:focus {
+                                border: 1px solid #295E4E;
+                            }
+                        }
+                    }
+                }
+
+                .any_account {
+                    margin-top: 20px;
+                    color: #989a95;
+                    font-weight: 500;
+                    width: 80%;
+
+                    a {
+                        color: #295E4E;
+                        font-weight: 500;
+                        text-decoration: none;
+                    }
+                }
+
+                .order {
+                    form {
+                        max-width: 100% !important;
+                        width: 100%;
+                    }
+                }
+        </style>
     @endif
 
 
