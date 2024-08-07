@@ -78,7 +78,7 @@
                     <a class="view_all" href="{{ route('front.allProgram') }}">
                         <span>{{ trans('messages.view_all') }}</span>
                         <div class="icon">
-                            <i class="ri-arrow-drop-right-line"></i>
+                            <i class="ri-arrow-drop-right-line" style="background-color: #295E4E; color: #fff; font-size: 25px;">></i>
                         </div>
                     </a>
                 </div>
