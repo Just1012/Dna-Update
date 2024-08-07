@@ -727,6 +727,7 @@ nav {
                 flex: 0 0 41%;
 
                 .content {
+                    background: rebeccapurple;
                     max-width: 263px;
                 }
 
