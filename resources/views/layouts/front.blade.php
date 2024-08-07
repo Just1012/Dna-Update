@@ -21,6 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
     <link href="{{ asset('web/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     @if (App::getLocale() == 'ar')
         <link rel="stylesheet" href="{{ asset('front/css/style_ar.css') }}" />
@@ -2093,6 +2094,8 @@
 
     <script src="{{ asset('front/js/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('front/js/main.js') }}"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 
     <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
     {!! Toastr::message() !!}

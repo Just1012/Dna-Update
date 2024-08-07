@@ -123,7 +123,7 @@
                     </div>
                     <div class="menus">
                         <div class="container">
-                            <div class="category-slider d-flex justify-content-start align-items-center  gap-3">
+                            <div class="d-flex justify-content-start align-items-center overflow-hidden gap-3">
                                 @foreach ($categories as $category)
                                     <div id="menu_card" class="menu_card" data-choose="{{ $category->id }}"
                                         onclick="handleCategoryClick(this, {{ $category->id }})">
@@ -229,6 +229,15 @@
         });
     </script>
     <script>
+         const swiper = new Swiper('.swiper-container', {
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        freeMode: true,
+        scrollbar: {
+            el: '.swiper-scrollbar',
+            draggable: true,
+        },
+    });
         var currentLocale = '{{ App::getLocale() }}';
         var categoryId = null;
         var subCategoryId = null;

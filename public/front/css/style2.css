@@ -364,15 +364,6 @@ nav {
     }
 }
 
-.category-slider {
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 10px 0;
-}
-
-.category-slider::-webkit-scrollbar {
-    display: none;
-}
 .categories_cart {
     .content {
         flex-wrap: wrap;
@@ -483,7 +474,10 @@ nav {
             }
             .content_sub {
                 height: 150px;
-                overflow: auto;
+                overflow-x: auto; /* Enable horizontal scrolling */
+                white-space: nowrap; /* Prevent line breaks within items */
+                display: flex; /* Use flexbox to align items in a row */
+                flex-wrap: nowrap; /* Prevent wrapping to a new line */
                 .btn {
                     color: #295e4e !important;
                     border: 1px solid #295e4e !important;
