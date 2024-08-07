@@ -701,21 +701,7 @@ nav {
 }
 
 /* General styles for all screen sizes */
-.products {
-    .boxes {
-        .box {
-            flex: 0 0 30%; /* Default width for larger screens */
 
-            .content {
-                max-width: 300px;
-            }
-
-            .image {
-                right: 0;
-            }
-        }
-    }
-}
 
 /* Styles for screens up to 1200px wide */
 @media (max-width: 1200px) {
