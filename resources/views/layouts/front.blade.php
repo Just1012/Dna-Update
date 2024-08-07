@@ -52,7 +52,7 @@
                     top: 0;
                     right: 0;
                     transform: translate(9%, -58%) scale(3);
-                    background-color: #295e4e79;
+                    background-color: #295E4E;
                 }
 
                 .content {
@@ -1308,17 +1308,7 @@
                                 }
                             }
 
-                            .sub_categories {
-                                flex: 0 0 100%;
-                                height: 263px;
-                                background-color: #fff;
-                                border-radius: 20px;
-                                padding: 20px;
 
-                                .btn {
-                                    padding: 4px 22px !important;
-                                }
-                            }
                         }
                     }
                 }
