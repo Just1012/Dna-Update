@@ -1456,7 +1456,7 @@
                 }
         </style>
     @else
-        <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" />
+        <link rel="stylesheet" href="{{ asset('front/css/style2.css') }}" />
         <style>
             @media (max-width: 767px) {
                 .program_details {
