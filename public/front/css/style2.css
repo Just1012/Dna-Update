@@ -9,6 +9,8 @@
 body {
     background-color: #e4e4e6;
     font-family: "Cairo", sans-serif;
+    overflow-x: hidden ;
+    overflow-y: auto;
 }
 
 .cairo-custom-body {
@@ -474,7 +476,7 @@ nav {
             }
             .content_sub {
                 height: 150px;
-                overflow:hidden;
+                overflow: auto;
                 .btn {
                     color: #295e4e !important;
                     border: 1px solid #295e4e !important;
@@ -537,7 +539,7 @@ nav {
                     .d-flex {
                         column-gap: 20px;
                         width: 700px;
-                        overflow: hidden;
+                        overflow: auto;
                     }
                 }
             }
