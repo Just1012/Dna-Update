@@ -474,10 +474,7 @@ nav {
             }
             .content_sub {
                 height: 150px;
-                overflow-x: auto; /* Enable horizontal scrolling */
-                white-space: nowrap; /* Prevent line breaks within items */
-                display: flex; /* Use flexbox to align items in a row */
-                flex-wrap: nowrap; /* Prevent wrapping to a new line */
+                overflow:hidden;
                 .btn {
                     color: #295e4e !important;
                     border: 1px solid #295e4e !important;
@@ -540,7 +537,7 @@ nav {
                     .d-flex {
                         column-gap: 20px;
                         width: 700px;
-                        overflow: auto;
+                        overflow: hidden;
                     }
                 }
             }

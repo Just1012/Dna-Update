@@ -447,7 +447,7 @@ nav {
             }
             .content_sub {
                 height: 150px;
-                overflow: auto;
+                overflow-x: scroll;
                 .btn {
                     color: #295E4E !important;
                     border: 1px solid #295E4E !important;
@@ -569,6 +569,8 @@ nav {
                 padding: 20px;
                 .content_sub {
                     height: auto;
+                    overflow-x: scroll;
+
                 }
                 .btn {
                     padding: 4px 22px !important;

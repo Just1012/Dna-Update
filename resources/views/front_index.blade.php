@@ -114,7 +114,7 @@
         </div>
     </section>
     <!-- Menu Category Section -->
-    <section class="categories_cart">
+    <section class="categories_cart" style="overflow: hidden;">
         <div class="container">
             <div class="content d-flex justify-content-between align-items-start">
                 <div class="categories">
@@ -123,7 +123,7 @@
                     </div>
                     <div class="menus">
                         <div class="container">
-                            <div class="d-flex justify-content-start align-items-center overflow-hidden gap-3">
+                            <div class="d-flex justify-content-start align-items-center gap-3" style="overflow-x: scroll">
                                 @foreach ($categories as $category)
                                     <div id="menu_card" class="menu_card" data-choose="{{ $category->id }}"
                                         onclick="handleCategoryClick(this, {{ $category->id }})">
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="sub_categories">
+                <div class="sub_categories" style="overflow: hidden;">
                     <div class="d-flex justify-content-start align-items-center flex-wrap">
                         <div class="heading d-flex justify-content-between align-items-center">
                             <h3>{{ trans('messages.sub_category') }}</h3>
