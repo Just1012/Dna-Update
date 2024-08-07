@@ -364,6 +364,15 @@ nav {
     }
 }
 
+.category-slider {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+
+.category-slider::-webkit-scrollbar {
+    display: none;
+}
 .categories_cart {
     .content {
         flex-wrap: wrap;
