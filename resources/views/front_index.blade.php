@@ -116,14 +116,14 @@
     <!-- Menu Category Section -->
     <section class="categories_cart">
         <div class="container">
-            <div class="content d-flex justify-content-between align-items-start">
+            <div class="content d-flex justify-content-between align-items-end">
                 <div class="categories">
                     <div class="heading d-flex justify-content-between align-items-center">
                         <h3>{{ trans('messages.menu_category') }}</h3>
                     </div>
                     <div class="menus">
                         <div class="container">
-                            <div class="d-flex justify-content-start align-items-center gap-3">
+                            <div class="d-flex justify-content-start align-items-center overflow-hidden gap-3">
                                 @foreach ($categories as $category)
                                     <div id="menu_card" class="menu_card" data-choose="{{ $category->id }}"
                                         onclick="handleCategoryClick(this, {{ $category->id }})">
