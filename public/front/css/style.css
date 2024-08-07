@@ -680,7 +680,7 @@ nav {
             }
 
             &:hover {
-                background-color: #295e4e;
+                background-color: #295e4e !important;
 
                 span,
                 p,
