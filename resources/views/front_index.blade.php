@@ -355,7 +355,7 @@
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'box ' + (item.subCategory ? item.subCategory.slug : 'general');
                     itemDiv.innerHTML = `
-                    <div style="padding-right:40px !important;" class="content">
+                    <div style="padding-right:35px !important;" class="content">
                         <h6 class="mb-1 mt-3 heading-title fw-bolder"> ${currentLocale == 'ar' ? item.title_ar : item.title_en}</h6>
                     </div>
                     <div class="image">
