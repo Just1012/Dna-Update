@@ -4,6 +4,9 @@
     @include('layouts.ex_front.header')
 
     <style>
+           .add:hover{
+            color: #F3BB68 !important;
+        }
         .wrapper {
             position: relative;
             margin-top: 70px;
@@ -34,6 +37,7 @@
             }
         }
 
+
         @media (max-width:767px) {
             .wrapper {
                 img {
@@ -61,18 +65,23 @@
           </div> --}}
             <div class="content d-flex justify-content-start align-items-center flex-wrap mb-5">
                 @foreach ($programs as $program)
-                    <a class="address" href="{{ route('front.programDetails', ['id' => $program->id]) }}">
+                    <div class="address">
                         <div class="image">
                             <img src="{{ asset('images/' . $program->image) }}" alt="">
                         </div>
                         <div class="offer">
-                            <h2 class="mb-2 text-center">
+                            <a class="" href="{{ route('front.programDetails', ['id' => $program->id]) }}">
+
+                            <h2 class="mb-2 text-center add">
                                 {{ App::getLocale() == 'ar' ? $program->title_ar : $program->title_en }}</h2>
-                            <p class="mb-0">
-                                {!! Str::limit(App::getLocale() == 'ar' ? $program->description_ar : $program->description_en, 100) !!}
+                            </a>
+                                <p class="mb-0 " >
+                                {!! \App\Utils\helper::str_limit_words(App::getLocale() == 'ar' ? $program->description_ar : $program->description_en, 100) !!}
                             </p>
+
                         </div>
-                    </a>
+
+                </div>
                 @endforeach
             </div>
         </div>

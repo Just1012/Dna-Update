@@ -2,7 +2,164 @@
 @section('title', App::getLocale() == 'ar' ? $programsDetails->title_ar : $programsDetails->title_en)
 @push('css')
     <style>
+.nft{
 
+  user-select:none;
+  margin: 1rem auto;
+  max-width: 300px;
+  border: 1px solid #ffffff22;
+  background-color: #fadeb66c;
+  background: linear-gradient(0deg, #e07a8491  0%, rgba(17,0,32,.5) 100%);
+  box-shadow: 0 7px 20px 5px #00000088;
+  border-radius: .7rem;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  overflow: hidden;
+  transition: .5s all;
+  hr{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #88888855;
+    margin-top: 0;
+  }
+  ins{
+    text-decoration: none;
+  }
+  .creator1{
+      display: flex;
+      align-items: center;
+      margin-top: .2rem;
+      margin-bottom: -.3rem;
+      position: absolute;
+      ins{
+        color:#FFDCB0;
+        text-decoration: none;
+      }
+      .wrapper1{
+        display: flex;
+        align-items: center;
+        border: 1px solid #ffffff22;
+        padding: .3rem;
+        margin: 0;
+        margin-right: .5rem;
+        border-radius: 100%;
+        box-shadow: inset 0 0 0 4px #FFDCB0;
+        img{
+          border-radius: 100%;
+          border: 1px solid #ffffff22;
+          width: 2rem;
+          height: 2rem;
+          object-fit: cover;
+          margin: 0;
+        }
+      }
+    }
+  .main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    .tokenImage{
+      border-radius: .5rem;
+      max-width: 100%;
+      height: auto;
+      max-height:70px;
+      object-fit: cover;
+    }
+    .description{
+      margin: .5rem 0;
+      color: #F3BB68
+      ;
+    }
+    .tokenInfo{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .price{
+        display: flex;
+        align-items: center;
+        color: #295E4E;
+        font-weight: 700;
+        ins{
+          margin-left: -.3rem;
+          margin-right: .5rem;
+        }
+      }
+
+      .duration{
+        display: flex;
+        align-items: center;
+        color: #a89ec9;
+        margin-right: .2rem;
+        ins{
+          margin: .5rem;
+          margin-bottom: .4rem;
+        }
+      }
+    }
+    .creator{
+      display: flex;
+      align-items: center;
+      margin-top: .2rem;
+      margin-bottom: -.3rem;
+      ins{
+        color:#FFDCB0;
+        text-decoration: none;
+      }
+      .wrapper{
+        display: flex;
+        align-items: center;
+        border: 1px solid #ffffff22;
+        padding: .3rem;
+        margin: 0;
+        margin-right: .5rem;
+        border-radius: 100%;
+        box-shadow: inset 0 0 0 4px #FFDCB0;
+        img{
+          border-radius: 100%;
+          border: 1px solid #ffffff22;
+          width: 2rem;
+          height: 2rem;
+          object-fit: cover;
+          margin: 0;
+        }
+      }
+    }
+  }
+  ::before{
+    position: fixed;
+    content: "";
+    box-shadow: 0 0 100px 40px #ffffff08;
+    top: -10%;
+    left: -100%;
+    transform: rotate(-45deg);
+    height: 60rem;
+    transition: .7s all;
+  }
+  &:hover{
+    border: 1px solid #ffffff44;
+    box-shadow: 0 7px 50px 10px #000000aa;
+    transform: scale(1.015);
+    filter: brightness(1.3);
+    ::before{
+      filter: brightness(.5);
+      top: -100%;
+      left: 200%;
+    }
+  }
+}
+
+.bg{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  h1{
+    font-size: 20rem;
+    filter: opacity(0.5);
+  }
+}
+/**/
 
 
         body {
@@ -172,14 +329,7 @@
             padding: 10px;
             border-radius: 5px;
             transition: border-color 0.3s ease;
-        }
-
-        /* Style the label when the corresponding checkbox is checked */
-        .form-check-input.d-none:checked+.meal-label {
-            box-shadow: rgba(117, 16, 16, 0.1) 0px 4px 12px;
-            background: rgba(41, 94, 78, 0.6);
-            border: 1px solid rgba(41, 94, 78, 0.8);
-            color: #fff;
+            position: relative;
         }
 
         /* Add some style to the meal image */
@@ -266,6 +416,8 @@
                                 </div>
                                 <div class="mb-4">
                                     <h4 class="h4">{{ trans('messages.addons') }}</h4>
+
+
                                 </div>
                                 <div class="row" id="addons-container">
                                     <!-- Addons will be populated here -->
@@ -285,8 +437,8 @@
                 </div>
 
                 <!-- Order Summary -->
-                <div class="col-md-3">
-                    <div class="order-summary myshadow p-4">
+                <div class="col-md-3" >
+                    <div class="order-summary myshadow p-4"style="  background: linear-gradient(0deg, #e07a8491  0%, rgba(17,0,32,.5) 100%);">
 
                         <h5>{{ trans('messages.order_summary') }}</h5>
                         <div>
@@ -357,68 +509,137 @@
             // Populate meals
          // Populate meals
             data.meals.forEach(function(meal, index) {
-                console.log(meal);
 
                 $('#meals-container').append(`
 
-                   <div class="col-md-3 col-6 mb-4">
-                        <div class="" style="">
-                        <div class="header text-center text-dark" style="background:#fff;box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;">
-                        <p>${meal.calories} <img src="{{ asset('web/calories.png') }}" style="width:20px; height:20px; ">
-                        </p>
+                    <div class="nft ">
+                             <div class='creator1 d-none'  id="creator-meal${meal.id}">
+                            <div class='wrapper1'>
+                            <img src="{{ asset('web/check.png') }}" alt="Creator" />
+                            </div>
+
                         </div>
-                        <div class="mx-auto col-12">
-                          <div class="" style="">
-                                <input type="checkbox" class="form-check-input d-none" name="meals[]" id="meal${meal.id}" value="${meal.id}" ${index < min ? 'checked' : ''}>
-                                <label class="form-check-label meal-label" for="meal${meal.id}">
-                                    <h6>${meal.title}</h6>
-                                    <p>${meal.price} {{$symble}}</p>
-                                </label>
+                        <div class='main'  for="meal${meal.id}">
+
+                        <input type="checkbox" class="form-check-input d-none" name="meals[]" id="meal${meal.id}" value="${meal.id}" ${index < min ? 'checked' : ''}>
+                            <label class="form-check-label meal-label" for="meal${meal.id}"
+
+                                <h2 style="color:white;">${meal.title} </h2>
+
+                        <p class='description'></p>
+                        <div class='tokenInfo'>
+                            <div class="price">
+                            <ins>◘</ins>
+                            <p>${meal.price}  {{$symble}}</p>
+                            </div>
+                            <div class="duration">
+                            <ins></ins>
+                            <p></p>
                             </div>
                         </div>
+                        <hr />
+                        <div class='creator'>
+                            <div class='wrapper'>
+                            <img src="{{ asset('web/calories.png') }}" alt="Creator" />
+                            </div>
+                            <p><ins>${meal.calories}</ins></p>
+
+                        </div>
+                        </label>
+                        </div>
                     </div>
-                    </div>
+
 
 
                 `);
-                if(index <1){
+                    // Event listener to toggle the image visibility based on checkbox state
+    $('input[name="meals[]"]').change(function() {
+        const creatorElement = $(`#creator-${$(this).attr('id')}`);
+        if ($(this).is(':checked')) {
+            creatorElement.removeClass('d-none');
+        } else {
+            creatorElement.addClass('d-none');
+        }
+    });
 
-                $('#programForm').submit();
-                }
+    // Initially show the image for pre-checked checkboxes
+    $('input[name="meals[]"]:checked').each(function() {
+        $('#programForm').submit();
+
+        const creatorElement = $(`#creator-${$(this).attr('id')}`);
+        creatorElement.removeClass('d-none');
+    });
             });
 
             // Populate addons
             data.addons.forEach(function(addon ,index) {
                 $('#addons-container').append(`
-                    <div class="col-md-3 col-6 mb-4">
-                        <div class="" style="">
-                        <div class="header text-center text-dark" style="background:#fff;box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;">
-                        <p>${addon.calories} <img src="{{ asset('web/calories.png') }}" style="width:20px; height:20px; ">
-                        </p>
-                        </div>
-                        <div class="mx-auto col-12">
-                          <div class="" style="">
-                                <input type="checkbox" class="form-check-input d-none" name="addons[]" id="addon${addon.id}" value="${addon.id}" ${index < 2 ? 'checked' : ''}>
-                            <label class="form-check-label meal-label" for="addon${addon.id}">
-                                <h6>${addon.title}</h6>
-                                <p>${addon.price} {{$symble}}</p>
+                        <div class="nft ">
+                        <div class='main'>
+                            <div class="row">
+                            <div class='creator1 d-none col-2'  id="creator-addon${addon.id}">
+                            <div class='wrapper1'>
+                            <img src="{{ asset('web/check.png') }}" alt="Creator" />
+                            </div>
 
-                            </label>
+                        </div>
+                                <input type="checkbox" class="form-check-input d-none " name="addons[]" id="addon${addon.id}" value="${addon.id}" ${index < 2 ? 'checked' : ''}>
+                            <label class="form-check-label meal-label" for="addon${addon.id}"
+                        <h2  style="color:white;">${addon.title}</h2>
+                        <p class='description'></p>
+                        <div class='tokenInfo'>
+                            <div class="price">
+                            <ins>◘ <i class="bx bx-check"></i></ins>
+                            <p>${addon.price} {{$symble}}</p>
+                            </div>
+                            <div class="duration">
+                            <ins></ins>
+                            <p></p>
                             </div>
                         </div>
-                    </div>
-                    </div>
-        `);
-        if(index <1){
+                        <hr />
+                        <div class='creator'>
+                            <div class='wrapper'>
+                            <img src="{{ asset('web/calories.png') }}" alt="Creator" />
+                            </div>
+                            <p><ins>${addon.calories}</ins></p>
 
-            $('#programForm').submit();
-            }
+                        </div>
+                        </label>
+                        </div>
+                        </div>
+                    </div>
+
+        `);
+
+
+                    $('input[name="addons[]"]').change(function() {
+                    const creatorElement = $(`#creator-${$(this).attr('id')}`);
+                    if ($(this).is(':checked')) {
+                        creatorElement.removeClass('d-none');
+                    } else {
+                        creatorElement.addClass('d-none');
+                    }
+                });
+
+                // Initially show the image for pre-checked checkboxes
+                $('input[name="addons[]"]:checked').each(function() {
+                    $('#programForm').submit();
+                    const creatorElement = $(`#creator-${$(this).attr('id')}`);
+                    creatorElement.removeClass('d-none');
+                });
+
+
             });
+
+
 
             // Bind change event to checkboxes
             $('input[type="checkbox"]').on('change', function() {
                 $('#programForm').submit();
             });
+
+
         }
 
 
@@ -488,7 +709,7 @@
                     error: function(xhr) {
                         // Handle errors here
                         let selectedMeals = $('input[name="meals[]"]:checked').length;
-                        alert('aa');
+
                         console.log(xhr);
 
                     }

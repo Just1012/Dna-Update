@@ -19,6 +19,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    <link href="{{ asset('web/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
     @if (App::getLocale() == 'ar')
         <link rel="stylesheet" href="{{ asset('front/css/style_ar.css') }}" />
@@ -1558,7 +1560,7 @@
                         }
                     }
                 }
-
+            }
                 @media(max-width: 767px) {
                     .categories_cart {
                         & .content {

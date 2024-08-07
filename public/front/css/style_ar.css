@@ -132,7 +132,7 @@ nav {
                             padding: 8px 10px;
                             width: 200px;
                             li {
-                                padding: 10px;
+                                padding: 5px;
                                 cursor: pointer;
                                 a {
                                     color: #000;
@@ -726,7 +726,7 @@ nav {
         top: 0;
         right: 0;
         transform: translate(9%, -58%) scale(3);
-        background-color:  rgba(41, 94, 78, 0.2);
+        background-color: rgba(145, 175, 166, 0.2) !important;
     }
     .content {
         display: flex;
@@ -786,6 +786,11 @@ nav {
                     text-decoration: none;
                     color: #295E4E;
                     font-weight: 500;
+                }
+                input{
+
+                    border: 1px solid #295E4E
+                    !important;
                 }
                 input[type="submit"] {
                     display: block;
@@ -901,6 +906,10 @@ nav {
                         color: #295E4E;
                         font-weight: 500;
                     }
+                    input{
+                        border: 1px solid #295E4E
+                        !important;
+                    }
                     input[type="submit"] {
                         display: block;
                         margin: auto;
@@ -1002,6 +1011,7 @@ nav {
                         }
                     }
                 }
+
                 input[type="submit"] {
                     display: block;
                     margin: auto;

@@ -157,7 +157,7 @@ nav {
                             width: 200px;
 
                             li {
-                                padding: 10px;
+                                padding: 5px;
                                 cursor: pointer;
 
                                 a {
@@ -748,7 +748,7 @@ nav {
         top: 0;
         right: 0;
         transform: translate(9%, -58%) scale(3);
-        background-color: rgba(41, 94, 78, 0.2);
+        background-color: #295e4e79 !important;
     }
 
     .content {
@@ -792,6 +792,11 @@ nav {
                     text-decoration: none;
                     color: #295e4e;
                     font-weight: 500;
+                }
+                input{
+
+                    border: 1px solid #295E4E
+                    !important;
                 }
 
                 input[type="submit"] {
@@ -889,16 +894,14 @@ nav {
                             }
                         }
 
-                        &:nth-child(3) {
+                        &:nth-child() {
                             flex-direction: row;
                             align-items: center;
                             justify-content: space-between;
-
                             .check_input {
                                 display: flex;
                                 justify-content: center;
                                 align-items: center;
-
                                 label {
                                     margin: 0;
                                 }
@@ -974,7 +977,7 @@ nav {
         top: 0;
         right: 0;
         transform: translate(9%, -58%) scale(3);
-        background-color: #295e4e;
+        background-color: #295e4e79;
     }
 
     .content {
@@ -2445,6 +2448,7 @@ form {
             &:focus {
                 border: 1px solid #295e4e;
             }
+
         }
     }
 }

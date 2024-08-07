@@ -1,31 +1,34 @@
 @extends('layouts.front')
 @section('title', trans('messages.home_page'))
-@section('content')
-    @include('layouts.ex_front.header')
+@push('css')
 
-    <style>
-        .pagination .page-link:focus,
-        .pagination .page-link:hover {
-            color: #295E4E;
-            background-color: #fff;
-            border-color: #295E4E;
-            outline: none;
-            box-shadow: none;
-        }
+<style>
+    .pagination .page-link:focus,
+    .pagination .page-link:hover {
+        color: #295E4E;
+        background-color: #fff;
+        border-color: #295E4E;
+        outline: none;
+        box-shadow: none;
+    }
 
-        .products {
-            & .boxes {
-                & .box {
-                    & .image {
-                        img {
+    .products {
+        & .boxes {
+            & .box {
+                & .image {
+                    img {
 
-                            height: 100%;
-                        }
+                        height: 100%;
                     }
                 }
             }
         }
-    </style>
+    }
+</style>
+@endpush
+@section('content')
+    @include('layouts.ex_front.header')
+
     <!-- slider -->
     <section class="slider">
         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -89,22 +92,20 @@
                                         <a href="{{ route('front.programDetails', ['id' => $programs->id]) }}">
                                             <div class="address">
                                                 <div class="image">
-                                                    <img src="{{ asset('images/' . $programs->image) }}"
-                                                        alt="{{ $programs->title_en }}">
+                                                    <img src="{{ asset('images/' . $programs->image) }}" alt="{{ $programs->title_en }}">
                                                 </div>
                                                 <div class="offer">
-                                                    <h2 style="color: #000 !important;" class="mb-2 text-center">
+                                                    <h2 class="mb-2 text-center" style="color:#295E4E">
                                                         {{ App::getLocale() == 'ar' ? $programs->title_ar : $programs->title_en }}
                                                     </h2>
                                                     <p class="mb-0">
-                                                        {{ Str::limit(App::getLocale() == 'ar' ? $programs->description_ar : $programs->description_en, 100) }}
+                                                        {!! \App\Utils\helper::str_limit_words(App::getLocale() == 'ar' ? $programs->description_ar : $programs->description_en, 100) !!}
                                                     </p>
                                                 </div>
                                             </div>
                                         </a>
                                     </li>
                                 @endforeach
-
                             </ul>
                         </div>
                     </div>
@@ -176,7 +177,7 @@
             <div class="content d-flex justify-content-start align-items-center">
                 @foreach ($data['slider_second'] as $index => $slid)
                     <div class="advertisements_1">
-                        <img src="{{ asset('images/' . $slid->image) }}" alt="{{ $slid->title_en }}">
+                        <img src="{{ asset('images/' . $slid->image) }}" style="object-fit: cover; width: 100%; height: 100%;" alt="{{ $slid->title_en }}">
                     </div>
                 @endforeach
             </div>

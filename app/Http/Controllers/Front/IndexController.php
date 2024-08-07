@@ -87,6 +87,8 @@ class IndexController extends Controller
             ->with('duration')
             ->selectRaw('duration_id, SUM(price) as price')
             ->groupBy('duration_id')
+            ->orderBy('duration_id', 'desc')
+
             ->get();
 
         return view('FrontEnd.programDetails', compact('programsDetails', 'durations'));
@@ -318,6 +320,170 @@ class IndexController extends Controller
         return response()->json($shipping);
     }
 
+    // public function storeOrder(Request $request)
+    // {
+    //     try {
+    //         $validatedData = $request->validate([
+    //             'address' => 'required|array',
+    //             'address.*' => 'required',
+    //             'payment_method' => 'required|in:Cash,Online',
+    //             'block' => 'required|array',
+    //             'block.*' => 'required',
+    //             'street' => 'required|array',
+    //             'street.*' => 'required',
+    //             'avenue' => 'required|array',
+    //             'avenue.*' => 'required',
+    //             'house' => 'required|array',
+    //             'house.*' => 'required',
+    //             'floor' => 'required|array',
+    //             'floor.*' => 'required',
+    //             'apartment' => 'required|array',
+    //             'apartment.*' => 'required',
+    //             'shipping_notes' => 'required|array',
+    //             'shipping_notes.*' => 'required'
+    //         ], [
+    //             'address.required' => 'Please enter address',
+    //             'address.*.required' => 'Each address field is required',
+    //             'payment_method.required' => 'Please select a payment method',
+    //             'payment_method.in' => 'The selected payment method is invalid',
+    //             'block.required' => 'Please enter block',
+    //             'block.*.required' => 'Each block field is required',
+    //             'street.required' => 'Please enter street',
+    //             'street.*.required' => 'Each street field is required',
+    //             'avenue.required' => 'Please enter avenue',
+    //             'avenue.*.required' => 'Each avenue field is required',
+    //             'house.required' => 'Please enter house',
+    //             'house.*.required' => 'Each house field is required',
+    //             'floor.required' => 'Please enter floor',
+    //             'floor.*.required' => 'Each floor field is required',
+    //             'apartment.required' => 'Please enter apartment',
+    //             'apartment.*.required' => 'Each apartment field is required',
+    //             'shipping_notes.required' => 'Please enter shipping notes',
+    //             'shipping_notes.*.required' => 'Each shipping note field is required',
+    //         ]);
+
+
+    //     DB::beginTransaction();
+
+    //         $applied_coupon_custom=  session::get('applied_coupon_custom');
+    //         if(isset($applied_coupon_custom)){
+
+
+    //         if ($applied_coupon_custom['code']) {
+    //             $value =  $this->increaseCoupons($applied_coupon_custom['code']);
+    //             if ($value == false) {
+    //                 return redirect()->back();
+    //             }
+    //         }
+    //     }
+    //         $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
+    //         $startDateString = $request->input('date'); // Get the date from the request
+    //         $daysOff = DaySetting::where('status', 1)->pluck('name'); // Get days off from the database
+
+    //         $startDate = Carbon::parse($startDateString);
+    //         $endDate = $this->calculateEndDate($startDate, $cart[1]['duration_id'], $daysOff);
+
+    //         $order = Order::create([
+    //             'user_id' => auth()->user()->id,
+    //             'total' => $cart[1]['total'],
+    //             'program_id' => $cart[1]['program']->id,
+    //             'start_date' => $startDate->format('Y-m-d'),
+    //             'end_date' => $endDate->format('Y-m-d'),
+    //             'vulnerability' => $cart[1]['allergic'],
+    //             'duration_id' => $cart[1]['duration_id'],
+    //             'notes' => $cart[1]['notes'],
+    //             'unlike' => $cart[1]['dont_like'],
+    //             'meals_id' => json_encode($cart[1]['all_meals']),
+    //             'items_id' => json_encode($cart[1]['items']),
+    //             'payment_method' => 'cash',
+    //             'final_total' => $applied_coupon_custom['finaltotla']??$cart[1]['total'],
+    //             'coupone_code'=> $applied_coupon_custom['code']??null,
+    //             'coupont_decount'=>$applied_coupon_custom['discountAmount']??null
+    //         ]);
+
+    //         foreach ($request->address as $key => $address) {
+    //             $address_details = $request->block[$key] . '-' . $request->street[$key] . '-' . $request->avenue[$key] . '-' . $request->house[$key] . '-' . $request->house[$key] . '-' . $request->apartment[$key];
+    //             // dd($address_details);
+    //             $newAddress = Address::create([
+    //                 'governorate_id' => $request->governorates[$key],
+    //                 'area_id' => $request->areas[$key],
+    //                 'address' => $address,
+    //                 'address_details' => $address_details,
+    //                 'user_id' => $order->user_id,
+    //                 'shipping_notes' => $request->shipping_notes[$key],
+    //             ]);
+
+    //             $order_days = new orderDayes();
+    //             $order_days->order_id = $order->id;
+    //             $order_days->address_id = $newAddress->id;
+    //             if($request->anotherAddress=='yes'){
+
+    //             if ($order_days) {
+    //                 foreach ($request->days[$key] as $day) {
+    //                     // Check if there's another orderDayes with the same order_id and $day already set to 1
+    //                     $conflictingOrderDay = orderDayes::where('order_id', $order->id)
+    //                         ->where($day, 1)
+    //                         ->first();
+
+    //                     if ($conflictingOrderDay) {
+
+    //                         DB::rollBack();
+
+    //                         Toastr::error(__('Try Again'), __('Error'));
+    //                         return response()->json(['message' =>'error'], 400);
+
+    //                       //  return redirect()->back()->withInput();
+    //                     } else {
+    //                         $order_days->$day = 1;
+    //                     }
+    //                 }
+    //                 $order_days->save();
+    //             }
+    //             }else{
+    //                 $order_days->Monday = 1;
+    //                 $order_days->Tuesday = 1;
+    //                 $order_days->Wednesday = 1;
+    //                 $order_days->Thursday = 1;
+    //                 $order_days->Sunday = 1;
+    //                 $order_days->Saturday = 1;
+    //                 $order_days->Friday = 1;
+
+    //                 $order_days->save();
+
+
+    //             }
+
+    //         }
+
+    //         DB::commit();
+    //         Session::forget('cart_custom');
+
+    //         Session::forget('applied_coupon_custom');
+    //         Toastr::success(__('scuccess'), __('success'));
+    //         return response()->json(['message' => 'scuccess'], 201);
+
+    //   //      return redirect()->route('front.index');
+
+    //         }
+    //         catch (\Illuminate\Validation\ValidationException $e) {
+    //             // Flash the validation error messages using Toastr
+    //             foreach ($e->validator->errors()->all() as $error) {
+    //                 Toastr::error($error, __('Error'));
+    //             }
+
+    //             // Redirect back to the previous page with input
+    //                         return response()->json(['message' => $e->getMessage()], 400);
+
+    //           //  return redirect()->back()->withInput();
+    //         }
+
+    //         catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return response()->json(['message' => $e->getMessage()], 400);
+
+    //     }
+    // }
+
     public function storeOrder(Request $request)
     {
         try {
@@ -360,24 +526,19 @@ class IndexController extends Controller
                 'shipping_notes.*.required' => 'Each shipping note field is required',
             ]);
 
+            DB::beginTransaction();
 
-        DB::beginTransaction();
-
-            $applied_coupon_custom=  session::get('applied_coupon_custom');
-            if(isset($applied_coupon_custom)){
-
-
-            if ($applied_coupon_custom['code']) {
-                $value =  $this->increaseCoupons($applied_coupon_custom['code']);
+            $applied_coupon_custom = Session::get('applied_coupon_custom');
+            if (isset($applied_coupon_custom) && $applied_coupon_custom['code']) {
+                $value = $this->increaseCoupons($applied_coupon_custom['code']);
                 if ($value == false) {
                     return redirect()->back();
                 }
             }
-        }
-            $cart = Session::get('cart_custom'); // Get the authenticated user's ID, defaulting to 1 if not authenticated
-            $startDateString = $request->input('date'); // Get the date from the request
-            $daysOff = DaySetting::where('status', 1)->pluck('name'); // Get days off from the database
 
+            $cart = Session::get('cart_custom');
+            $startDateString = $request->input('date');
+            $daysOff = DaySetting::where('status', 1)->pluck('name');
             $startDate = Carbon::parse($startDateString);
             $endDate = $this->calculateEndDate($startDate, $cart[1]['duration_id'], $daysOff);
 
@@ -393,15 +554,15 @@ class IndexController extends Controller
                 'unlike' => $cart[1]['dont_like'],
                 'meals_id' => json_encode($cart[1]['all_meals']),
                 'items_id' => json_encode($cart[1]['items']),
-                'payment_method' => 'cash',
-                'final_total' => $applied_coupon_custom['finaltotla']??$cart[1]['total'],
-                'coupone_code'=> $applied_coupon_custom['code']??null,
-                'coupont_decount'=>$applied_coupon_custom['discountAmount']??null
+                'payment_method' => $request->input('payment_method'),
+                'final_total' => $applied_coupon_custom['finaltotla'] ?? $cart[1]['total'],
+                'coupone_code' => $applied_coupon_custom['code'] ?? null,
+                'coupont_decount' => $applied_coupon_custom['discountAmount'] ?? null
             ]);
 
             foreach ($request->address as $key => $address) {
-                $address_details = $request->block[$key] . '-' . $request->street[$key] . '-' . $request->avenue[$key] . '-' . $request->house[$key] . '-' . $request->house[$key] . '-' . $request->apartment[$key];
-                // dd($address_details);
+                $address_details = 'Block: '.$request->block[$key] . ' , ' . 'Street:' . $request->street[$key] . ', '.'Avenue: '. $request->avenue[$key] . ', '. ' House:'. $request->house[$key] . ', '.' Floor: '. $request->floor[$key] . ','.' Apartment: '.'apartment' . $request->apartment[$key];
+
                 $newAddress = Address::create([
                     'governorate_id' => $request->governorates[$key],
                     'area_id' => $request->areas[$key],
@@ -414,29 +575,22 @@ class IndexController extends Controller
                 $order_days = new orderDayes();
                 $order_days->order_id = $order->id;
                 $order_days->address_id = $newAddress->id;
-                if($request->anotherAddress=='yes'){
 
-                if ($order_days) {
+                if ($request->anotherAddress == 'yes') {
                     foreach ($request->days[$key] as $day) {
-                        // Check if there's another orderDayes with the same order_id and $day already set to 1
                         $conflictingOrderDay = orderDayes::where('order_id', $order->id)
                             ->where($day, 1)
                             ->first();
 
                         if ($conflictingOrderDay) {
-
                             DB::rollBack();
-
                             Toastr::error(__('Try Again'), __('Error'));
-
-                            return redirect()->back()->withInput();
+                            return response()->json(['message' => 'error'], 400);
                         } else {
                             $order_days->$day = 1;
                         }
                     }
-                    $order_days->save();
-                }
-                }else{
+                } else {
                     $order_days->Monday = 1;
                     $order_days->Tuesday = 1;
                     $order_days->Wednesday = 1;
@@ -444,39 +598,26 @@ class IndexController extends Controller
                     $order_days->Sunday = 1;
                     $order_days->Saturday = 1;
                     $order_days->Friday = 1;
-
-                    $order_days->save();
-
-
                 }
 
+                $order_days->save();
             }
 
             DB::commit();
             Session::forget('cart_custom');
-
             Session::forget('applied_coupon_custom');
-            Toastr::success(__('scuccess'), __('success'));
-            return redirect()->route('front.index');
 
-            }
-            catch (\Illuminate\Validation\ValidationException $e) {
-                // Flash the validation error messages using Toastr
-                foreach ($e->validator->errors()->all() as $error) {
-                    Toastr::error($error, __('Error'));
-                }
+            Toastr::success(__('success'), __('Success'));
+            return response()->json(['message' => 'success'], 201);
 
-                // Redirect back to the previous page with input
-                return redirect()->back()->withInput();
-            }
+        } catch (\Illuminate\Validation\ValidationException $e) {
 
-            catch (\Exception $e) {
+            return response()->json(['message' => $e->validator->errors()->all()], 400);
+        } catch (\Exception $e) {
             DB::rollBack();
-            Toastr::error(__('An error occurred. Please try again.'), __('Error'));
-            return redirect()->back()->withInput();
+            return response()->json(['message' => $e->getMessage()], 400);
         }
     }
-
 
     private function increaseCoupons($code)
     {
@@ -759,17 +900,17 @@ class IndexController extends Controller
 
             if ($check) {
 
-              $this->action_coupone($check->code,$check->discount,$check->discount_type,$check->maximum_discount);
+           $d=   $this->action_coupone($check->code,$check->discount,$check->discount_type,$check->maximum_discount);
 
-                return response()->json(['message' => 'valid coupon']);
+                return response()->json(['message' => 'valid coupon','data'=>$d]);
             } else {
                 $this->action_coupone();
 
-                return response()->json(['message' => 'invalid coupon']);
+                return response()->json(['message' => 'invalid coupon','totla'=>$total]);
             }
             } catch (\Throwable $th) {
 
-            return response()->json(['message' => 'invalid coupon']);
+            return response()->json(['message' => 'invalid coupon','totla'=>$total]);
 
         }
     }
@@ -814,7 +955,8 @@ class IndexController extends Controller
                     'finaltotla' => $data['finaltotal'],
 
                 ]]);
-                return true;
+                $r=['code'=>$code,'discountAmount'=>0,'finaltotla'=>$data['finaltotal']];
+                return $r;
             } else {
 
                 if ($discount_type == 1) {
@@ -827,7 +969,9 @@ class IndexController extends Controller
                         'finaltotla' => $result['finaltotal'],
                     ]]);
 
-                    return true;
+                    $r=['code'=>$code,'discountAmount'=>$result['discountAmount'],'finaltotla'=>$result['finaltotal']];
+                    return $r;
+
                 } else {
                     $finaltotal = $data['finaltotal'] - $discount;
                     session(['applied_coupon_custom' => [
@@ -837,7 +981,8 @@ class IndexController extends Controller
                         'finaltotla' => $finaltotal,
 
                     ]]);
-                    return true;
+                    $r=['code'=>$code,'discountAmount'=>$discount,'finaltotla'=>$finaltotal];
+                    return $r;
                 }
             }
         } catch (\Throwable $th) {
@@ -848,7 +993,8 @@ class IndexController extends Controller
                 'finaltotla' => $data['finaltotla'],
 
             ]]);
-            return true;
+            $r=['code'=>$code,'discountAmount'=>0,'finaltotla'=>$data['finaltotla']];
+            return $r;
         }
     }
 

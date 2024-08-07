@@ -146,7 +146,7 @@ return [
     'meal_name' => 'اسم الوجبة',
     'type' => 'النوع',
     'items_not_like' => 'الأشياء التي لا تحبها',
-    'vulnerability' => 'نقطة الضعف',
+    'vulnerability' => 'حساسية',
     'unlike' => 'غير محبب',
     'print' => 'طباعة',
     'download' => 'تحميل',

@@ -173,11 +173,11 @@
                                 </div>
                                 <div class="col-12">
                                     <h5 class="name d-inline-block">Discount:</h5>
-                                    <h6 class="subtotal d-inline-block" id="total">  {{session('applied_coupon_custom.discountAmount','0' ) }} {{$symble}}</h6>
+                                    <h6 class="subtotal d-inline-block"> <span  id="total_disc">{{session('applied_coupon_custom.discountAmount','0' ) }}</span> {{$symble}}</h6>
                                 </div>
                                 <div class="col-12">
                                     <h5 class="name d-inline-block">{{ trans('messages.total') }}:</h5>
-                                    <h6 class="subtotal d-inline-block" id="total">  {{session('applied_coupon_custom.finaltotla',$cart[1]['total'] ) }} {{$symble}}</h6>
+                                    <h6 class="subtotal d-inline-block" > <span id="total">{{session('applied_coupon_custom.finaltotla',$cart[1]['total'] ) }}</span> {{$symble}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +298,7 @@
                 @auth
 
                     <div class="form">
-                        <form action="{{ route('front.storeOrder') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('front.storeOrder') }}" id="question-form" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="info">
@@ -437,7 +437,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" value="{{ trans('messages.pay') }}" class="submit rounded mb-5">
+                                    <button  class="submit rounded mb-5">{{ trans('messages.pay') }}</button>
                             </div>
                         </form>
 
@@ -470,6 +470,49 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
+
+$(document).ready(function() {
+    $('#question-form').submit(function(e) {
+        e.preventDefault(); // Prevent the form from submitting normally
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: $(this).attr('method'),
+            data: formData,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.message === 'success') {
+                    toastr.success('Order placed successfully', 'success!!');
+                    window.location.href = '/'; // Redirect to home page
+
+                    // Optionally redirect or update the page content
+                }
+            },
+            error: function(xhr, status, error) {
+                if (xhr.responseJSON ) {
+
+                    // Display validation errors
+                    let errorMessages = xhr.responseJSON;
+
+                    $.each(errorMessages, function(index, value) {
+                        $.each(value, function(i, msg) {
+                            toastr.error(msg, 'Error!!');
+                        });
+                    });
+                } else {
+                    console.log(xhr.responseJSON);
+
+                    toastr.error('An unexpected error occurred. Please try again.', 'Error!!');
+                }
+            }
+
+        });
+    });
+});
         $(document).ready(function() {
         $('#applyCoupon').on('click', function() {
 
@@ -484,33 +527,45 @@
                     couponCode: couponCode
                 },
                 success: function(response) {
-                    console.log(response);
+
 
                     // Handle the response if needed
                     if(response.message=='valid coupon'){
-                        setTimeout(function() {
-                            location.reload(); // Reload the page after 5 seconds
-                        }, 1000); // 5000 milliseconds = 5 seconds
-                       // location.reload(); // Use location.reload() instead of window.reload()
 
+
+                        //     setTimeout(function() {
+                    //         location.reload(); // Reload the page after 5 seconds
+                    //     }, 1000); // 5000 milliseconds = 5 seconds
+                    //    // location.reload(); // Use location.reload() instead of window.reload()
+                    $('#code').text(response.data.code);
+                    $('#total_disc').text(response.data.discountAmount);
+                    $('#total').text(response.data.finaltotla);
 
 
 
                 toastr.success('Valid coupon', 'Success!!');
                     }else{
+
                         toastr.error('Invalid coupon', 'Error!!');
-                        setTimeout(function() {
-                            location.reload(); // Reload the page after 5 seconds
-                        }, 1000); // 5000 milliseconds = 5 seconds
+                        $('#code').text('');
+                       $('#total_disc').text('0');
+                       $('#total').text(response.totla);
+
+
+                        // setTimeout(function() {
+                        //     location.reload(); // Reload the page after 5 seconds
+                        // }, 1000); // 5000 milliseconds = 5 seconds
+
                     }
 
 
-
-                    // Refresh the page after a successful response
-                    console.log(response);
                 },
                 error: function(error) {
-                    console.error('Error applying coupon:', error);
+                    toastr.error('Invalid coupon', 'Error!!');
+                        $('#code').text('');
+                       $('#total_disc').text('0');
+                       $('#total').text(response.totla);
+                  //  console.error('Error applying coupon:', error);
                 }
             });
         });

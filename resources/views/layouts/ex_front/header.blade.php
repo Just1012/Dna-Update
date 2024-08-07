@@ -47,13 +47,17 @@
                                     <div class="image">
                                         <img src="{{ asset('images/' . auth()->user()->image) }}" alt="">
                                     </div>
-                                    <div class="personal_info">
-                                        <h6 class="m-0">{{ auth()->user()->name }}</h6>
-                                        <p class="m-0 mt-1">{{ __('messages.WelcomeInDNA') }}</p>
-                                    </div>
+
+
+                                    <i class='bx bx-chevron-down'></i>
                                 </div>
                                 <div class="dropdown_personal">
                                     <ul>
+                                        <li>
+                                            <h6 class="m-0">{{ auth()->user()->name }}</h6>
+
+                                        <p class="m-0 mt-1" style="color: #D1747F">{{ __('messages.WelcomeInDNA') }}</p>
+                                        </li>
                                         <li>
                                             <a
                                                 href="{{ route('front.profile', ['id' => auth()->user()->id]) }}">Profile</a>

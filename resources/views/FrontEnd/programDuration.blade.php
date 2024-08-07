@@ -404,38 +404,66 @@
         });
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const steps = document.querySelectorAll('.step-2, .step-3');
-            const nextBtns = document.querySelectorAll('.next-stp');
-            const prevBtns = document.querySelectorAll('.prev-stp');
+   document.addEventListener('DOMContentLoaded', function() {
+    const steps = document.querySelectorAll('.step-2, .step-3');
+    const nextBtns = document.querySelectorAll('.next-stp');
+    const prevBtns = document.querySelectorAll('.prev-stp');
+    const allergicTextarea = document.querySelector('textarea[name="allergic"]');
+    const dont_likeTextarea = document.querySelector('textarea[name="dont_like"]');
+    const notesTextarea = document.querySelector('textarea[name="notes"]');
 
-            let currentStep = 0;
+    const step3Btn = document.querySelector('.next-stp[type="submit"]');
 
-            function showStep(stepIndex) {
-                steps.forEach((step, index) => {
-                    step.classList.toggle('d-none', index !== stepIndex);
-                });
-            }
+    let currentStep = 0;
 
-            nextBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (currentStep < steps.length - 1) {
-                        currentStep++;
-                        showStep(currentStep);
-                    }
-                });
-            });
-
-            prevBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (currentStep > 0) {
-                        currentStep--;
-                        showStep(currentStep);
-                    }
-                });
-            });
-
-            showStep(currentStep);
+    function showStep(stepIndex) {
+        steps.forEach((step, index) => {
+            step.classList.toggle('d-none', index !== stepIndex);
         });
+    }
+
+    nextBtns.forEach(btn => {
+        btn.addEventListener('click', (event) => {
+            // Check if navigating to step 3
+            if (currentStep === 0 && btn !== step3Btn) {
+                // Validate the allergic textarea
+                if (!dont_likeTextarea.value.trim()) {
+                    toastr.error('Please enter items that make you dont like.', 'Error!!');
+
+                    return; // Prevent navigation to step 3
+                }
+                if (!allergicTextarea.value.trim()) {
+                    toastr.error('Please enter items that make you allergic.', 'Error!!');
+
+                
+                    return; // Prevent navigation to step 3
+                }
+                if (!notesTextarea.value.trim()) {
+                    toastr.error('Please enter items that make you notes.', 'Error!!');
+
+
+                    return; // Prevent navigation to step 3
+                }
+
+            }
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    prevBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    showStep(currentStep);
+});
+
     </script>
 @endpush

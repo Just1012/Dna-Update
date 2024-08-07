@@ -38,10 +38,15 @@
             },
             "autoload": {
                 "files": [
-                    "src/helper.php"
+                    "src/helper.php",
+                    "app/Http/Helpers.php"
+
                 ],
+
                 "psr-4": {
-                    "Brian2694\\Toastr\\": "src/"
+                    "Brian2694\\Toastr\\": "src/",
+                    "App\\": "app/"
+
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

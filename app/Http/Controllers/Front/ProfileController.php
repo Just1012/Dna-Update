@@ -20,8 +20,11 @@ class ProfileController extends Controller
 {
     public function index($id)
     {
-        $order = Order::with(['User', 'OrderDays.Address', 'Program'])->where('user_id', $id)->get();
-        $user = User::findOrFail($id);
+        $order = Order::with(['User', 'OrderDays.Address', 'Program'])
+        ->where('user_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->get();
+                $user = User::findOrFail($id);
         return view('FrontEnd.profile', compact('order', 'user'));
     }
 
