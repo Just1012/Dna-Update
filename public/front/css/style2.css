@@ -712,7 +712,7 @@ nav {
                     }
 
                     .image {
-                        right: -20%;
+                        right: 20%;
                     }
                 }
             }
@@ -731,7 +731,7 @@ nav {
                 }
 
                 .image {
-                    right: -20%;
+                    right: 20%;
                 }
             }
         }

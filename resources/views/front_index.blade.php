@@ -358,7 +358,9 @@
                     <div style="padding-right:35px !important;" class="content">
                         <h6 class="mb-1 mt-3 heading-title fw-bolder"> ${currentLocale == 'ar' ? item.title_ar : item.title_en}</h6>
                     </div>
-               
+                    <div class="image">
+                        <img src="/images/${item.image}" alt="${item.title_en}">
+                    </div>
                 `;
                     itemsContent.appendChild(itemDiv);
                 });
