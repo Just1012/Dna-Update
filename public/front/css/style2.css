@@ -627,10 +627,6 @@ nav {
                     color: #295e4e;
                     font-weight: 500;
                 }
-                .image {
-                    right: -20%;
-                    background: rebeccapurple;
-                }
 
                 h6 {
                     transition: 0.2s all ease-in-out;
@@ -704,6 +700,62 @@ nav {
     }
 }
 
+/* General styles for all screen sizes */
+.products {
+    .boxes {
+        .box {
+            flex: 0 0 30%; /* Default width for larger screens */
+
+            .content {
+                max-width: 300px;
+            }
+
+            .image {
+                right: 0;
+            }
+        }
+    }
+}
+
+/* Styles for screens up to 1200px wide */
+@media (max-width: 1200px) {
+    .products {
+        .boxes {
+            .box {
+                flex: 0 0 50%;
+
+                .content {
+                    max-width: 280px;
+                }
+
+                .image {
+                    right: -10%;
+                }
+            }
+        }
+    }
+}
+
+/* Styles for screens up to 992px wide */
+@media (max-width: 992px) {
+    .products {
+        .boxes {
+            .box {
+                flex: 0 0 41%;
+
+                .content {
+                    max-width: 263px;
+                }
+
+                .image {
+                    right: -20%;
+                }
+            }
+        }
+    }
+}
+
+/* Styles for screens up to 767px wide */
 @media (max-width: 767px) {
     .products {
         &.small {
@@ -724,23 +776,25 @@ nav {
     }
 }
 
-@media (max-width: 992px) {
+/* Styles for screens up to 576px wide */
+@media (max-width: 576px) {
     .products {
         .boxes {
             .box {
-                flex: 0 0 41%;
+                flex: 0 0 100%;
 
                 .content {
-                    max-width: 263px;
+                    max-width: 250px;
                 }
 
                 .image {
-                    right: -20%;
+                    right: -30%;
                 }
             }
         }
     }
 }
+
 
 .login {
     position: relative;
