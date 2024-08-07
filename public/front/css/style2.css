@@ -603,7 +603,7 @@ nav {
 
 .products {
     padding-top: 50px;
-
+    overflow: hidden;
     .boxes {
         flex-wrap: wrap;
         column-gap: 89px;
