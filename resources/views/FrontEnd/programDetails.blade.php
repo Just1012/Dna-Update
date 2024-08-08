@@ -5,8 +5,9 @@
 .nft{
 
   user-select:none;
-  margin: 1rem auto;
-  max-width: 300px;
+  margin:10px 10px;
+
+  /*max-width: 300px;*/
   border: 1px solid #ffffff22;
   background-color: #fadeb66c;
   background: linear-gradient(0deg, #e07a8491  0%, rgba(17,0,32,.5) 100%);
@@ -390,10 +391,12 @@
                                     <p class="text-danger  d-inline d-block" id="you_message">You Must select at least
                                         {{ $programsDetails->min_meals }} meals</p>
                                 </div>
-                                <div class="row" id="meals-container">
+                                <div class="continer">
+                                <div class="row " id="meals-container">
                                     <!-- Meals will be populated here -->
                                 </div>
-                                <div class="mb-4">
+                            </div>
+                                <div class="mb-4 my-3">
                                     <h4 class="h4">{{ trans('messages.addons') }}</h4>
 
 
@@ -401,7 +404,7 @@
                                 <div class="row" id="addons-container">
                                     <!-- Addons will be populated here -->
                                 </div>
-                                <div class="btns" id="button_submit">
+                                <div class="btns my-3" id="button_submit">
                                     <button class="btn" disabled
                                         style=" box-shadow: rgba(117, 16, 16, 0.1) 0px 4px 12px;
                                         background: rgba(41, 94, 78, 0.6);
@@ -491,7 +494,7 @@
 
                 $('#meals-container').append(`
 
-                    <div class="nft ">
+                    <div class="nft  col-lg-5">
                              <div class='creator1 d-none'  id="creator-meal${meal.id}">
                             <div class='wrapper1'>
                             <img src="{{ asset('web/check.png') }}" alt="Creator" />
@@ -503,19 +506,10 @@
                         <input type="checkbox" class="form-check-input d-none" name="meals[]" id="meal${meal.id}" value="${meal.id}" ${index < min ? 'checked' : ''}>
                             <label class="form-check-label meal-label" for="meal${meal.id}"
 
-                                <h2 style="color:white;">${meal.title} </h2>
+                            <h2 style="color:white;">${meal.title} </h2>
+                            <h4 style="text-align:center;" class="my-2">${meal.price} {{$symble}}</h4>
 
-                        <p class='description'></p>
-                        <div class='tokenInfo'>
-                            <div class="price">
-                            <ins>◘</ins>
-                            <p>${meal.price}  {{$symble}}</p>
-                            </div>
-                            <div class="duration">
-                            <ins></ins>
-                            <p></p>
-                            </div>
-                        </div>
+
                         <hr />
                         <div class='creator'>
                             <div class='wrapper'>
@@ -553,7 +547,7 @@
             // Populate addons
             data.addons.forEach(function(addon ,index) {
                 $('#addons-container').append(`
-                        <div class="nft ">
+                        <div class="nft col-lg-5">
                         <div class='main'>
                             <div class="row">
                             <div class='creator1 d-none col-2'  id="creator-addon${addon.id}">
@@ -565,17 +559,9 @@
                                 <input type="checkbox" class="form-check-input d-none " name="addons[]" id="addon${addon.id}" value="${addon.id}" ${index < 2 ? 'checked' : ''}>
                             <label class="form-check-label meal-label" for="addon${addon.id}"
                         <h2  style="color:white;">${addon.title}</h2>
-                        <p class='description'></p>
-                        <div class='tokenInfo'>
-                            <div class="price">
-                            <ins>◘ <i class="bx bx-check"></i></ins>
-                            <p>${addon.price} {{$symble}}</p>
-                            </div>
-                            <div class="duration">
-                            <ins></ins>
-                            <p></p>
-                            </div>
-                        </div>
+                        <h4 style="text-align:center;" class="my-2">${addon.price} {{$symble}}</h4>
+
+
                         <hr />
                         <div class='creator'>
                             <div class='wrapper'>
