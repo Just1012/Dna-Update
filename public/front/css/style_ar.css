@@ -447,7 +447,7 @@ nav {
             }
             .content_sub {
                 height: 150px;
-                overflow-x: scroll;
+                overflow: auto;
                 .btn {
                     color: #295E4E !important;
                     border: 1px solid #295E4E !important;
@@ -517,10 +517,10 @@ nav {
                 overflow: hidden;
                 background:transparent !important;
                 .menus {
-                    width: 630px;
+                    /* width: 630px; */
                     overflow: auto;
                     .d-flex {
-                        column-gap: 20px;
+                    column-gap: 20px;
                         /* &::-webkit-scrollbar{
               width: 0px;
             } */
@@ -569,8 +569,6 @@ nav {
                 padding: 20px;
                 .content_sub {
                     height: auto;
-                    overflow-x: scroll;
-
                 }
                 .btn {
                     padding: 4px 22px !important;

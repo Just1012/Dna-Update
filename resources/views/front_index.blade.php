@@ -115,8 +115,8 @@
     <!-- Menu Category Section -->
     <section class="categories_cart" style="overflow: hidden;">
         <div class="container">
-            <div class="content d-flex justify-content-between align-items-start">
-                <div class="categories">
+            <div class="content row">
+                <div class="col-lg-6 categories">
                     <div class="heading d-flex justify-content-between align-items-center">
                         <h3>{{ trans('messages.menu_category') }}</h3>
                     </div>
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="sub_categories" style="overflow: hidden;">
+                <div class="col-lg-6 sub_categories" style="overflow: hidden;">
                     <div class="d-flex justify-content-start align-items-center flex-wrap">
                         <div class="heading d-flex justify-content-between align-items-center">
                             <h3>{{ trans('messages.sub_category') }}</h3>

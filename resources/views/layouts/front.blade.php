@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     @if (App::getLocale() == 'ar')
-        <link rel="stylesheet" href="{{ asset('front/css/style_ar.css') }}" />
+        <link rel="stylesheet" href="{{ asset('front/css/style_ar.css') }}?v=1.0" />
         <style>
             body {
                 background-color: #e4e4e6;
@@ -96,7 +96,7 @@
 
             @media (max-width: 767px) {
                 body {
-                    overflow: auto !important;
+                    overflow-x: hidden !important;
                 }
 
                 .signup {
@@ -1297,7 +1297,6 @@
                                 background: transparent !important;
 
                                 .menus {
-                                    width: 630px;
                                     overflow: auto;
 
                                     .d-flex {
@@ -1339,7 +1338,6 @@
                         & .content {
                             & .categories {
                                 .menus {
-                                    width: 630px;
                                     overflow: auto;
 
                                     &::-webkit-scrollbar {
@@ -1457,7 +1455,7 @@
                 }
         </style>
     @else
-        <link rel="stylesheet" href="{{ asset('front/css/style2.css') }}" />
+        <link rel="stylesheet" href="{{ asset('front/css/style2.css') }}?v=1.3" />
         <style>
             @media (max-width: 767px) {
                 .program_details {
@@ -1557,7 +1555,6 @@
                         & .content {
                             & .categories {
                                 .menus {
-                                    width: 630px;
                                     overflow: auto;
 
                                     &::-webkit-scrollbar {
