@@ -28,9 +28,6 @@ class MenuItemRequest extends FormRequest
             'items' => 'required|array',
             'items.*' => [
                 'required',
-                Rule::unique('menu_items', 'item_id')->where(function ($query) {
-                    return $query->where('menu_id', request()->input('menu_id'));
-                }),
             ],
         ];
     }

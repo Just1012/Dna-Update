@@ -43,18 +43,22 @@ class MenuItemController extends Controller
     {
         try {
             $items = $menuItemRequest->input('items');
-            $menuItems = [];
 
             foreach ($items as $item) {
-                $menuItems[] = [
+                // Prepare the data for insertion or update
+                $menuItemData = [
                     'menu_id' => $menuItemRequest->menu_id,
                     'item_id' => $item,
                 ];
+
+                // Update or create the menu item
+                MenuItem::updateOrCreate(
+                    ['menu_id' => $menuItemRequest->menu_id, 'item_id' => $item],
+                    $menuItemData
+                );
             }
 
-            MenuItem::insert($menuItems); // Using insert for batch insertion
-
-            Toastr::success(__('Item Created Successfully'), __('Success'));
+            Toastr::success(__('Item Created or Updated Successfully'), __('Success'));
 
             return redirect()->back();
 
@@ -63,6 +67,7 @@ class MenuItemController extends Controller
             return redirect()->back();
         }
     }
+
 
     public function create_items_for_menu($id){
         $menu=Menu::find($id);
