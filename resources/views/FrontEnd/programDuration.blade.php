@@ -23,7 +23,7 @@
 
         .custom-step-1 {
             display: flex;
-            width: 90%;
+            width: 100%;
             flex-direction: column;
         }
 
@@ -41,7 +41,7 @@
         }
 
         .custom-tiles .custom-tile {
-            width: 150px;
+              width:auto;
             cursor: pointer;
             border: 1px solid #f5f5f5;
             border-radius: 10px;
@@ -282,6 +282,142 @@
                 max-width: 1320px;
             }
         }
+        /* Style for the category block */
+        .category-block {
+    margin-bottom: 20px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks */
+
+}
+
+.category-block::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome/Safari/Webkit browsers */
+}
+
+
+
+
+
+/* Custom scrollbar for Firefox */
+
+
+
+/* Style for the items container */
+.items-container {
+    display: flex; /* Align items in a row */
+  /*  overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent items from wrapping to the next line */
+    padding: 10px 0; /* Add vertical padding */
+    gap: 10px; /* Space between items */
+    max-width: 100%; /* Ensure container width is not exceeding its parent */
+    box-sizing: border-box; /* Include padding and border in container's width */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+}
+
+/* Style for each custom tile */
+.custom-tile {
+    flex: 0 0 auto; /* Prevent shrinking and growing */
+    width: 150px; /* Fixed width for tiles */
+    cursor: pointer;
+    border: 1px solid #f5f5f5;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center; /* Center align content */
+    transition: background-color 0.3s, border-color 0.3s;
+    box-sizing: border-box; /* Include padding and border in tile's width */
+}
+
+/* Active state for tiles */
+.custom-tile.active {
+    background-color: #295E4E;
+    border-color: #295E4E;
+    color: #fff;
+}
+
+/* Style for the custom image */
+.custom-image {
+    margin: 10px 0;
+    width: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 130px;
+}
+
+/* Ensure images cover their container */
+.custom-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Ensure proper text alignment */
+.custom-tile h6,
+.custom-tile p {
+    cursor: pointer;
+}
+
+/* For tablets and smaller screens */
+@media (max-width: 1024px) {
+    .items-container {
+        padding: 5px 0; /* Adjust vertical padding for smaller screens */
+    }
+
+    .custom-tile {
+        width: 130px; /* Reduce tile width for smaller screens */
+    }
+
+    .custom-image {
+        width: 100px; /* Reduce image size for smaller screens */
+        height: 100px;
+    }
+}
+
+/* For mobile screens */
+@media (max-width: 767px) {
+    .items-container {
+        padding: 5px 0; /* Adjust vertical padding for mobile screens */
+    /*    overflow-x: auto; /* Ensure horizontal scrolling on mobile */
+    }
+
+    .custom-tile {
+        width: 100px; /* Further reduce tile width for mobile screens */
+    }
+
+    .custom-image {
+        width: 80px; /* Further reduce image size for mobile screens */
+        height: 80px;
+    }
+
+    /* Ensure the text fits well */
+    .custom-tile h6 {
+        font-size: 14px; /* Adjust text size for smaller screens */
+    }
+}
+
+/* For very small screens (phones in portrait mode) */
+@media (max-width: 480px) {
+    .items-container {
+        padding: 5px 0; /* Adjust padding for very small screens */
+       /* gap: 5px; /* Reduce gap between items */
+    }
+
+    .custom-tile {
+        width: 80px; /* Further reduce tile width */
+    }
+
+    .custom-image {
+        width: 60px; /* Further reduce image size */
+        height: 60px;
+    }
+
+    .custom-tile h6 {
+        font-size: 12px; /* Adjust text size for very small screens */
+    }
+}
+
+
     </style>
 
     <div class="program_details py-4">
@@ -341,18 +477,29 @@
                             <div class="step step-3 d-none">
                                 <div class="custom-step-1">
                                     <div class="custom-header mb-4">
-                                        <h2 class="title ">{{ trans('messages.items') }}</h2>
+                                        <h2 class="title">{{ trans('messages.items') }}</h2>
                                         <p class="text-danger" style="font-size: 14px;">
                                             {{ trans('messages.select_items_not_like') }}</p>
                                     </div>
                                     <div class="custom-tiles">
-                                        @foreach ($program->menu->Menu as $item)
-                                            <div class="custom-tile" data-id="{{ $item->Item1->id }}">
-                                                <div class="custom-image">
-                                                    <img src="{{ asset('images/' . $item->Item1->image) }}"
-                                                        alt="Meal Image">
+                                        @foreach ($groupedItems as $category)
+                                        <div class="d-block" style="display: inline-block;     width: 100%;" >
+                                                <h3 class="">
+                                                    <input type="checkbox" class="select-category" data-id="{{ $category['category']->id }}">
+                                                    {{ $category['category']->{'title_' . App::getLocale()} }}
+                                                </h3>
+                                        </div>
+                                                <div class="category-block">
+                                                <div class="items-container" data-category-id="{{ $category['category']->id }}">
+                                                    @foreach ($category['items'] as $item)
+                                                        <div class="custom-tile" data-id="{{ $item->id }}">
+                                                            <div class="custom-image">
+                                                                <img src="{{ asset('images/' . $item->image) }}" alt="Meal Image">
+                                                            </div>
+                                                            <h6>{{ $item->{'title_' . App::getLocale()} }}</h6>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
-                                                <h6>{{ $item->Item1->{'title_' . App::getLocale()} }}</h6>
                                             </div>
                                         @endforeach
                                     </div>
@@ -360,11 +507,13 @@
                                 <input type="hidden" name="items" id="selected-items" value="">
 
                                 <div class="d-flex justify-content-between mt-4">
-                                    <button class="btn btn-secondary prev-stp"
-                                        type="button">{{ trans('messages.go_back') }}</button>
+                                    <button class="btn btn-secondary prev-stp" type="button">{{ trans('messages.go_back') }}</button>
                                     <button class="btn next-stp" type="submit">{{ trans('messages.check_out') }}</button>
                                 </div>
                             </div>
+
+
+
                         </form>
                     </div>
                 </div>
@@ -378,6 +527,63 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ asset('web/assets/js/pages/select2.init.js') }}"></script>
 
+    {{-- <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tiles = document.querySelectorAll('.custom-tile');
+    const selectedItemsInput = document.getElementById('selected-items');
+    const form = document.getElementById('menu-form');
+
+    let selectedItems = new Set();
+
+    // Function to update the hidden input field with selected items
+    function updateSelectedItems() {
+        selectedItemsInput.value = Array.from(selectedItems).join(',');
+    }
+
+    // Tile click event listener to select/deselect items
+    tiles.forEach(tile => {
+        tile.addEventListener('click', () => {
+            const itemId = tile.getAttribute('data-id');
+            if (tile.classList.toggle('active')) {
+                selectedItems.add(itemId);
+            } else {
+                selectedItems.delete(itemId);
+            }
+            updateSelectedItems();
+        });
+    });
+
+    // Category checkbox event listener to select/deselect all items in the category
+    document.querySelectorAll('.select-category').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            const categoryId = checkbox.getAttribute('data-id');
+            const itemsContainer = document.querySelector(`.items-container[data-category-id="${categoryId}"]`);
+            const categoryTiles = itemsContainer.querySelectorAll('.custom-tile');
+
+            if (checkbox.checked) {
+                categoryTiles.forEach(tile => {
+                    const itemId = tile.getAttribute('data-id');
+                    tile.classList.add('active');
+                    selectedItems.add(itemId);
+                });
+            } else {
+                categoryTiles.forEach(tile => {
+                    const itemId = tile.getAttribute('data-id');
+                    tile.classList.remove('active');
+                    selectedItems.delete(itemId);
+                });
+            }
+            updateSelectedItems();
+        });
+    });
+
+    form.addEventListener('submit', () => {
+        updateSelectedItems();
+    });
+});
+
+
+    </script> --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const tiles = document.querySelectorAll('.custom-tile');
@@ -386,23 +592,90 @@
 
             let selectedItems = new Set();
 
+            // Function to update the hidden input field with selected items
+            function updateSelectedItems() {
+                selectedItemsInput.value = Array.from(selectedItems).join(',');
+            }
+
+            // Tile click event listener to select/deselect items
             tiles.forEach(tile => {
                 tile.addEventListener('click', () => {
                     const itemId = tile.getAttribute('data-id');
+                    const categoryId = tile.closest('.items-container').getAttribute('data-category-id');
+                    const categoryCheckbox = document.querySelector(`.select-category[data-id="${categoryId}"]`);
+
+                    // Toggle item selection
                     if (tile.classList.toggle('active')) {
                         selectedItems.add(itemId);
                     } else {
                         selectedItems.delete(itemId);
                     }
-                    selectedItemsInput.value = Array.from(selectedItems).join(',');
+
+                    // Update category checkbox based on the state of items
+                    updateCategoryCheckbox(categoryId);
+
+                    // Update the hidden input field
+                    updateSelectedItems();
                 });
             });
 
+            // Category checkbox event listener to select/deselect all items in the category
+            document.querySelectorAll('.select-category').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    const categoryId = checkbox.getAttribute('data-id');
+                    const itemsContainer = document.querySelector(`.items-container[data-category-id="${categoryId}"]`);
+                    const categoryTiles = itemsContainer.querySelectorAll('.custom-tile');
+
+                    // Check or uncheck all items within the category
+                    if (checkbox.checked) {
+                        categoryTiles.forEach(tile => {
+                            const itemId = tile.getAttribute('data-id');
+                            if (!tile.classList.contains('active')) {
+                                tile.classList.add('active');
+                                selectedItems.add(itemId);
+                            }
+                        });
+                    } else {
+                        categoryTiles.forEach(tile => {
+                            const itemId = tile.getAttribute('data-id');
+                            tile.classList.remove('active');
+                            selectedItems.delete(itemId);
+                        });
+                    }
+
+                    // Update the hidden input field
+                    updateSelectedItems();
+                });
+            });
+
+            // Function to update the category checkbox based on the items' selection state
+            function updateCategoryCheckbox(categoryId) {
+                const itemsContainer = document.querySelector(`.items-container[data-category-id="${categoryId}"]`);
+                const categoryTiles = itemsContainer.querySelectorAll('.custom-tile');
+                const categoryCheckbox = document.querySelector(`.select-category[data-id="${categoryId}"]`);
+
+                // Check if all items in the category are selected
+                const allSelected = Array.from(categoryTiles).every(tile => tile.classList.contains('active'));
+                const noneSelected = Array.from(categoryTiles).every(tile => !tile.classList.contains('active'));
+
+                // If all items are selected, check the category checkbox, otherwise uncheck it
+                if (allSelected) {
+                    categoryCheckbox.checked = true;
+                    categoryCheckbox.indeterminate = false;
+                } else if (noneSelected) {
+                    categoryCheckbox.checked = false;
+                    categoryCheckbox.indeterminate = false;
+                } else {
+                    categoryCheckbox.indeterminate = true; // Set indeterminate state if some are selected
+                }
+            }
+
             form.addEventListener('submit', () => {
-                selectedItemsInput.value = Array.from(selectedItems).join(',');
+                updateSelectedItems();
             });
         });
-    </script>
+        </script>
+
     <script>
    document.addEventListener('DOMContentLoaded', function() {
     const steps = document.querySelectorAll('.step-2, .step-3');
@@ -435,7 +708,7 @@
                 if (!allergicTextarea.value.trim()) {
                     toastr.error('Please enter items that make you allergic.', 'Error!!');
 
-                
+
                     return; // Prevent navigation to step 3
                 }
                 if (!notesTextarea.value.trim()) {

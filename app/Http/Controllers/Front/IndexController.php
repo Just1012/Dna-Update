@@ -165,9 +165,60 @@ class IndexController extends Controller
 
 
         $lang = app()->getLocale();
-        $program = Program::with('menu.Menu.Item1')->find($cart[1]['program']['id']);
+        $program = Program::with('menu.Menu.Item1.category.childeren.items')->find($cart[1]['program']['id']);
 
-        if (!$program) {
+        // Initialize the grouped items array
+        $groupedItems = [];
+
+        // Initialize a set to keep track of item IDs already added
+        $addedItemIds = [];
+
+        // Iterate through each menu item in the program
+        foreach ($program->menu->menu as $menu) {
+            $category = $menu->item1->category;
+
+            // Add the main category and its items
+            if (!isset($groupedItems[$category->id])) {
+                $groupedItems[$category->id] = [
+                    'category' => $category,
+                    'items' => []
+                ];
+            }
+
+            // Add the item if it's not already added
+            if (!in_array($menu->item1->id, $addedItemIds)) {
+                $groupedItems[$category->id]['items'][] = $menu->item1;
+                $addedItemIds[] = $menu->item1->id;
+            }
+
+            // Check if the category has childeren
+            foreach ($category->childeren as $childCategory) {
+                // Initialize the child category if not already done
+                if (isset($groupedItems[$childCategory->id])) {
+                    $groupedItems[$childCategory->id] = [
+                        'category' => $childCategory,
+                        'items' => []
+                    ];
+                }
+
+                // Add items for each child category if they are not already added
+                foreach ($childCategory->items as $childItem) {
+                    if(isset($childItem)){
+                        if (!in_array($childItem->id, $addedItemIds)) {
+                            $groupedItems[$childCategory->id]['items'][] = $childItem;
+                            $addedItemIds[] = $childItem->id;
+                        }
+                    }
+                    // Add the item if it's not already in the main category items
+
+                }
+            }
+        }
+
+        // Handle or return the grouped items as needed
+
+    // Pass the grouped items to the view
+            if (!$program) {
             return redirect()->back()->with('error', 'Program not found.');
         }
         // $durations = Program_Duration::where('program_id', $id)
@@ -183,7 +234,7 @@ class IndexController extends Controller
         // }
 
         // dd($userID);
-        return view('FrontEnd.programDuration', compact('program'));
+        return view('FrontEnd.programDuration', compact('groupedItems','program'));
     }
 
     // public function save_card(Request $request)
@@ -597,7 +648,7 @@ class IndexController extends Controller
                     $order_days->Thursday = 1;
                     $order_days->Sunday = 1;
                     $order_days->Saturday = 1;
-                    $order_days->Friday = 1;
+                    $order_days->Friday = 0;
                 }
 
                 $order_days->save();

@@ -306,7 +306,7 @@
                                 <div class="container input">
                                     <h3>{{ trans('messages.start_date') }}</h3>
                                     <input placeholder="DD/MM/YY" class="form-control w-100" name="date" type="text"
-                                        id="date" required class="rounded">
+                                        id="date" required class="rounded" autocomplete="off">
                                 </div>
                                 <div class="col-md-12">
                                     <h3  class="mt-4 mb-0">Do you have more than one address?</h3>
@@ -700,9 +700,11 @@ $(document).ready(function() {
                 const newBlock = template.cloneNode(true);
                 newBlock.removeAttribute('id');
                 container.insertBefore(newBlock, addButton);
+                const textareaElements = newBlock.querySelectorAll('textarea');
+textareaElements.forEach(textarea => {
+    textarea.value = '';
+});
 
-                const textarea = newBlock.querySelector('textarea');
-                textarea.value = '';
 
                 const checkboxes = newBlock.querySelectorAll('input[type="checkbox"]');
                 checkboxes.forEach((checkbox, index) => {

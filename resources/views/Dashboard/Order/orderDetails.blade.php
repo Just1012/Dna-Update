@@ -286,7 +286,7 @@
 
                                         <div class="mt-4">
                                             <div class="alert alert-success">
-                                                <p class="mb-0"><span class="fw-semibold">Vulnerability : </span>
+                                                <p class="mb-0"><span class="fw-semibold">Allergy : </span>
                                                     <span id="note">{{ $order->vulnerability }}</span>
                                                 </p>
                                             </div>

@@ -389,7 +389,7 @@
                                 <div class="mb-4">
                                     <h4 class=" d-inline">{{ trans('messages.meals') }} </h4>
                                     <p class="text-danger  d-inline d-block" id="you_message">You Must select at least
-                                        {{ $programsDetails->min_meals }} meals</p>
+                                        {{ $programsDetails->min_meals }} meals and 2 Snacks</p>
                                 </div>
                                 <div class="continer">
                                 <div class="row " id="meals-container">
@@ -617,9 +617,11 @@
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
+
                         // Handle the response here
                         if (response.a && Array.isArray(response.a.meals)) {
                             let mealCount = response.a.meals.length;
+                            let addCount=response.a.addons.length;
                             if (Array.isArray(response.a.addons)) {
                                 let addonsCount = response.a.addons.length;
                                 $("#extra").text(addonsCount);
@@ -632,7 +634,7 @@
                             $("#main_course").text(mealCount);
 
                             $('#total').text(response.a.total ?? 0);
-                            if (mealCount >= response.a.program.min_meals) {
+                            if (mealCount >= response.a.program.min_meals && addCount >=2) {
                                 $('#you_message').addClass('d-none').removeClass('d-block');
                                 $('#button_submit').html(`
                             <a href="{{ route('front.programDuration') }}" class="btn" style="box-shadow: rgba(117, 16, 16, 0.1) 0px 4px 12px;
