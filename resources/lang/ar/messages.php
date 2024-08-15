@@ -164,5 +164,11 @@ return [
     'shippingSetup' => 'اعدادات الشحن',
     'select_shipping_note' => 'اختر ملحوظات الشحن',
     'shipping_notes' => 'ملحوظات الشحن',
+    'alert_date'=>"سيتم تسليم الصندوق في اليوم السابق.",
+    'alert_address'=>'هل لديك أكثر من عنوان؟',
+    'yes'=>'نعم',
+    'no'=>'لا',
+
+
     // Add other translations here
 ];

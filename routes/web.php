@@ -51,6 +51,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('/apply-coupon', [IndexController::class, 'apply_copon'])->name('apply.coupon')->middleware('auth');
 
 
+    Route::get('/about', [IndexController::class, 'about'])->name('about');
+
+    Route::get('/Privacy', [IndexController::class, 'privacy'])->name('privacy');
+
+
 
 
     // =========================== Profile Route ==================================================================

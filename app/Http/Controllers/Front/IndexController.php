@@ -19,7 +19,9 @@ use App\Models\Program_Duration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use App\Models\AboutPage;
 use App\Models\Coupons;
+use App\Models\Privacy;
 use App\Models\ShippingNote;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +33,23 @@ use Darryldecode\Cart\Facades\CartFacade as Cart;
 
 class IndexController extends Controller
 {
+    public function about() {
+        $pageName = 'about';
+        $lang = App::getLocale();
+
+        // Correct the select statement and alias
+        $data = AboutPage::select('about_' . $lang . ' as about')->first();
+
+        return view('FrontEnd.about', compact('data', 'pageName'));
+    }
+
+    public function privacy(){
+        $pageName='privacy';
+
+        $lang=App::getLocale();
+        $data=Privacy::select('privacy_' . $lang . ' as about')->first();
+        return view('FrontEnd.about',compact('data','pageName'));
+    }
     public function index()
     {
         $data['slider_main'] = Slider::where('type', '=', 1)->get();

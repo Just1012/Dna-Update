@@ -24,7 +24,7 @@ class SliderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:5096',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:13096',
             'type' => 'required|in:0,1',
         ];
     }
@@ -35,7 +35,7 @@ class SliderRequest extends FormRequest
             'image.required' => 'An image is required for the slider.',
             'image.image' => 'The file must be an image.',
             'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
-            'image.max' => 'The image may not be greater than 2048 kilobytes.',
+            'image.max' => 'The image may not be greater than 13096 kilobytes.',
             'type.required' => 'Meal type is required.',
             'type.in' => 'Invalid meal type selected.',
         ];

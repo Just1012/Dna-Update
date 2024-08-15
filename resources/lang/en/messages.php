@@ -160,5 +160,11 @@ specific days ?',
     'shippingSetup' => 'Shipping Setup',
     'select_shipping_note' => 'Select Shipping Note',
     'shipping_notes' => 'Shipping Notes',
+    'alert_date'=>'The box will be delivered the day before',
+
+    'alert_address'=>'Do you have more than one address?',
+    'yes'=>'Yes',
+    'no'=>'No',
+    
     // Add other translations here
 ];

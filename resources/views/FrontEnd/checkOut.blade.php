@@ -304,21 +304,21 @@
                             <div class="info">
                                 <h3>{{ trans('messages.shipping_information') }}</h3>
                                 <div class="container input">
-                                    <h3>{{ trans('messages.start_date') }}</h3>
+                                    <h3>{{ trans('messages.start_date') }}: <span style="font-size: 13px; color:red;">{{trans('messages.alert_date')}}</span></h3>
                                     <input placeholder="DD/MM/YY" class="form-control w-100" name="date" type="text"
                                         id="date" required class="rounded" autocomplete="off">
                                 </div>
                                 <div class="col-md-12">
-                                    <h3  class="mt-4 mb-0">Do you have more than one address?</h3>
+                                    <h3  class="mt-4 mb-0">{{trans('messages.alert_address')}}</h3>
 
                                     <div class="inputs_radio d-flex gap-5">
                                         <div class="input d-flex justify-content-start gap-1 align-items-center">
                                             <input type="radio" id="anotherAddressYes" name="anotherAddress" value="yes">
-                                            <label for="anotherAddressYes">Yes</label>
+                                            <label for="anotherAddressYes">{{trans('messages.yes')}}</label>
                                         </div>
                                         <div class="input d-flex justify-content-start gap-1 align-items-center">
                                             <input type="radio" id="anotherAddressNo"  name="anotherAddress" value="no">
-                                            <label for="anotherAddressNo">No</label>
+                                            <label for="anotherAddressNo">{{trans('messages.no')}}</label>
                                         </div>
                                     </div>
                                 </div>
