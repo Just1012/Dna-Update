@@ -43,10 +43,10 @@ class SliderController extends Controller
             }
             Slider::create($requestData);
 
-            Toastr::success(__('Slider Created Successfully'), __('Success'));
+            toastr()->success(__('Slider Created Successfully'), __('Success'));
             return redirect()->route('slider.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->route('slider.index');
         }
     }
@@ -76,11 +76,11 @@ class SliderController extends Controller
 
             $item->update($requestData);
 
-            Toastr::success(__('Slider Updated Successfully'), __('Success'));
+            toastr()->success(__('Slider Updated Successfully'), __('Success'));
 
             return redirect()->route('slider.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->route('slider.index');
         }
     }
@@ -92,14 +92,14 @@ class SliderController extends Controller
             $slider = Slider::findOrFail($id);
             $slider->delete();
 
-            Toastr::success(__('Slider Deleted Successfully'), __('Success'));
+            toastr()->success(__('Slider Deleted Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Slider Not Found'), __('Error'));
+            toastr()->error(__('Slider Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }

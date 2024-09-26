@@ -75,7 +75,7 @@ class CategoryController extends Controller
             }
 
             if ($num >= 4) {
-                Toastr::error(__('You Can not add a new Sub Category'), __('Error'));
+                toastr()->error(__('You Can not add a new Sub Category'), __('Error'));
                 return redirect()->route('category.index', $id);
             }
 
@@ -91,11 +91,11 @@ class CategoryController extends Controller
             Category::create($requestData);
 
 
-            Toastr::success(__('Category Created Successfully'), __('Success'));
+            toastr()->success(__('Category Created Successfully'), __('Success'));
 
             return redirect()->route('category.index', $id);
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
     }
@@ -125,10 +125,10 @@ class CategoryController extends Controller
 
             $category->update($requestData);
 
-            Toastr::success(__('Category Updated Successfully'), __('Success'));
+            toastr()->success(__('Category Updated Successfully'), __('Success'));
             return redirect()->route('category.index', $category->parent_id);
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
     }
@@ -139,14 +139,14 @@ class CategoryController extends Controller
         try {
             $id->delete(); // Soft delete the Category
 
-            Toastr::success(__('Category Archived Successfully'), __('Success'));
+            toastr()->success(__('Category Archived Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Category Not Found'), __('Error'));
+            toastr()->error(__('Category Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -170,14 +170,14 @@ class CategoryController extends Controller
             Category::withTrashed()
                 ->where('id', $id)
                 ->restore();
-            Toastr::success(__('Category Restored Successfully'), __('Success'));
+            toastr()->success(__('Category Restored Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Category Not Found'), __('Error'));
+            toastr()->error(__('Category Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }

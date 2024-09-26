@@ -163,7 +163,7 @@ class IndexController extends Controller
         }
 
         if (count($cart[1]['meals']) < $cart[1]['program']['min_meals']) {
-            Toastr::info('You Must select at least ' . $cart[1]['program']['min_meals'] . ' meals', 'info');
+            toastr()->info('You Must select at least ' . $cart[1]['program']['min_meals'] . ' meals', 'info');
             return redirect()->back();
         }
         // Initialize an array to hold all meals and addons
@@ -309,14 +309,14 @@ class IndexController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Flash the validation error messages using Toastr
             foreach ($e->validator->errors()->all() as $error) {
-                Toastr::error($error, __('Error'));
+                toastr()->error($error, __('Error'));
             }
 
             // Redirect back to the previous page with input
             return redirect()->back()->withInput();
         } catch (\Exception $e) {
             // Flash a general error message using Toastr
-            Toastr::error(__('An unexpected error occurred. Please try again.'), __('Error'));
+            toastr()->error(__('An unexpected error occurred. Please try again.'), __('Error'));
 
             // Redirect back to the previous page with input
             return redirect()->back()->withInput();
@@ -499,7 +499,7 @@ class IndexController extends Controller
 
     //                         DB::rollBack();
 
-    //                         Toastr::error(__('Try Again'), __('Error'));
+    //                         toastr()->error(__('Try Again'), __('Error'));
     //                         return response()->json(['message' =>'error'], 400);
 
     //                       //  return redirect()->back()->withInput();
@@ -529,7 +529,7 @@ class IndexController extends Controller
     //         Session::forget('cart_custom');
 
     //         Session::forget('applied_coupon_custom');
-    //         Toastr::success(__('scuccess'), __('success'));
+    //         toastr()->success(__('scuccess'), __('success'));
     //         return response()->json(['message' => 'scuccess'], 201);
 
     //   //      return redirect()->route('front.index');
@@ -538,7 +538,7 @@ class IndexController extends Controller
     //         catch (\Illuminate\Validation\ValidationException $e) {
     //             // Flash the validation error messages using Toastr
     //             foreach ($e->validator->errors()->all() as $error) {
-    //                 Toastr::error($error, __('Error'));
+    //                 toastr()->error($error, __('Error'));
     //             }
 
     //             // Redirect back to the previous page with input
@@ -654,7 +654,7 @@ class IndexController extends Controller
 
                         if ($conflictingOrderDay) {
                             DB::rollBack();
-                            Toastr::error(__('Try Again'), __('Error'));
+                            toastr()->error(__('Try Again'), __('Error'));
                             return response()->json(['message' => 'error'], 400);
                         } else {
                             $order_days->$day = 1;
@@ -677,7 +677,7 @@ class IndexController extends Controller
             Session::forget('cart_custom');
             Session::forget('applied_coupon_custom');
 
-            Toastr::success(__('success'), __('Success'));
+            toastr()->success(__('success'), __('Success'));
             return response()->json(['message' => 'success'], 201);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -713,14 +713,14 @@ class IndexController extends Controller
 
                 // Coupon does not exist
                 DB::rollBack();
-                Toastr::error('invalid coupon', 'Error');
+                toastr()->error('invalid coupon', 'Error');
 
                 return false;
             }
         } catch (\Throwable $th) {
             $this->action_coupone();
             DB::rollBack();
-            Toastr::error('invalid coupon', 'Error');
+            toastr()->error('invalid coupon', 'Error');
             return false;
         }
     }
@@ -759,7 +759,7 @@ class IndexController extends Controller
 
                 // Display each error message with Toastr
                 foreach ($errorMessages as $errorMessage) {
-                    Toastr::error($errorMessage, 'Error!!');
+                    toastr()->error($errorMessage, 'Error!!');
                 }
 
                 return redirect()->back()->withErrors($validator)->withInput();
@@ -767,21 +767,21 @@ class IndexController extends Controller
 
             $user = User::where('phone', $request->phone)->first();
             if ($user && (!Hash::check($request->password, $user->password))) {
-                Toastr::error("invalid password", 'Error');
+                toastr()->error("invalid password", 'Error');
                 return redirect()->back();
             }
 
             if (!$user) {
-                Toastr::error("invalid data", 'Error');
+                toastr()->error("invalid data", 'Error');
                 return redirect()->back();
             }
             Auth::login($user);
 
 
-            Toastr::success(__('Successfully login User'), __('Success'));
+            toastr()->success(__('Successfully login User'), __('Success'));
             return redirect()->back();
         } catch (\Throwable $error) {
-            Toastr::error("sorry please try again", 'Error');
+            toastr()->error("sorry please try again", 'Error');
             return redirect()->back();
         }
     }
@@ -804,7 +804,7 @@ class IndexController extends Controller
             $errorMessages = $validator->errors()->all();
             // Display each error message with Toastr
             foreach ($errorMessages as $errorMessage) {
-                Toastr::error($errorMessage, 'Error!!');
+                toastr()->error($errorMessage, 'Error!!');
             }
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -827,7 +827,7 @@ class IndexController extends Controller
             'expires_at' => $expires_at
         ]);
 
-        Toastr::success("You Are Registered successfully", 'Success');
+        toastr()->success("You Are Registered successfully", 'Success');
         return redirect()->back();
     }
 

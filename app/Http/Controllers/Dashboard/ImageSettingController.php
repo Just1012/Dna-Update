@@ -88,10 +88,10 @@ class ImageSettingController extends Controller
             // Save the imageSetting page
             $imageSetting->save();
 
-            Toastr::success(__('Image Setting Section Updated Successfully'), __('Success'));
+            toastr()->success(__('Image Setting Section Updated Successfully'), __('Success'));
             return redirect()->back();
         } catch (\Exception $e) {
-            Toastr::error(__('An error occurred. Try Again'), __('Error'));
+            toastr()->error(__('An error occurred. Try Again'), __('Error'));
             return redirect()->back()->withErrors(['error' => $e->getMessage()])->withInput();
         }
     }

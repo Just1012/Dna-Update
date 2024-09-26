@@ -153,7 +153,7 @@ class ProfileController extends Controller
 
                 $user->save();
 
-                Toastr::success('Profile updated successfully', 'Success');
+                toastr()->success('Profile updated successfully', 'Success');
                 return redirect()->back();
             }
 
@@ -173,7 +173,7 @@ class ProfileController extends Controller
 
                 // Custom validation for old password
                 if (!Hash::check($request->old_password, $user->password)) {
-                    Toastr::error('The old password is incorrect.', 'Error');
+                    toastr()->error('The old password is incorrect.', 'Error');
                     return redirect()->back()->withErrors(['old_password' => 'The old password is incorrect.']);
                 }
 
@@ -181,19 +181,19 @@ class ProfileController extends Controller
                 $user->password = Hash::make($request->new_password);
                 $user->save();
 
-                Toastr::success('Password updated successfully', 'Success');
+                toastr()->success('Password updated successfully', 'Success');
                 return redirect()->back();
             }
 
-            Toastr::error('No valid data provided', 'Error');
+            toastr()->error('No valid data provided', 'Error');
             return redirect()->back();
         } catch (ValidationException $e) {
             foreach ($e->errors() as $error) {
-                Toastr::error($error[0], 'Error');
+                toastr()->error($error[0], 'Error');
             }
             return redirect()->back()->withErrors($e->errors());
         } catch (\Throwable $error) {
-            Toastr::error('Sorry, please try again.', 'Error');
+            toastr()->error('Sorry, please try again.', 'Error');
             return redirect()->back();
         }
     }

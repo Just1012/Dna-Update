@@ -58,12 +58,12 @@ class MenuItemController extends Controller
                 );
             }
 
-            Toastr::success(__('Item Created or Updated Successfully'), __('Success'));
+            toastr()->success(__('Item Created or Updated Successfully'), __('Success'));
 
             return redirect()->back();
 
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
     }
@@ -81,14 +81,14 @@ class MenuItemController extends Controller
         try {
             $id->delete(); // Soft delete the Menu
 
-            Toastr::success(__('Item Archived Successfully'), __('Success'));
+            toastr()->success(__('Item Archived Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Item Not Found'), __('Error'));
+            toastr()->error(__('Item Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -113,14 +113,14 @@ class MenuItemController extends Controller
             MenuItem::withTrashed()
                 ->where('id', $id)
                 ->restore();
-            Toastr::success(__('Item Restored Successfully'), __('Success'));
+            toastr()->success(__('Item Restored Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Item Not Found'), __('Error'));
+            toastr()->error(__('Item Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }

@@ -29,11 +29,11 @@ class DurationController extends Controller
             $requestData = $durationRequest->all();
             Duration::create($requestData);
 
-            Toastr::success(__('Duration Created Successfully'), __('Success'));
+            toastr()->success(__('Duration Created Successfully'), __('Success'));
 
             return redirect()->route('duration.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
     }
@@ -52,11 +52,11 @@ class DurationController extends Controller
 
             $duration->update($requestData);
 
-            Toastr::success(__('Duration Updated Successfully'), __('Success'));
+            toastr()->success(__('Duration Updated Successfully'), __('Success'));
 
             return redirect()->route('duration.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
     }
@@ -67,14 +67,14 @@ class DurationController extends Controller
         try {
             $id->delete(); // Soft delete the Duration
 
-            Toastr::success(__('Duration Archived Successfully'), __('Success'));
+            toastr()->success(__('Duration Archived Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Duration Not Found'), __('Error'));
+            toastr()->error(__('Duration Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -92,15 +92,15 @@ class DurationController extends Controller
         Duration::withTrashed()
         ->where('id',$id)
         ->restore();
-        Toastr::success(__('Duration Restored Successfully'), __('Success'));
+        toastr()->success(__('Duration Restored Successfully'), __('Success'));
 
         return redirect()->back();
 
     } catch (ModelNotFoundException $exception) {
-        Toastr::error(__('Duration Not Found'), __('Error'));
+        toastr()->error(__('Duration Not Found'), __('Error'));
         return redirect()->back();
     } catch (\Throwable $th) {
-        Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+        toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
         return redirect()->back();
     }
 }

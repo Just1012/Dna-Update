@@ -52,11 +52,11 @@ class ProgramController extends Controller
             $price->price = $request->price;
             $price->save();
 
-            Toastr::success(__('Price Updated Successfully'), __('Success'));
+            toastr()->success(__('Price Updated Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
     }
@@ -67,14 +67,14 @@ class ProgramController extends Controller
 
             $id->delete(); // Soft delete the Menu
 
-            Toastr::success(__('Meal Archived Successfully'), __('Success'));
+            toastr()->success(__('Meal Archived Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Program Not Found'), __('Error'));
+            toastr()->error(__('Program Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -121,7 +121,7 @@ class ProgramController extends Controller
         // Check for unique meal_id within the same program
         $uniqueMealIds = array_unique($validatedData['meal_id']);
         if (count($uniqueMealIds) != count($validatedData['meal_id'])) {
-            Toastr::error(__('Duplicate meals are not allowed within the same program.'), __('Error'));
+            toastr()->error(__('Duplicate meals are not allowed within the same program.'), __('Error'));
             return redirect()->back();
         }
 
@@ -166,7 +166,7 @@ class ProgramController extends Controller
             }
         }
 
-        Toastr::success(__('Program Created Successfully'), __('Success'));
+        toastr()->success(__('Program Created Successfully'), __('Success'));
         return redirect()->route('program.index');
     }
 
@@ -207,10 +207,10 @@ class ProgramController extends Controller
 
             $program->update($requestData);
 
-            Toastr::success(__('Program Updated Successfully'), __('Success'));
+            toastr()->success(__('Program Updated Successfully'), __('Success'));
             return redirect()->route('program.index'); // Assuming 'program.index' is the correct route
         } catch (\Throwable $th) {
-            Toastr::error(__('Error updating program. Please try again.'), __('Error'));
+            toastr()->error(__('Error updating program. Please try again.'), __('Error'));
             return redirect()->back()->withInput();
         }
     }
@@ -222,14 +222,14 @@ class ProgramController extends Controller
 
             $id->delete(); // Soft delete the Menu
 
-            Toastr::success(__('Program Archived Successfully'), __('Success'));
+            toastr()->success(__('Program Archived Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Program Not Found'), __('Error'));
+            toastr()->error(__('Program Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -253,14 +253,14 @@ class ProgramController extends Controller
             Program::withTrashed()
                 ->where('id', $id)
                 ->restore();
-            Toastr::success(__('Product Restored Successfully'), __('Success'));
+            toastr()->success(__('Product Restored Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Product Not Found'), __('Error'));
+            toastr()->error(__('Product Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -281,15 +281,15 @@ class ProgramController extends Controller
             Program_Duration::withTrashed()
                 ->where('id', $id)
                 ->restore();
-            Toastr::success(__('Meal Restored Successfully'), __('Success'));
+            toastr()->success(__('Meal Restored Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Meal Not Found'), __('Error'));
+            toastr()->error(__('Meal Not Found'), __('Error'));
 
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -307,7 +307,7 @@ class ProgramController extends Controller
             ->exists();
 
         if ($existingRecord) {
-            Toastr::error(__('Duplicate meals are not allowed within the same program.'), __('Error'));
+            toastr()->error(__('Duplicate meals are not allowed within the same program.'), __('Error'));
             return redirect()->back();
         } else {
             // If the record doesn't exist, create a new one
@@ -324,7 +324,7 @@ class ProgramController extends Controller
             }
         }
 
-        Toastr::success(__('Meal Added Successfully'), __('Success'));
+        toastr()->success(__('Meal Added Successfully'), __('Success'));
         return redirect()->back();
     }
 

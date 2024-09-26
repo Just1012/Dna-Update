@@ -47,10 +47,10 @@ class ShippingNoteController extends Controller
 
             ShippingNote::create($requestData);
 
-            Toastr::success(__('ShippingNote Added Successfully'), __('Success'));
+            toastr()->success(__('ShippingNote Added Successfully'), __('Success'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->route('shippingNote.index');
         }
     }
@@ -79,10 +79,10 @@ class ShippingNoteController extends Controller
             }
 
             $shipping_note->update($requestData);
-            Toastr::success(__('Shipping Note Updated Successfully'), __('Success'));
+            toastr()->success(__('Shipping Note Updated Successfully'), __('Success'));
             return redirect()->route('shippingNote.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->route('shippingNote.index');
         }
     }

@@ -60,10 +60,10 @@ class ItemController extends Controller
             }
             Item::create($requestData);
 
-            Toastr::success(__('Item Created Successfully'), __('Success'));
+            toastr()->success(__('Item Created Successfully'), __('Success'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->route('item.index');
         }
     }
@@ -94,11 +94,11 @@ class ItemController extends Controller
 
             $item->update($requestData);
 
-            Toastr::success(__('Item Updated Successfully'), __('Success'));
+            toastr()->success(__('Item Updated Successfully'), __('Success'));
 
             return redirect()->route('item.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->route('item.index');
         }
     }
@@ -109,14 +109,14 @@ class ItemController extends Controller
         try {
             $id->delete(); // Soft delete the Item
 
-            Toastr::success(__('Item Archived Successfully'), __('Success'));
+            toastr()->success(__('Item Archived Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Item Not Found'), __('Error'));
+            toastr()->error(__('Item Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -140,14 +140,14 @@ class ItemController extends Controller
             Item::withTrashed()
                 ->where('id', $id)
                 ->restore();
-            Toastr::success(__('Item Restored Successfully'), __('Success'));
+            toastr()->success(__('Item Restored Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Item Not Found'), __('Error'));
+            toastr()->error(__('Item Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }

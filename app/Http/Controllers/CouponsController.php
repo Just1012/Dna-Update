@@ -65,7 +65,7 @@ class CouponsController extends Controller
            $data->limit_per_user=$dataval['LIMIT_PER_USER'];
            $data->programs_ids = json_encode($request->programs); // Convert array to JSON string
            $data->save();
-           Toastr::success(__('Successfully Created Coupons'), __('Success'));
+           toastr()->success(__('Successfully Created Coupons'), __('Success'));
 
            return redirect()->back();
            try {
@@ -140,18 +140,18 @@ class CouponsController extends Controller
             $data->programs_ids = json_encode($request->programs); // Convert array to JSON string
 
             $data->update();
-            Toastr::success(__('Successfully Updated Coupons'), __('Success'));
+            toastr()->success(__('Successfully Updated Coupons'), __('Success'));
 
             return redirect()->back();
            }else{
-            Toastr::error(__('Sorry please try again'), __('Error'));
+            toastr()->error(__('Sorry please try again'), __('Error'));
 
             return redirect()->back();
            }
 
 
         } catch (\Throwable $th) {
-            Toastr::error(__('Sorry please try again'), __('Error'));
+            toastr()->error(__('Sorry please try again'), __('Error'));
 
              return redirect()->back();
         }
@@ -173,7 +173,7 @@ class CouponsController extends Controller
             $data
         );
 
-        Toastr::success(__('Successfully'), __('Success'));
+        toastr()->success(__('Successfully'), __('Success'));
         return redirect()->back();
     }
 }

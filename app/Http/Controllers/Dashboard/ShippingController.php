@@ -46,10 +46,10 @@ class ShippingController extends Controller
                 'updated_at' => now()
             ]);
 
-            Toastr::success('Area added successfully.', 'Success');
+            toastr()->success('Area added successfully.', 'Success');
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error('An error occurred. Please try again.', 'Error');
+            toastr()->error('An error occurred. Please try again.', 'Error');
             return redirect()->back()->withErrors(['error' => $th->getMessage()])->withInput();
         }
     }
@@ -68,10 +68,10 @@ class ShippingController extends Controller
                 'updated_at' => now()
             ]);
 
-            Toastr::success('Governorate added successfully.', 'Success');
+            toastr()->success('Governorate added successfully.', 'Success');
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error('An error occurred. Please try again.', 'Error');
+            toastr()->error('An error occurred. Please try again.', 'Error');
             return redirect()->back()->withErrors(['error' => $th->getMessage()])->withInput();
         }
     }
@@ -200,10 +200,10 @@ class ShippingController extends Controller
                 'updated_at' => now()
             ]);
 
-            Toastr::success('Time added successfully.', 'Success');
+            toastr()->success('Time added successfully.', 'Success');
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error('An error occurred. Please try again.', 'Error');
+            toastr()->error('An error occurred. Please try again.', 'Error');
             return redirect()->back()->withErrors(['error' => $th->getMessage()])->withInput();
         }
     }

@@ -30,11 +30,11 @@ class MealController extends Controller
             $requestData = $mealRequest->all();
             Meal::create($requestData);
 
-            Toastr::success(__('Meal Created Successfully'), __('Success'));
+            toastr()->success(__('Meal Created Successfully'), __('Success'));
 
             return redirect()->route('meal.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
     }
@@ -53,11 +53,11 @@ class MealController extends Controller
 
             $meal->update($requestData);
 
-            Toastr::success(__('Meal Updated Successfully'), __('Success'));
+            toastr()->success(__('Meal Updated Successfully'), __('Success'));
 
             return redirect()->route('meal.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->back();
         }
     }
@@ -68,14 +68,14 @@ class MealController extends Controller
         try {
             $id->delete(); // Soft delete the meal
 
-            Toastr::success(__('Meal Archived Successfully'), __('Success'));
+            toastr()->success(__('Meal Archived Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Meal Not Found'), __('Error'));
+            toastr()->error(__('Meal Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -92,15 +92,15 @@ class MealController extends Controller
             Meal::withTrashed()
             ->where('id',$id)
             ->restore();
-            Toastr::success(__('Meal Restored Successfully'), __('Success'));
+            toastr()->success(__('Meal Restored Successfully'), __('Success'));
 
             return redirect()->back();
 
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Meal Not Found'), __('Error'));
+            toastr()->error(__('Meal Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }

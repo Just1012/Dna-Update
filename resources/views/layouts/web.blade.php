@@ -138,7 +138,7 @@
         });
     </script>
 
-{!! Toastr::message() !!}
+{!! toastr()->message() !!}
     @stack('js')
 
 </body>

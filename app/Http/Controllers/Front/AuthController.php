@@ -42,7 +42,7 @@ class AuthController extends Controller
 
             // Display each error message with Toastr
             foreach ($errorMessages as $errorMessage) {
-                Toastr::error($errorMessage, 'Error!!');
+                toastr()->error($errorMessage, 'Error!!');
             }
 
             return redirect()->back()->withErrors($validator)->withInput();
@@ -51,23 +51,23 @@ class AuthController extends Controller
 
             $user = User::where('phone', $request->phone)->first();
             if ($user && (!Hash::check($request->password, $user->password))) {
-                Toastr::error("invalid password", 'Error');
+                toastr()->error("invalid password", 'Error');
                 return redirect()->back();
             }
 
 
             if (!$user) {
-                Toastr::error("invalid data", 'Error');
+                toastr()->error("invalid data", 'Error');
                 return redirect()->back();
             }
             Auth::login($user);
 
-            Toastr::success(__('Successfully login user'), __('Success'));
+            toastr()->success(__('Successfully login user'), __('Success'));
 
 
             return redirect()->route('front.index');
             try {   } catch (\Throwable $error) {
-            Toastr::error("sorry please try again", 'Error');
+            toastr()->error("sorry please try again", 'Error');
             return redirect()->back();
         }
     }
@@ -95,7 +95,7 @@ class AuthController extends Controller
 
             // Display each error message with Toastr
             foreach ($errorMessages as $errorMessage) {
-                Toastr::error($errorMessage, 'Error!!');
+                toastr()->error($errorMessage, 'Error!!');
             }
 
             return redirect()->back()->withErrors($validator)->withInput();
@@ -124,11 +124,11 @@ class AuthController extends Controller
 
 
         // Generate JWT token
-        Toastr::success("User created successfully", 'success');
+        toastr()->success("User created successfully", 'success');
         return redirect()->route('front.otp.index');
         try {
         } catch (\Throwable $error) {
-            Toastr::error("sorry please try again", 'error');
+            toastr()->error("sorry please try again", 'error');
             return redirect()->back();
         }
     }
@@ -162,7 +162,7 @@ class AuthController extends Controller
         $user = User::find(auth()->user()->id); // Ensure you have included User model at the top
 
         if (!$otpEntry) {
-            Toastr::error("Sorry, OTP verification failed", 'Error');
+            toastr()->error("Sorry, OTP verification failed", 'Error');
             return redirect()->back();
         }
 
@@ -175,7 +175,7 @@ class AuthController extends Controller
 
         // OTP is valid
         // Here, you might want to update the user status or perform other actions
-        Toastr::success('OTP verification successful', 'Success');
+        toastr()->success('OTP verification successful', 'Success');
 
         return redirect()->route('front.index');
     }

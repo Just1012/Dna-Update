@@ -43,10 +43,10 @@ class MenuController extends Controller
             }
             Menu::create($requestData);
 
-            Toastr::success(__('Menu Created Successfully'), __('Success'));
+            toastr()->success(__('Menu Created Successfully'), __('Success'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->route('menu.index');
         }
     }
@@ -77,11 +77,11 @@ class MenuController extends Controller
 
             $menu->update($requestData);
 
-            Toastr::success(__('Menu Updated Successfully'), __('Success'));
+            toastr()->success(__('Menu Updated Successfully'), __('Success'));
 
             return redirect()->route('menu.index');
         } catch (\Throwable $th) {
-            Toastr::error(__('Try Again'), __('Error'));
+            toastr()->error(__('Try Again'), __('Error'));
             return redirect()->route('menu.index');
         }
     }
@@ -92,14 +92,14 @@ class MenuController extends Controller
         try {
             $id->delete(); // Soft delete the Menu
 
-            Toastr::success(__('Menu Archived Successfully'), __('Success'));
+            toastr()->success(__('Menu Archived Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Menu Not Found'), __('Error'));
+            toastr()->error(__('Menu Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }
@@ -123,14 +123,14 @@ class MenuController extends Controller
             Menu::withTrashed()
                 ->where('id', $id)
                 ->restore();
-            Toastr::success(__('Menu Restored Successfully'), __('Success'));
+            toastr()->success(__('Menu Restored Successfully'), __('Success'));
 
             return redirect()->back();
         } catch (ModelNotFoundException $exception) {
-            Toastr::error(__('Menu Not Found'), __('Error'));
+            toastr()->error(__('Menu Not Found'), __('Error'));
             return redirect()->back();
         } catch (\Throwable $th) {
-            Toastr::error(__('Something went wrong. Please try again.'), __('Error'));
+            toastr()->error(__('Something went wrong. Please try again.'), __('Error'));
             return redirect()->back();
         }
     }

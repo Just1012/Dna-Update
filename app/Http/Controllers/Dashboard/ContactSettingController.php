@@ -71,7 +71,7 @@ class ContactSettingController extends Controller
 
             // Display each error message with Toastr
             foreach ($errorMessages as $errorMessage) {
-                Toastr::error($errorMessage, 'Error!!');
+                toastr()->error($errorMessage, 'Error!!');
             }
 
             return redirect()->back()->withErrors($validator)->withInput();
@@ -113,9 +113,9 @@ class ContactSettingController extends Controller
             // Save the updated contact setting
             $contact->save();
 
-            Toastr::success(__('Contact Setting Updated Successfully'), __('Success'));
+            toastr()->success(__('Contact Setting Updated Successfully'), __('Success'));
         } catch (\Exception $e) {
-            Toastr::error(__('An error occurred while updating the contact settings: ' . $e->getMessage()), __('Error'));
+            toastr()->error(__('An error occurred while updating the contact settings: ' . $e->getMessage()), __('Error'));
         }
 
         return redirect()->back();

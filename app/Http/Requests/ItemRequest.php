@@ -56,7 +56,7 @@ class ItemRequest extends FormRequest
 
         // Display each error message with Toastr
         foreach ($errorMessages as $errorMessage) {
-            Toastr::error($errorMessage, __('validation_custom.Error'));
+            toastr()->error($errorMessage, __('validation_custom.Error'));
         }
 
         parent::failedValidation($validator);
