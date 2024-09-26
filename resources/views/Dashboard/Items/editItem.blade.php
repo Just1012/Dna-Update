@@ -77,8 +77,8 @@
 
                                         <div class="col-md-4" id="subsubcategories-container">
                                             <h6 class="fw-semibold">Sub Category</h6>
-                                            <select class="js-example-basic-multiple form-control" id="subcat" name="subCategory_id"
-                                                onchange="subSubCategory1()">
+                                            <select class="js-example-basic-multiple form-control" id="subcat"
+                                                name="subCategory_id" onchange="subSubCategory1()">
                                             </select>
                                         </div>
 
@@ -96,10 +96,11 @@
                                                     id="address1ControlTextarea">
                                             </div>
                                         </div><!--end col-->
-                                         <div class="col-md-3">
+                                        <div class="col-md-3">
                                             <div class="mb-3">
-                                               @if (isset($id->image))
-                                                    <img style="border-radius: 20%;width: 50px;hieght:50px;"  class="mt-4" src="{{ asset('images/' . $id->image) }}" >
+                                                @if (isset($id->image))
+                                                    <img style="border-radius: 20%;width: 50px;hieght:50px;" class="mt-4"
+                                                        src="{{ asset('images/' . $id->image) }}">
                                                 @endif
                                             </div>
                                         </div><!--end col-->
@@ -153,19 +154,23 @@
                     subcategoriesContainer.empty();
                     // Append new subcategories dropdown if there are subcategories
                     if (data && data.length > 0) {
-                        var subcategoriesSelect = '<option value="" selected disabled>Select Sub Category</option>';
+                        var subcategoriesSelect =
+                            '<option value="" selected disabled>Select Sub Category</option>';
                         var selectedSubCategoryId = "{{ $id->subCategory_id }}";
                         var locale = "{{ App::getLocale() }}"; // Get the current locale
 
                         $.each(data, function(index, subcategory) {
-                            var subcategoryTitle = locale == 'ar' ? subcategory.title_ar : subcategory.title_en;
+                            var subcategoryTitle = locale == 'ar' ? subcategory.title_ar : subcategory
+                                .title_en;
                             var selected = (subcategory.id == selectedSubCategoryId) ? 'selected' : '';
 
-                            subcategoriesSelect += '<option value="' + subcategory.id + '" ' + selected + '>' + subcategoryTitle + '</option>';
+                            subcategoriesSelect += '<option value="' + subcategory.id + '" ' +
+                                selected + '>' + subcategoryTitle + '</option>';
                         });
 
                         subcategoriesContainer.append(subcategoriesSelect);
-                        subcategoriesContainer.trigger('change'); // Trigger change event to load sub-subcategories
+                        subcategoriesContainer.trigger(
+                        'change'); // Trigger change event to load sub-subcategories
                     }
                 },
                 error: function(xhr, status, error) {
@@ -191,15 +196,19 @@
                     subcategoriesContainer.empty();
                     // Append new sub-subcategories dropdown if there are subcategories
                     if (data && data.length > 0) {
-                        var subcategoriesSelect = '<option value="" selected disabled>Select Sub Sub Category</option>';
+                        var subcategoriesSelect =
+                            '<option value="" selected disabled>Select Sub Sub Category</option>';
                         var selectedSubSubCategoryId = "{{ $id->subSubCategory_id }}";
                         var locale = "{{ App::getLocale() }}"; // Get the current locale
 
                         $.each(data, function(index, subcategory) {
-                            var subcategoryTitle = locale == 'ar' ? subcategory.title_ar : subcategory.title_en;
-                            var selected = (subcategory.id == selectedSubSubCategoryId) ? 'selected' : '';
+                            var subcategoryTitle = locale == 'ar' ? subcategory.title_ar : subcategory
+                                .title_en;
+                            var selected = (subcategory.id == selectedSubSubCategoryId) ? 'selected' :
+                                '';
 
-                            subcategoriesSelect += '<option value="' + subcategory.id + '" ' + selected + '>' + subcategoryTitle + '</option>';
+                            subcategoriesSelect += '<option value="' + subcategory.id + '" ' +
+                                selected + '>' + subcategoryTitle + '</option>';
                         });
 
                         subcategoriesContainer.append(subcategoriesSelect);
