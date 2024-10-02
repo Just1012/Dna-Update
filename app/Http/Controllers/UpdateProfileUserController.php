@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\orderDayes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateProfileUserController extends Controller
@@ -77,9 +78,10 @@ class UpdateProfileUserController extends Controller
 
             User::where("id",$id)->update($request->only("name","phone"));
             Order::where(["id"=>$request->order_id,"user_id"=>$id])->update([
-                "end_date"=>$EndDate,
+                "end_date"=>DB::raw("DATE_ADD(date, INTERVAL $newDate DAY)"),
                 "comment"=>$request->comment
             ]);
+            // ->update(['date' => DB::raw("DATE_ADD(date, INTERVAL $daysToAdd DAY)")]);
 
             orderDayes::where("order_id",$request->order_id)->update([
                 'Monday'    => $request->input('Monday')??0,
