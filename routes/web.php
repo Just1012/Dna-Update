@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Front\ProfileController;
 use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Front\IndexController;
+use App\Http\Controllers\Front\ProfileController;
+use App\Http\Controllers\UpdateProfileUserController;
 use \Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -76,4 +77,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     //     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // });
+
+    Route::get("show-edit-user/{id}",[UpdateProfileUserController::class,'show'])->name("show.data.user");
+    Route::put("update_profile_user/{id}",[UpdateProfileUserController::class,'update'])->name("update_profile_user");
 });

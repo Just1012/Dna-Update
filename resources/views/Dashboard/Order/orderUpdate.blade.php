@@ -37,7 +37,7 @@ User Name :<input  value="{{ $order->User->name }}" class="form-control w-100 ha
 Phone No :   +965<input  value="{{ $order->User->phone }}" class="form-control w-100 hasDatepicker" name="phone" type="text" id="" required=""  >
 
 </h6>
-<h6>
+{{-- <h6>
 <select>
 @php
 
@@ -52,12 +52,12 @@ $duration= App\Models\Duration::get();
 </select>
 {{-- address :<input  value="{{ $order->Duration->{'title_' . App::getLocale()} }}" class="form-control w-100 hasDatepicker" name="text" type="text" id="date" required=""  > --}}
 
-</h6>
+{{-- </h6>
 <h6>
 Start Date :<input  value="{{ $order->start_date }}" class="form-control w-100 hasDatepicker" name="start_date" type="date" id="date" required=""  >
-</h6>
+</h6> --}}
 <h6>
-End Date :<input  value="{{ $order->start_date }}" class="form-control w-100 hasDatepicker" name="end_date" type="date" id="date" required=""  >
+End Date :<input  value="{{ $order->end_date }}" class="form-control w-100 hasDatepicker" name="end_date" type="date" id="date" required=""  >
 </h6>
 
 @php
@@ -112,12 +112,7 @@ End Date :<input  value="{{ $order->start_date }}" class="form-control w-100 has
         Sunday
     </label>
 </div>
-<div class="form-check">
-    <input class="form-check-input" type="checkbox" value="1" name="Friday" id="flexCheckDefault" @checked($orderday["Friday"]==1)>
-    <label class="form-check-label" for="flexCheckDefault">
-        Friday
-    </label>
-</div>
+
 
 
 

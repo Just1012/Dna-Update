@@ -125,11 +125,16 @@
                     render: function(data) {
                         var orderUrl = '{{ route('order.orderDetails', ':id') }}';
                         orderUrl = orderUrl.replace(':id', data.id);
+                        var editUrl = '{{ route('order.edit', ':id') }}';
+                        editUrl = editUrl.replace(':id', data.id);
 
-                        var programsButton = '<a href="' + orderUrl +
-                            '"> <i class="bx bx-show btn btn-success"></i></a>';
 
-                        return programsButton ;
+                        var programsButton = '<a href="' + orderUrl + '"> <i class="bx bx-show btn btn-success"></i></a>';
+
+                        
+                        var editButton = '<a href="' + editUrl + '"> <i class="bx bx-edit btn btn-primary"></i></a>';
+
+                        return programsButton + ' ' + editButton; // عرض الزرين معًا
                     }
                 },
 

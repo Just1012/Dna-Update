@@ -213,6 +213,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
             Route::get('/index', [OrderController::class, 'index'])->name('order.index');
             Route::get('/dataTable', [OrderController::class, 'getOrder'])->name('order.dataTable');
             Route::get('/orderDetails/{id}', [OrderController::class, 'orderDetails'])->name('order.orderDetails');
+            Route::get('/orderEdit/{id}', [OrderController::class, 'edit'])->name('order.edit');
+            Route::put('/updateEdit/{id}', [OrderController::class, 'update'])->name('order.Orderupdate');
         });
 
 

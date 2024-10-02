@@ -75,12 +75,12 @@
                                             <div class="title">
                                                 <h5>{{ trans('messages.order_no') }} : {{ $value->id }}</h5>
                                             </div>
-                                            <div class="icon" title="{{ trans('messages.view_details') }}" data-order-id="{{ $value->id }}"
+                                            <div class="icon calss_order_id" title="{{ trans('messages.view_details') }}" data-order-id="{{ $value->id }}"
                                                 data-bs-toggle="modal" data-bs-target="#orderModal">
                                                 <i class="fa-solid fa-eye"></i>
                                             </div>
                                             <div class="date">
-                                                <h3>{{ trans('messages.start_date') }} : <span>{{ $value->start_date }}</span></h3>
+                                                <h3>{{ trans('messages.start_date') }} : <span class="start_date">{{ $value->start_date }}</span></h3>
                                                 <h3>{{ trans('messages.end_date') }} : <span>{{ $value->end_date }}</span></h3>
                                             </div>
                                         </div>
@@ -262,9 +262,12 @@
                                                 id="note-unlike"></span></p>
                                     </div>
                                 </div>
-                                <div class="hstack gap-2 justify-content-end d-print-none mt-4">
+                                <div class="hstack gap-2 justify-content-end d-print-none mt-4 add_input_edit">
                                     <a href="javascript:window.print()" class="btn btn-secondary"><i
                                             class="ri-printer-line align-bottom me-1"></i> {{ trans('messages.print') }}</a>
+
+
+
                                     <a href="javascript:void(0);" class="btn btn-primary"><i
                                             class="ri-download-2-line align-bottom me-1"></i> {{ trans('messages.download') }}</a>
                                 </div>
@@ -277,6 +280,8 @@
 
     @endsection
     @push('js')
+
+        <script src="{{ asset('web/input_edite_order.js') }}"></script>
         <script src="{{ asset('front/js/bootstrap.bundle.js') }}"></script>
         <script src="{{ asset('front/js/main.js') }}"></script>
         <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>

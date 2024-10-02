@@ -29,8 +29,8 @@
     <input type="hidden" name="num_of_week" value="{{ $order->duration_id }}">
     <div class="flex-shrink-0 mt-sm-0 mt-3">
     <div class="form-check">
-        <input class="form-check-input checkbox suspension_" type="checkbox" value="1" name="suspension" id="flexCheckDefault" >
-        <label class="form-check-label" for="flexCheckDefault">
+        <input class="form-check-input checkbox suspension_" @checked($order->suspension_date!=null) type="checkbox" value="1" name="suspension" id="flexCheckDefault" >
+        <label class="form-check-label" for="flexCheckDefault" >
             suspension Order
         </label>
     </div>
@@ -41,6 +41,10 @@
     <h6>
     Phone No : +965<input  value="{{ $order->User->phone }}" class="form-control w-100 hasDatepicker" name="phone" type="text" id="" required=""  >
     </h6>
+
+    @if ($order->update_from_user==0)
+
+
     <input type="hidden" name="activeCount" id="activeCount">
     <h6>
 
@@ -68,49 +72,42 @@
         $days = ["Monday", "Tuesday", "Wednesday", "Thursday","Saturday", "Sunday","Friday"];
     @endphp
     <div class="form-check dis">
-        <input class="form-check-input checkbox dis"  type="checkbox" name="Monday" value="1" id="flexCheckDefault" @checked($orderday["Monday"]==1)>
+        <input class="form-check-input checkbox dis "  type="checkbox" name="Monday" value="1" id="flexCheckDefault" @checked($orderday["Monday"]==1)>
         <label class="form-check-label" for="flexCheckDefault">
             Monday
         </label>
     </div>
     <div class="form-check dis">
-        <input class="form-check-input checkbox "  type="checkbox" value="1" name="Tuesday" id="flexCheckDefault" @checked($orderday["Tuesday"]==1)>
+        <input class="form-check-input checkbox dis "  type="checkbox" value="1" name="Tuesday" id="flexCheckDefault" @checked($orderday["Tuesday"]==1)>
         <label class="form-check-label" for="flexCheckDefault">
             Tuesday
         </label>
     </div>
     <div class="form-check dis">
-        <input class="form-check-input checkbox "  type="checkbox" value="1" name="Wednesday" id="flexCheckDefault" @checked($orderday["Wednesday"]==1)>
+        <input class="form-check-input checkbox dis "  type="checkbox" value="1" name="Wednesday" id="flexCheckDefault" @checked($orderday["Wednesday"]==1)>
         <label class="form-check-label" for="flexCheckDefault">
             Wednesday
         </label>
     </div>
     <div class="form-check dis">
-        <input class="form-check-input checkbox "  type="checkbox" value="1" name="Thursday" id="flexCheckDefault" @checked($orderday["Thursday"]==1)>
+        <input class="form-check-input checkbox dis "  type="checkbox" value="1" name="Thursday" id="flexCheckDefault" @checked($orderday["Thursday"]==1)>
         <label class="form-check-label" for="flexCheckDefault">
             Thursday
         </label>
     </div>
     <div class="form-check dis">
-        <input class="form-check-input checkbox "  type="checkbox" value="1" name="Saturday" id="flexCheckDefault" @checked($orderday["Saturday"]==1)>
+        <input class="form-check-input checkbox dis "  type="checkbox" value="1" name="Saturday" id="flexCheckDefault" @checked($orderday["Saturday"]==1)>
         <label class="form-check-label" for="flexCheckDefault">
             Saturday
         </label>
     </div>
     <div class="form-check dis">
-        <input class="form-check-input checkbox "  type="checkbox" value="1" name="Sunday" id="flexCheckDefault" @checked($orderday["Sunday"]==1)>
+        <input class="form-check-input checkbox dis "  type="checkbox" value="1" name="Sunday" id="flexCheckDefault" @checked($orderday["Sunday"]==1)>
         <label class="form-check-label" for="flexCheckDefault">
             Sunday
         </label>
     </div>
-    <div class="form-check dis">
-        <input class="form-check-input checkbox "  type="checkbox" value="1" name="Friday" id="flexCheckDefault" @checked($orderday["Friday"]==1)>
-        <label class="form-check-label" for="flexCheckDefault">
-            Friday
-        </label>
-    </div>
-
-
+    @endif
 
 
     <h6>
@@ -160,20 +157,35 @@
 @endsection
 
 @push('js')
+
+<script>
+    $(function() {
+    // حساب عدد checkboxes المفعلة (التي تحتوي على checked بشكل افتراضي)
+    var activeCheckboxes = $(".dis:checked").length;
+    $("#activeCount").val(activeCheckboxes);
+
+
+});
+
+</script>
+
+
+
+
 <script>
 
 
-const checkboxes = document.querySelectorAll('.checkbox');
-const activeCountDisplay = document.getElementById('activeCount');
+// const checkboxes = document.querySelectorAll('.checkbox');
+// const activeCountDisplay = document.getElementById('activeCount');
 
-checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', updateActiveCount);
-});
+// checkboxes.forEach(checkbox => {
+//     checkbox.addEventListener('change', updateActiveCount);
+// });
 
-function updateActiveCount() {
-    const activeCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-    activeCountDisplay.value  = activeCount;
-}
+// function updateActiveCount() {
+//     const activeCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+//     activeCountDisplay.value  = activeCount;
+// }
 
 </script>
 
