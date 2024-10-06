@@ -1,10 +1,15 @@
 <!-- Button trigger modal -->
-<i style="font-size: 21px;
-    color: #295E4E;
-    cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal" class="bx bx-show"></i>
+{{-- <i  class="bx bx-show"></i> --}}
 {{-- <button type="button" class="btn btn-primary" >
   </button> --}}
 
+<br>
+  <a style="
+  color: #295E4E;
+  cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  {{ App::isLocale('ar') ? "الشروط والاحكام" : "Terms And Contaions" }}
+
+</a>
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content" style="
