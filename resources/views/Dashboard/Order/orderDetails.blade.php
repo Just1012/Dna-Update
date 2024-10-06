@@ -113,7 +113,7 @@
                                             <div class="col-lg-2 col-6">
                                                 <p class="text-muted mb-2 text-uppercase fw-semibold">Total Amount
                                                 </p>
-                                                <h5 class="fs-14 mb-0">$<span id="total-amount">{{ $order->total }}</span>
+                                                <h5 class="fs-14 mb-0">KWD <span id="total-amount">{{ $order->total }}</span>
                                                 </h5>
                                             </div>
                                             <!--end col-->

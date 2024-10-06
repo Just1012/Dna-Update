@@ -53,6 +53,8 @@
               <div class="check_input">
                 <input type="checkbox" name="" id="check" required>
                 <label for="check" class="m-0">{{ trans('messages.agree_terms') }}</label>
+                @include('layouts.model')
+
               </div>
               <input type="submit" value="{{ trans('messages.submit') }}">
             </form>
